@@ -51,17 +51,15 @@ module.exports = {
   deploy: {
     production: {
       user: 'node',
-      host: deploy_target_production,
+      host: ['10.0.0.201'],
       ref: 'origin/main',
-      repo: 'git@github.com:wikisoft-code/wikiprofile.git',
-      path: 'apps/io',
+      repo: 'git@github.com:wikisoft-code/io.git',
+      path: '/home/node/apps/io',
       ssh_options: [
+        'AddKeysToAgent=yes',
         'ForwardAgent=yes',
-        'PasswordAuthentication=no',
-        'AddKeysToAgent',
-        'IdentityFile=' + deploy_key_path,
+        'ProxyJump=deploy@94.237.111.62',
       ],
-      'pre-setup': 'mkdir -p apps/io && touch apps/io/.env',
       'post-deploy':
         'npm install && pm2 startOrRestart ecosystem.json --env production',
     },
