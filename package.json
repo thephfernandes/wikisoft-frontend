@@ -1,0 +1,27 @@
+{
+  "name": "io",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "pm2 startOrGracefulReload ecosystem.config.js",
+    "directus:start": "directus start",
+    "status": "pm2 status io",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wikisoft-code/io.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/wikisoft-code/io/issues"
+  },
+  "homepage": "https://github.com/wikisoft-code/io#readme",
+  "dependencies": {
+    "@directus/cli": "^9.0.0-rc.69",
+    "directus": "^9.0.0-rc.69",
+    "dotenv": "^10.0.0",
+    "pg": "^8.6.0",
+    "pm2": "^4.5.6"
+  }
+}
