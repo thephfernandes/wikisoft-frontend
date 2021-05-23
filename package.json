@@ -6,7 +6,9 @@
     "start": "pm2 startOrGracefulReload ecosystem.config.js",
     "directus:start": "directus start",
     "status": "pm2 status io",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "pm2 deploy ecosystem.config.js production update",
+    "deploy:setup": "pm2 deploy ecosystem.config.js production setup"
   },
   "repository": {
     "type": "git",
