@@ -54,14 +54,15 @@ module.exports = {
       host: deploy_target_production,
       ref: 'origin/main',
       repo: 'git@github.com:wikisoft-code/wikiprofile.git',
-      path: 'apps /io',
+      path: 'apps/io',
       ssh_options: [
         'ForwardAgent=yes',
         'PasswordAuthentication=no',
         'AddKeysToAgent',
         'IdentityFile=' + deploy_key_path,
       ],
-      'pre-setup': 'apt-get install git',
+      'pre-setup':
+        'apt-get install git -y && mkdir -p apps/io && touch apps/io/.env',
       'post-deploy':
         'npm install && pm2 startOrRestart ecosystem.json --env production',
     },
