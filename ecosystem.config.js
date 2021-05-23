@@ -70,7 +70,7 @@ module.exports = {
         'ProxyJump=deploy@94.237.111.62',
       ],
       'post-deploy':
-        'npm install && pm2 startOrReload ecosystem.config.js --env production && pm2 save',
+        'npm install && cp .env current/ && pm2 startOrReload ecosystem.config.js --env production && pm2 save',
     },
   },
 };
