@@ -3,6 +3,7 @@ require('dotenv').config();
 const instances = process.env.WIKI_INSTANCES || 1;
 const log_dir = process.env.WIKI_LOG_DIR || 'logs/';
 const db_password = process.env.WIKI_DB_PASSWORD;
+const deploy_key_path = process.env.WIKI_DEPLOY_KEY_PATH || '~/.ssh/id_rsa';
 
 const deploy_target_testing = process.env.WIKI_DEPLOY_TARGET_TESTING || [
   '10.0.0.201',
@@ -22,6 +23,7 @@ module.exports = {
       error_file: log_dir + 'err.log',
       env: {
         PORT: 8055,
+        NODE_ENV: 'development',
         LOG_LEVEL: 'info',
         LOG_STYLE: 'pretty',
         PUBLIC_URL: '/',
@@ -41,24 +43,27 @@ module.exports = {
         STORAGE_LOCAL_ROOT: '/storage/directus',
         STORAGE_LOCATION: 'local',
       },
+      env_production: {
+        NODE_ENV: 'production',
+      },
     },
   ],
   deploy: {
-    testing: {
-      user: 'node',
-      host: deploy_target_testing,
-      ref: 'origin/main',
-      repo: 'git@github.com:wikisoft-code/wikiprofile.git',
-      path: 'apps/io',
-      'post-deploy': 'npm install',
-    },
     production: {
       user: 'node',
       host: deploy_target_production,
       ref: 'origin/main',
       repo: 'git@github.com:wikisoft-code/wikiprofile.git',
       path: 'apps /io',
-      'post-deploy': 'npm install',
+      ssh_options: [
+        'ForwardAgent=yes',
+        'PasswordAuthentication=no',
+        'AddKeysToAgent',
+        'IdentityFile=' + deploy_key_path,
+      ],
+      'pre-setup': 'apt-get install git',
+      'post-deploy':
+        'npm install && pm2 startOrRestart ecosystem.json --env production',
     },
   },
 };
