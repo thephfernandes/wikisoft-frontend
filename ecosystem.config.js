@@ -12,6 +12,8 @@ const deploy_target_production = process.env.WIKI_DEPLOY_TARGET_PRODUCTION || [
   '10.0.0.201',
 ];
 
+console.log(db_password);
+
 module.exports = {
   apps: [
     {
