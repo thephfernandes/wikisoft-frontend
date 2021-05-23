@@ -24,7 +24,7 @@ module.exports = {
       out_file: log_dir + 'out.log',
       error_file: log_dir + 'err.log',
       env: {
-        PORT: 8055,
+        PORT: 8080,
         NODE_ENV: 'development',
         LOG_LEVEL: 'info',
         LOG_STYLE: 'pretty',
