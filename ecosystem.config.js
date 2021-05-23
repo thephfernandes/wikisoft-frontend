@@ -61,8 +61,7 @@ module.exports = {
         'AddKeysToAgent',
         'IdentityFile=' + deploy_key_path,
       ],
-      'pre-setup':
-        'apt-get install git -y && mkdir -p apps/io && touch apps/io/.env',
+      'pre-setup': 'mkdir -p apps/io && touch apps/io/.env',
       'post-deploy':
         'npm install && pm2 startOrRestart ecosystem.json --env production',
     },
