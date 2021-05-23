@@ -3,16 +3,6 @@ require('dotenv').config();
 const instances = process.env.WIKI_INSTANCES || 1;
 const log_dir = process.env.WIKI_LOG_DIR || 'logs/';
 const db_password = process.env.WIKI_DB_PASSWORD;
-const deploy_key_path = process.env.WIKI_DEPLOY_KEY_PATH || '~/.ssh/id_rsa';
-
-const deploy_target_testing = process.env.WIKI_DEPLOY_TARGET_TESTING || [
-  '10.0.0.201',
-];
-const deploy_target_production = process.env.WIKI_DEPLOY_TARGET_PRODUCTION || [
-  '10.0.0.201',
-];
-
-console.log(db_password);
 
 module.exports = {
   apps: [
