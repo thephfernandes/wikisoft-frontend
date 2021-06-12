@@ -29,6 +29,7 @@ module.exports = {
         'AddKeysToAgent=yes',
         'ForwardAgent=yes',
         'ProxyJump=deploy@94.237.111.62',
+        'IdentityFile=~/.ssh/id_rsa_devops',
       ],
       'post-deploy':
         'pnpm install && cp ~/apps/io/.env ~/apps/io/current/ && NODE_ENV=production pnpm run start',
