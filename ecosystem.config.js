@@ -9,8 +9,8 @@ module.exports = {
   apps: [
     {
       name: 'io',
-      script: 'directus',
-      args: 'start',
+      script: 'directus start',
+      args: '',
       out_file: log_dir + 'out.log',
       error_file: log_dir + 'err.log',
       env: {
