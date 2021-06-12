@@ -4,8 +4,12 @@
   "description": "",
   "scripts": {
     "start": "pm2 startOrGracefulReload ecosystem.config.js",
-    "directus:start": "directus start",
+    "directus": "CONFIG_PATH=config.js directus",
     "status": "pm2 status io",
+    "logs": "pm2 logs io",
+    "stop": "pm2 stop io",
+    "delete": "pm2 delete io",
+    "kill": "pm2 kill",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "pm2 deploy ecosystem.config.js production update",
     "deploy:setup": "pm2 deploy ecosystem.config.js production setup"
@@ -20,8 +24,8 @@
   },
   "homepage": "https://github.com/wikisoft-code/io#readme",
   "dependencies": {
-    "@directus/cli": "^9.0.0-rc.69",
-    "directus": "^9.0.0-rc.69",
+    "@directus/cli": "^9.0.0-rc.75",
+    "directus": "^9.0.0-rc.75",
     "dotenv": "^10.0.0",
     "pg": "^8.6.0",
     "pm2": "^4.5.6"
