@@ -32,7 +32,7 @@ module.exports = {
         'IdentityFile=~/.ssh/id_rsa_devops',
       ],
       'post-deploy':
-        'pnpm install && cp ~/apps/io/.env ~/apps/io/current/ && NODE_ENV=production pnpm run start',
+        'pnpm install && cp ~/apps/io/.env ~/apps/io/current/ && NODE_ENV=production pnpm run io:reload',
     },
   },
 };
