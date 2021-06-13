@@ -1,19 +1,12 @@
-require('dotenv').config();
-
-const instances = process.env.WIKI_INSTANCES || 'max';
-const log_dir = process.env.WIKI_LOG_DIR || 'logs/';
-
 module.exports = {
   apps: [
     {
       name: 'io',
       script: 'node_modules/directus/dist/start.js',
-      args: '',
-      instances: instances,
-      exec_mode: 'cluster',
-      out_file: log_dir + 'out.log',
-      error_file: log_dir + 'err.log',
+      out_file: './logs/out.log',
+      error_file: './logs/err.log',
       env: {
+        NODE_ENV: 'development',
         CONFIG_PATH: 'config.js',
       },
     },
@@ -31,8 +24,14 @@ module.exports = {
         'ProxyJump=deploy@94.237.111.62',
         'IdentityFile=~/.ssh/id_rsa_devops',
       ],
-      'post-deploy':
-        'pnpm install && cp ~/apps/io/.env ~/apps/io/current/ && NODE_ENV=production pnpm run io:reload',
+      'pre-setup': 'mkdir -p /home/node/apps/io && pnpm run app:delete',
+      'post-setup':
+        'cp ~/apps/io/.env ~/apps/io/current/ && pnpm install && pnpm run app:start -- --instances=max',
+      'post-deploy': 'pnpm install && pnpm run app:reload',
+
+      env: {
+        NODE_ENV: 'production',
+      },
     },
   },
 };
