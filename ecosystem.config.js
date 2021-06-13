@@ -20,7 +20,7 @@ module.exports = {
   deploy: {
     production: {
       user: 'node',
-      host: ['ams-io-01'],
+      host: ['ams-db-01'],
       ref: 'origin/main',
       repo: 'git@github.com:wikisoft-code/io.git',
       path: '/home/node/apps/io',
