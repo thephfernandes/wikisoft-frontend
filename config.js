@@ -3,6 +3,7 @@ require('dotenv').config();
 const instances = process.env.WIKI_INSTANCES || 1;
 const log_dir = process.env.WIKI_LOG_DIR || 'logs/';
 const db_password = process.env.WIKI_DB_PASSWORD || 'wikiprofile';
+const files_location = process.env.WIKI_FILES_LOCATION || './files';
 
 module.exports = function (env) {
   const config = {
@@ -24,7 +25,7 @@ module.exports = function (env) {
     KEY: '255d861b-5ea1-5996-9aa3-922530ec40b1',
     SECRET: '6116487b-cda1-52c2-b5b5-c8022c45e263',
     STORAGE_LOCAL_DRIVER: 'local',
-    STORAGE_LOCAL_ROOT: 'files',
+    STORAGE_LOCAL_ROOT: files_location,
     STORAGE_LOCATION: 'local',
     SESSION_STORE: 'database',
   };
