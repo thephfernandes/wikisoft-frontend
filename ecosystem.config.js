@@ -1,9 +1,7 @@
 require('dotenv').config();
 
-const instances = process.env.WIKI_INSTANCES || 1;
+const instances = process.env.WIKI_INSTANCES || 'max';
 const log_dir = process.env.WIKI_LOG_DIR || 'logs/';
-const db_password = process.env.WIKI_DB_PASSWORD || 'wikiprofile';
-const io_command = process.env.WIKI_IO_COMMAND || false;
 
 module.exports = {
   apps: [
@@ -11,6 +9,8 @@ module.exports = {
       name: 'io',
       script: 'node_modules/directus/dist/start.js',
       args: '',
+      instances: instances,
+      exec_mode: 'cluster',
       out_file: log_dir + 'out.log',
       error_file: log_dir + 'err.log',
       env: {

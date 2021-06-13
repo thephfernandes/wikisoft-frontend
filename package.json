@@ -5,11 +5,13 @@
   "scripts": {
     "start": "pm2 startOrGracefulReload ecosystem.config.js",
     "directus": "CONFIG_PATH=config.js directus",
-    "status": "pm2 status io",
-    "logs": "pm2 logs io",
-    "stop": "pm2 stop io",
-    "delete": "pm2 delete io",
-    "kill": "pm2 kill",
+    "io:status": "pm2 status io",
+    "io:logs": "pm2 logs io",
+    "io:start": "pm2 start io",
+    "io:reload": "pm2 reload io",
+    "io:stop": "pm2 stop io",
+    "io:delete": "pm2 delete io",
+    "pm2:kill": "pm2 kill",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "pm2 deploy ecosystem.config.js production update",
     "deploy:setup": "pm2 deploy ecosystem.config.js production setup"
