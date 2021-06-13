@@ -26,7 +26,7 @@ module.exports = {
       ],
       'pre-setup': 'mkdir -p /home/node/apps/io && pnpm run app:delete',
       'post-setup':
-        'cp ~/apps/io/.env ~/apps/io/current/ && pnpm install && pnpm run app:start -- --instances=max',
+        'cp ~/apps/io/.env ~/apps/io/current/ && pnpm install --dir=~/apps/io && pnpm run app:start -- --instances=max',
       'post-deploy': 'pnpm install && pnpm run app:reload',
 
       env: {
