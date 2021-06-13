@@ -9,7 +9,7 @@ module.exports = {
   apps: [
     {
       name: 'io',
-      script: 'directus start',
+      script: 'node_modules/directus/dist/start.js',
       args: '',
       out_file: log_dir + 'out.log',
       error_file: log_dir + 'err.log',
