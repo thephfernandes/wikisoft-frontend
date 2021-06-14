@@ -26,9 +26,9 @@
   },
   "homepage": "https://github.com/wikisoft-code/io#readme",
   "dependencies": {
-    "directus": "9.0.0-rc.74",
+    "directus": "^9.0.0-rc.76",
     "dotenv": "^10.0.0",
     "pg": "^8.6.0",
-    "pm2": "^4.5.6"
+    "pm2": "^5.1.0"
   }
 }
