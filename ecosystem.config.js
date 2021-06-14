@@ -30,8 +30,8 @@ module.exports = {
         'ProxyJump=deploy@bastion-server.wikiprofile.com',
         'IdentityFile=~/.ssh/id_rsa_devops',
       ],
-      'pre-setup': 'mkdir -p /home/node/apps/io && pnpm run app:delete',
-      'post-deploy': 'pnpm install && pnpm run app:start -- --instances=max',
+      'pre-setup': 'npm run app:delete',
+      'post-deploy': 'npm install && npm run app:start -- --instances=max ',
 
       env: {
         NODE_ENV: 'production',
