@@ -25,12 +25,10 @@ module.exports = {
       repo: 'git@github.com:wikisoft-code/io.git',
       path: '/home/node/apps/io',
       ssh_options: [
-        'AddKeysToAgent=yes',
-        'ForwardAgent=yes',
         'ProxyJump=deploy@bastion-server.wikiprofile.com',
         'IdentityFile=~/.ssh/id_rsa_devops',
       ],
-      'pre-setup': 'npm run app:delete',
+      'post-setup': 'npm run app:delete',
       'post-deploy': 'npm install && npm run app:start -- --instances=max ',
 
       env: {
