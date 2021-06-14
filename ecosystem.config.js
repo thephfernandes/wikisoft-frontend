@@ -4,6 +4,9 @@ module.exports = {
       name: 'io',
       script: 'node_modules/directus/dist/start.js',
       out_file: './logs/out.log',
+      instances: 1,
+      exec_mode: cluster,
+      watch: 'extensions',
       error_file: './logs/err.log',
       env: {
         NODE_ENV: 'development',
