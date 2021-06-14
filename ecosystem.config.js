@@ -19,6 +19,15 @@ module.exports = {
         DB_DATABASE: 'wikiprofile',
         DB_USER: 'wikiprofile',
       },
+      env_production: {
+        NODE_ENV: 'production',
+        STORAGE_LOCAL_ROOT: '/storage/wikiprofile/production',
+        CACHE_ENABLED: true,
+        DB_HOST: 'ams-db-01',
+        DB_DATABASE: 'wikiprofile',
+        DB_PORT: 5432,
+        DB_USER: 'wikiprofile',
+      },
     },
   ],
   deploy: {
@@ -34,17 +43,7 @@ module.exports = {
       ],
       'post-setup': 'npm run app:delete',
       'post-deploy':
-        'npm install && npm run app:start -- -i max && npx pm2 save',
-
-      env: {
-        NODE_ENV: 'production',
-        STORAGE_LOCAL_ROOT: '/storage/wikiprofile/production',
-        CACHE_ENABLED: true,
-        DB_HOST: 'ams-db-01',
-        DB_DATABASE: 'wikiprofile',
-        DB_PORT: 5432,
-        DB_USER: 'wikiprofile',
-      },
+        'npm install && npm run app:start -- --env production -i max && npx pm2 save',
     },
   },
 };
