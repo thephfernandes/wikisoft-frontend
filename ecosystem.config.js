@@ -23,6 +23,7 @@ module.exports = {
         NODE_ENV: 'production',
         STORAGE_LOCAL_ROOT: '/storage/wikiprofile/production',
         CACHE_ENABLED: true,
+        RATE_LIMITER_ENABLED: true,
         DB_HOST: 'ams-db-01',
         DB_DATABASE: 'wikiprofile',
         DB_PORT: 5432,

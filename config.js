@@ -21,6 +21,12 @@ module.exports = function (env) {
     CACHE_STORE: 'redis',
     CACHE_TTL: '30m',
     EMAIL_FROM: 'support@wikiprofile.com',
+    SESSION_STORE: 'redis',
+    SESSION_REDIS: 'redis://localhost:6379/1',
+    RATE_LIMITER_POINTS: 50,
+    RATE_LIMITER_DURATION: 1,
+    RATE_LIMITER_STORE: 'redis',
+    RATE_LIMITER_REDIS: 'redis://localhost:6379/2',
   };
 
   return config;
