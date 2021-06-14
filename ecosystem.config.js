@@ -33,7 +33,8 @@ module.exports = {
         'IdentityFile=~/.ssh/id_rsa_devops',
       ],
       'post-setup': 'npm run app:delete',
-      'post-deploy': 'npm install && npm run app:start && npx pm2 scale io max',
+      'post-deploy':
+        'npm install && npm run app:start -- -i max && npx pm2 save',
 
       env: {
         NODE_ENV: 'production',
