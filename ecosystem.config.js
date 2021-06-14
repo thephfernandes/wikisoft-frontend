@@ -7,6 +7,7 @@ module.exports = {
       instances: 1,
       exec_mode: 'cluster',
       watch: 'extensions',
+      instance_var: 'INSTANCE_ID',
       error_file: './logs/err.log',
       env: {
         NODE_ENV: 'development',
@@ -32,7 +33,7 @@ module.exports = {
         'IdentityFile=~/.ssh/id_rsa_devops',
       ],
       'post-setup': 'npm run app:delete',
-      'post-deploy': 'npm install && npm run app:start -- --instances=max ',
+      'post-deploy': 'npm install && npm run app:start && npm pm2 scale io max',
 
       env: {
         NODE_ENV: 'production',
