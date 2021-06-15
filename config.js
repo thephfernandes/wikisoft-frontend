@@ -35,6 +35,7 @@ module.exports = function (env) {
     DB_PORT: 5432,
     DB_DATABASE: 'wikiprofile',
     DB_USER: 'wikiprofile',
+    DB_PASSWORD: process.env.DB_PASSWORD,
     SESSION_STORE: 'database',
   };
 
