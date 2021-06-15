@@ -12,7 +12,6 @@ module.exports = {
       error_file: './logs/err.log',
       exp_backoff_restart_delay: 100,
       env: {
-        NODE_ENV: 'development',
         CONFIG_PATH: 'config.js',
       },
     },
