@@ -31,7 +31,7 @@ module.exports = function (env) {
     RATE_LIMITER_STORE: 'redis',
     RATE_LIMITER_REDIS: 'redis://localhost:6379/2',
     CACHE_ENABLED: false,
-    DB_HOST: 'localhost',
+    DB_HOST: process.env.DB_HOST,
     DB_PORT: 5432,
     DB_DATABASE: 'wikiprofile',
     DB_USER: 'wikiprofile',
