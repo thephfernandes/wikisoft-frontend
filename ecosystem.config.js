@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'directus',
-      script: 'npm',
+      script: './node_modules/directus/dist/start.js',
       args: 'start',
       out_file: './logs/out.log',
       instances: 'max',
