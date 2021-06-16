@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "npm run directus -- start",
+    "start": "CONFIG_PATH=config.js directus start",
     "directus": "CONFIG_PATH=config.js directus",
     "cluster:start": "pm2 startOrReload ecosystem.config.js && pm2 save",
     "cluster:reload": "pm2 reload ecosystem.config.js",
