@@ -34,7 +34,7 @@ module.exports = {
   deploy: {
     production: {
       user: 'node',
-      host: ['ams-io-01'],
+      host: ['10.0.0.252'],
       ref: 'origin/main',
       repo: 'git@github.com:wikisoft-code/io.git',
       path: '/home/node/apps/io',
