@@ -38,6 +38,7 @@ module.exports = {
       ref: 'origin/main',
       repo: 'git@github.com:wikisoft-code/io.git',
       path: '/home/node/apps/io',
+      ssh_options: ['IdentityFile=~/.ssh/id_rsa_devops'],
       'post-setup': 'npm run cluster:delete',
       'post-deploy': 'npm install && npm run cluster:start',
     },
