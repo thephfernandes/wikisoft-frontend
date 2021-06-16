@@ -3,5 +3,20 @@
 		{
 			"path": "."
 		}
-	]
+	],
+	"settings": {
+		"sqltools.connections": [
+			{
+				"previewLimit": 5110134443410,
+				"server": "10.0.0.251",
+				"port": 5432,
+				"askForPassword": true,
+				"driver": "PostgreSQL",
+				"name": "wikiprofile-production",
+				"group": "wikiprofile",
+				"database": "wikiprofile",
+				"username": "wikiprofile"
+			}
+		]
+	}
 }
