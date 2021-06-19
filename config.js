@@ -32,6 +32,8 @@ module.exports = function (env) {
     RATE_LIMITER_STORE: 'redis',
     RATE_LIMITER_REDIS: 'redis://10.0.0.252:6379/3',
     CACHE_ENABLED: false,
+    DB_CONNECTION_STRING:
+      'DB_CONNECTION_STRING=postgres://wikiprofile:wikiprofile@localhost:5432/wikiprofile',
     DB_HOST: '10.0.0.251',
     DB_PORT: 6432,
     DB_DATABASE: 'wikiprofile',
