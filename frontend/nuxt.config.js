@@ -139,6 +139,8 @@ module.exports = {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extractCSS: false,
+    cache: true,
+    parallel: true,
   },
   modulesDir: ['../node_modules'],
   server: {
