@@ -7,7 +7,7 @@ module.exports = {
       name: 'directus',
       script: 'directus',
       args: 'start',
-      cwd: 'directus/',
+      cwd: './directus/',
       exec_mode: process.env.IO_DIRECTUS_INSTANCES > 1 ? 'cluster' : 'fork',
       instances:
         process.env.IO_DIRECTUS_INSTANCES > 1
@@ -48,7 +48,7 @@ module.exports = {
     {
       name: 'frontend',
       script: 'server.js',
-      cwd: 'frontend/',
+      cwd: './frontend/',
       exec_mode: process.env.IO_FRONTEND_INSTANCES > 1 ? 'cluster' : 'fork',
       instances:
         process.env.IO_FRONTEND_INSTANCES > 1
@@ -84,13 +84,6 @@ module.exports = {
       ssh_options: ['IdentityFile=~/.ssh/id_rsa_devops'],
       'post-setup': 'npm run delete',
       'post-deploy': 'npm install && npm run build && npm start',
-      env: {
-        IO_SERVER_INSTANCES: 1,
-        IO_DIRECTUS_INSTANCES: 3,
-        IO_FRONTEND_INSTANCES: 3,
-        IO_PORT: 8443,
-        NODE_ENV: 'production',
-      },
     },
   },
 };
