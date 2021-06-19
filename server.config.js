@@ -1,3 +1,5 @@
+const path = require('path');
+
 // Get ENV Settings
 require('dotenv').config();
 
@@ -7,7 +9,7 @@ module.exports = {
       name: 'directus',
       script: 'directus',
       args: 'start',
-      cwd: './directus/',
+      cwd: path.join(__dirname, 'directus'),
       exec_mode: process.env.IO_DIRECTUS_INSTANCES > 1 ? 'cluster' : 'fork',
       instances:
         process.env.IO_DIRECTUS_INSTANCES > 1
@@ -48,7 +50,7 @@ module.exports = {
     {
       name: 'frontend',
       script: 'server.js',
-      cwd: './frontend/',
+      cwd: path.join(__dirname, 'frontend'),
       exec_mode: process.env.IO_FRONTEND_INSTANCES > 1 ? 'cluster' : 'fork',
       instances:
         process.env.IO_FRONTEND_INSTANCES > 1
