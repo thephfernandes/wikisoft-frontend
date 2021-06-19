@@ -24,8 +24,15 @@
   },
   "homepage": "https://github.com/wikisoft-code/io#readme",
   "dependencies": {
+    "@gquittet/graceful-server": "^2.5.1",
     "directus": "^9.0.0-rc.76",
     "dotenv": "^10.0.0",
+    "fastify-blipp": "^3.1.0",
+    "fastify-cors": "^6.0.1",
+    "fastify-http-proxy": "^5.0.0",
+    "fastify-postgres": "^3.5.0",
+    "fastify-redis": "^4.3.0",
+    "hyperid": "^2.1.0",
     "pg": "^8.6.0"
   }
 }
