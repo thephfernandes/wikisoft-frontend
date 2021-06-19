@@ -7,7 +7,7 @@ module.exports = {
   apps: [
     {
       name: 'directus',
-      script: './node_modules/directus/dist/start.js',
+      script: '../node_modules/directus/dist/start.js',
       cwd: path.join(__dirname, 'directus'),
       exec_mode: process.env.IO_DIRECTUS_INSTANCES > 1 ? 'cluster' : 'fork',
       instances:
