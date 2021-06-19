@@ -1,0 +1,102 @@
+// Import Bulma's core
+@import '~bulma/sass/utilities/_all';
+
+// Import Bulma and Buefy styles
+// Set your colors
+$logo-blue: rgb(47, 80, 159);
+$primary: $logo-blue;
+$wikiline_blue: rgba(171, 214, 246, 0.5);
+$primary-light: findLightColor($primary);
+$primary-dark: findDarkColor($primary);
+$primary-invert: findColorInvert($primary);
+
+$primary-light-gray: rgb(184, 188, 208);
+$primary-gray: rgb(93, 98, 118);
+$primary-dark-blue: rgb(39, 78, 192);
+$primary-light-blue: rgb(165, 210, 246);
+$primary-golden-yellow: rgb(195, 140, 6);
+$primary-success-green: rgb(23, 143, 70);
+
+$boundingbox-primary-col: rgb(255, 255, 255);
+$boundingbox-secondary-col: rgb(242, 245, 247);
+$boundingbox-border-primary-col: rgb(218, 222, 232);
+$boundingbox-darker-col: rgb(244, 244, 244);
+$boundingbox-border-darker-col: rgb(202, 214, 225);
+
+$default-border-radius: 0.6em;
+
+// Responsive breakpoints
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+$dropdown-menu-min-width: 20rem;
+
+$navbar-background-color: rgba(0, 0, 0, 0%);
+
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: mergeColorMaps(
+  (
+    'white': (
+      $white,
+      $black,
+    ),
+    'black': (
+      $black,
+      $white,
+    ),
+    'light': (
+      $light,
+      $light-invert,
+    ),
+    'dark': (
+      $dark,
+      $dark-invert,
+    ),
+    'primary': (
+      $primary,
+      $primary-invert,
+      $primary-light,
+      $primary-dark,
+    ),
+    'link': (
+      $link,
+      $link-invert,
+      $link-light,
+      $link-dark,
+    ),
+    'info': (
+      $info,
+      $info-invert,
+      $info-light,
+      $info-dark,
+    ),
+    'success': (
+      $success,
+      $success-invert,
+      $success-light,
+      $success-dark,
+    ),
+    'warning': (
+      $warning,
+      $warning-invert,
+      $warning-light,
+      $warning-dark,
+    ),
+    'danger': (
+      $danger,
+      $danger-invert,
+      $danger-light,
+      $danger-dark,
+    ),
+  ),
+  $custom-colors
+);
+
+// Links
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
+
+$navbar-burger-color: $white;
+
+$wikiline: 2px solid $wikiline_blue;

@@ -1,0 +1,65 @@
+@import 'global_vars.scss';
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
+
+// Overloaded this term because i've simply fucked it up too many times to care now.
+@mixin mobile {
+  @media (min-width: #{0px}) and (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+@mixin phone {
+  @media (min-width: #{0px}) and (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+$wikiline: 2px solid $wikiline_blue;
+
+%default-box {
+  border-radius: $default-border-radius;
+  padding: 0.1em 0.3em 0.3em 0.1em;
+  margin: 0.3em 0.5em 0.5em 0.3em;
+}
+
+%default-box-light {
+  @extend %default-box;
+  background-color: $boundingbox-primary-col;
+  border-color: $boundingbox-border-primary-col;
+}
+
+%default-box-secondary {
+  @extend %default-box;
+  background-color: $boundingbox-secondary-col;
+  border-color: $boundingbox-border-darker-col;
+}
+
+%default-box-darker {
+  @extend %default-box;
+  background-color: $boundingbox-darker-col;
+  border-color: $boundingbox-border-darker-col;
+}
+
+.block {
+  @extend %default-box;
+}
+
+body {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
