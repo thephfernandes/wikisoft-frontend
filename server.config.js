@@ -84,6 +84,13 @@ module.exports = {
       ssh_options: ['IdentityFile=~/.ssh/id_rsa_devops'],
       'post-setup': 'npm run delete',
       'post-deploy': 'npm install && npm run build && npm start',
+      env: {
+        IO_SERVER_INSTANCES: 1,
+        IO_DIRECTUS_INSTANCES: 3,
+        IO_FRONTEND_INSTANCES: 3,
+        IO_PORT: 8443,
+        NODE_ENV: 'production',
+      },
     },
   },
 };
