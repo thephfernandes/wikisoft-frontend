@@ -83,7 +83,7 @@ module.exports = {
       path: '/home/node/apps/io',
       ssh_options: ['IdentityFile=~/.ssh/id_rsa_devops'],
       'post-setup': 'npm run delete',
-      'post-deploy': 'npm install && npm run start',
+      'post-deploy': 'npm install && npm run build && npm start',
     },
   },
 };
