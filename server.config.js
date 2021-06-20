@@ -24,7 +24,7 @@ module.exports = {
         LOG_LEVEL: 'info',
         LOG_STYLE: 'pretty',
         PUBLIC_URL: '/api',
-        ROOT_REDIRECT: false,
+        ROOT_REDIRECT: '/',
         ADMIN_EMAIL: 'hostmaster@wikisoft.com',
         ADMIN_PASSWORD: 'wikiprofile',
         DB_CLIENT: 'pg',
