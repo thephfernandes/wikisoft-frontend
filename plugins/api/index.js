@@ -7,7 +7,7 @@ module.exports = function (fastify, options, done) {
   fastify.register(proxy, {
     upstream: 'http://localhost:8055',
     prefix: '/api',
-    rewritePrefix: '/api',
+    rewritePrefix: '/',
     http2: false,
     replyOptions: {
       rewriteRequestHeaders: (originalReq, headers) => ({
