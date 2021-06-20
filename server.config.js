@@ -23,7 +23,7 @@ module.exports = {
         NODE_ENV: 'development',
         LOG_LEVEL: 'info',
         LOG_STYLE: 'pretty',
-        PUBLIC_URL: '/',
+        PUBLIC_URL: '/api',
         ROOT_REDIRECT: false,
         ADMIN_EMAIL: 'hostmaster@wikisoft.com',
         ADMIN_PASSWORD: 'wikiprofile',
