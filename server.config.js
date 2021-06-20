@@ -1,3 +1,4 @@
+const { readdirSync } = require('fs');
 const path = require('path');
 
 // Get ENV Settings
@@ -20,7 +21,6 @@ module.exports = {
       exp_backoff_restart_delay: 100,
       env: {
         PORT: 8055,
-        NODE_ENV: 'development',
         LOG_LEVEL: 'info',
         LOG_STYLE: 'pretty',
         PUBLIC_URL: '/api',
@@ -36,10 +36,10 @@ module.exports = {
         STORAGE_GOOGLECLOUD_BUCKET: 'wikiprofile-production',
         STORAGE_GOOGLECLOUD_KEY_FILENAME: '../google_cloud_storage_key.json',
         CACHE_AUTO_PURGE: true,
-        CACHE_ENABLED: false,
+        CACHE_ENABLED: process.env.IO_CACHE_ENABLED || false,
         CACHE_REDIS: 'redis://10.0.0.252:6379/1',
         CACHE_STORE: 'redis',
-        CACHE_TTL: '30m',
+        CACHE_TTL: '10m',
         EMAIL_FROM: 'support@wikiprofile.com',
         SESSION_REDIS: 'redis://10.0.0.252:6379/2',
         RATE_LIMITER_ENABLED: false,
@@ -48,11 +48,10 @@ module.exports = {
         RATE_LIMITER_STORE: 'redis',
         RATE_LIMITER_REDIS: 'redis://10.0.0.252:6379/3',
         EMAIL_FROM: 'support@wikiprofile.com',
-        SESSION_STORE: 'database',
+        SESSION_STORE: process.env.IO_SESSION_STORE || 'database',
         DB_CONNECTION_STRING:
           process.env.IO_DB_CONNECTION_STRING ||
           'DB_CONNECTION_STRING=postgres://wikiprofile:wikiprofile@localhost:5432/wikiprofile',
-        SESSION_STORE: 'database',
       },
     },
     {
