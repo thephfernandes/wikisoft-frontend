@@ -37,13 +37,25 @@ fastify.register(require('fastify-blipp'), {
   blippLog: (msg) => console.log(msg),
 });
 
-fastify.register(require('fastify-cors'), {});
+// required plugin for HTTP requests proxy
+fastify.register(require('fastify-reply-from'));
 
-// Setup and start directus
-fastify.register(require('./plugins/api'), {});
+// gateway plugin
+fastify.register(require('k-fastify-gateway'), {
+  middlewares: [require('cors')()],
 
-// Setup and start search
-fastify.register(require('./plugins/www'), {});
+  routes: [
+    {
+      prefix: '/api',
+      target: 'http://localhost:8055',
+    },
+  ],
+});
+
+// Inject nuxt routes
+fastify.register(require('fastify-nuxtjs'), { logLevel: 'info' }).after(() => {
+  fastify.nuxt('*');
+});
 
 const start = async () => {
   try {

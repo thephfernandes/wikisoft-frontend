@@ -61,7 +61,8 @@ module.exports = {
     },
     {
       name: 'frontend',
-      script: 'server.js',
+      script: 'nuxt',
+      args: 'dev',
       cwd: path.join(__dirname, 'frontend'),
       exec_mode: process.env.IO_FRONTEND_INSTANCES > 1 ? 'cluster' : 'fork',
       instances:
@@ -73,19 +74,6 @@ module.exports = {
       error_file: '../logs/frontend/err.log',
       exp_backoff_restart_delay: 100,
       env: {},
-    },
-    {
-      name: 'gateway',
-      script: 'gateway.js',
-      exec_mode: process.env.IO_GATEWAY_INSTANCES > 1 ? 'cluster' : 'fork',
-      instances:
-        process.env.IO_GATEWAY_INSTANCES > 1
-          ? process.env.IO_GATEWAY_INSTANCES
-          : 1,
-      instance_var: 'INSTANCE_ID',
-      out_file: './logs/gateway/out.log',
-      error_file: './logs/gateway/err.log',
-      exp_backoff_restart_delay: 100,
     },
   ],
   deploy: {

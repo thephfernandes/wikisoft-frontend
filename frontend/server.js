@@ -1,6 +1,22 @@
+const fs = require('fs');
+const path = require('path');
+
+// Get ENV Settings
 require('dotenv').config();
+
+// Prepare server
 const fastify = require('fastify')({
   logger: true,
+  http2: true,
+  https: {
+    allowHTTP1: true, // fallback support for HTTP1
+    key: fs.readFileSync(
+      path.join(__dirname, '../', 'certs', 'wikiprofile.com.key'),
+    ),
+    cert: fs.readFileSync(
+      path.join(__dirname, '../', 'certs', 'wikiprofile.com.cert'),
+    ),
+  },
 });
 
 const GracefulServer = require('@gquittet/graceful-server');
@@ -30,7 +46,7 @@ fastify.register(require('fastify-nuxtjs'), { logLevel: 'info' }).after(() => {
 
 const start = async () => {
   try {
-    await fastify.listen(3000, '0.0.0.0');
+    await fastify.listen(process.env.IO_PORT || 8443, '0.0.0.0');
     gracefulServer.setReady();
   } catch (err) {
     fastify.log.error(err);
