@@ -23,8 +23,8 @@ module.exports = {
         PORT: 8055,
         LOG_LEVEL: 'info',
         LOG_STYLE: 'pretty',
-        PUBLIC_URL: '/api',
-        ROOT_REDIRECT: '/',
+        PUBLIC_URL: '/api/',
+        ROOT_REDIRECT: false,
         ADMIN_EMAIL: 'hostmaster@wikisoft.com',
         ADMIN_PASSWORD: 'wikiprofile',
         DB_CLIENT: 'pg',
@@ -54,10 +54,9 @@ module.exports = {
         EMAIL_SMTP_HOST: 'smtp.mailersend.net',
         EMAIL_SMTP_PORT: '587',
         EMAIL_SMTP_USER: 'MS_qAXFOT@wikiprofile.com',
-        EMAIL_SMTP_PASSWORD: process.env.IO_SMTP_PASSWORD,
+        EMAIL_SMTP_PASSWORD: process.env.IO_SMTP_PASSWORD || '',
         EMAIL_SMTP_POOL: true,
         EMAIL_SMTP_SECURE: true,
-        EMAIL_SMTP_IGNORE_TLS: false,
       },
     },
     {
@@ -76,16 +75,16 @@ module.exports = {
       env: {},
     },
     {
-      name: 'server',
-      script: 'server.js',
-      exec_mode: process.env.IO_SERVER_INSTANCES > 1 ? 'cluster' : 'fork',
+      name: 'gateway',
+      script: 'gateway.js',
+      exec_mode: process.env.IO_GATEWAY_INSTANCES > 1 ? 'cluster' : 'fork',
       instances:
-        process.env.IO_SERVER_INSTANCES > 1
-          ? process.env.IO_SERVER_INSTANCES
+        process.env.IO_GATEWAY_INSTANCES > 1
+          ? process.env.IO_GATEWAY_INSTANCES
           : 1,
       instance_var: 'INSTANCE_ID',
-      out_file: './logs/server/out.log',
-      error_file: './logs/server/err.log',
+      out_file: './logs/gateway/out.log',
+      error_file: './logs/gateway/err.log',
       exp_backoff_restart_delay: 100,
     },
   ],

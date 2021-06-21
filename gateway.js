@@ -47,7 +47,7 @@ fastify.register(require('./plugins/www'), {});
 
 const start = async () => {
   try {
-    await fastify.listen(process.env.IO_PORT || 8080, '0.0.0.0');
+    await fastify.listen(process.env.IO_PORT || 8443, '0.0.0.0');
     gracefulServer.setReady();
   } catch (err) {
     fastify.log.error(err);

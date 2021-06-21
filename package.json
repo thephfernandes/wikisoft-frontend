@@ -43,6 +43,7 @@
     "core-js": "^3.9.1",
     "directus": "^9.0.0-rc.76",
     "dotenv": "^10.0.0",
+    "fast-gateway": "^2.9.3",
     "fastify": "^3.18.0",
     "fastify-blipp": "^3.1.0",
     "fastify-cors": "^6.0.1",

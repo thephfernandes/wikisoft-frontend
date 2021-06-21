@@ -128,7 +128,7 @@ module.exports = {
 
   directus: {
     watchLoggedIn: true,
-    apiUrl: process.env.IO_API_URL || '/api',
+    apiUrl: process.env.IO_API_URL || '/api/',
     accessTokenCookieName: 'directus_access_token', // the name of the cookie the access_token will be saved in
     refreshTokenCookieName: 'directus_refresh_token', // the name of the cookie the refresh_token will be saved in
     loginRoute: '/login', // the route containing your login-form

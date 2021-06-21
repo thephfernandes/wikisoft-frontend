@@ -1,20 +1,10 @@
-const pm2 = require('pm2');
 const proxy = require('fastify-http-proxy');
-const hyperid = require('hyperid');
-const uuid = hyperid();
 
 module.exports = function (fastify, options, done) {
   fastify.register(proxy, {
     upstream: 'http://localhost:3000',
     prefix: '/',
-    rewritePrefix: '/',
     http2: false,
-    replyOptions: {
-      rewriteRequestHeaders: (originalReq, headers) => ({
-        ...headers,
-        'request-id': uuid(),
-      }),
-    },
   });
   done();
 };
