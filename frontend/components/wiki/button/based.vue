@@ -40,8 +40,11 @@
 <script>
 import lerp from "../../../utils/lerp";
 export default {
-  name: "based",
-  inject: ["size", "type"],
+  // inject: {
+  //   size: { default: '' },
+  //   type: { default: '' },
+  // },
+
   props: {
     size: {
       default() {
@@ -73,7 +76,7 @@ export default {
 
 <style lang="scss" scoped>
 .is-square {
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 
 </style>

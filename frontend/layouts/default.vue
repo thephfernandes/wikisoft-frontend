@@ -27,11 +27,11 @@
     </BaseLayout> -->
     <WikiNavbar />
     <div class="base-layout-content columns">
-      <div class="column is-one-fifth pr-0">
+      <div class="column is-one-fifth pr-0 pt-0">
         <WikiSidebarPrimary />
       </div>
-      <div class="column">
-        <nuxt class="main-content" />
+      <div class="column pt-0">
+        <nuxt class="main-content mt-3" />
       </div>
     </div>
     <WikiFooter />
@@ -77,6 +77,8 @@ export default {
   position: relative;
   background: linear-gradient(180deg, #ffffff 0%, #e9ebef 100%);
   min-height: calc(100vh - 80px);
+  border-left: $wikiline;
+  border-bottom: $wikiline;
   padding-bottom: 50px;
   // @include tablet {
   //   min-height: calc(100vh - 80px);
