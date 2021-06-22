@@ -132,8 +132,8 @@ module.exports = {
   directus: {
     watchLoggedIn: true,
     apiUrl: process.env.IO_API_URL || '/api/',
-    accessTokenCookieName: 'directus_access_token', // the name of the cookie the access_token will be saved in
-    refreshTokenCookieName: 'directus_refresh_token', // the name of the cookie the refresh_token will be saved in
+    accessTokenCookieName: 'wikiprofile_access_token', // the name of the cookie the access_token will be saved in
+    refreshTokenCookieName: 'wikiprofile_refresh_token', // the name of the cookie the refresh_token will be saved in
     loginRoute: '/login', // the route containing your login-form
     homeRoute: '/', // the route the user w ill be redirected to after authentication
     hideLoginWhenAuthenticated: true, // when set to true, authenticated users will be redirected to homeRoute, when accessing loginRoute

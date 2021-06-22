@@ -58,6 +58,7 @@ module.exports = {
         EMAIL_SMTP_POOL: true,
         EMAIL_SMTP_SECURE: true,
         REFRESH_TOKEN_COOKIE_SECURE: true,
+        REFRESH_TOKEN_COOKIE_SAME_SITE: 'Strict',
         REFRESH_TOKEN_COOKIE_DOMAIN:
           process.env.IO_REFRESH_TOKEN_COOKIE_DOMAIN || 'localhost',
       },
