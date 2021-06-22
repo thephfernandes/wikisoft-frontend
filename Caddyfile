@@ -1,7 +1,6 @@
 tls {
 	dns cloudflare {env.CLOUDFLARE_API_TOKEN}
 }
-
 io.wikiprofile.com {
 	encode zstd gzip
 	reverse_proxy localhost:8055
