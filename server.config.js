@@ -23,7 +23,7 @@ module.exports = {
         PORT: 8055,
         LOG_LEVEL: 'info',
         LOG_STYLE: 'pretty',
-        PUBLIC_URL: '/api',
+        PUBLIC_URL: '/api/',
         ROOT_REDIRECT: '/',
         ADMIN_EMAIL: 'hostmaster@wikisoft.com',
         ADMIN_PASSWORD: 'wikiprofile',
@@ -54,15 +54,19 @@ module.exports = {
         EMAIL_SMTP_HOST: 'smtp.mailersend.net',
         EMAIL_SMTP_PORT: '587',
         EMAIL_SMTP_USER: 'MS_qAXFOT@wikiprofile.com',
-        EMAIL_SMTP_PASSWORD: process.env.IO_SMTP_PASSWORD,
+        EMAIL_SMTP_PASSWORD: process.env.IO_SMTP_PASSWORD || '',
         EMAIL_SMTP_POOL: true,
         EMAIL_SMTP_SECURE: true,
-        EMAIL_SMTP_IGNORE_TLS: false,
+        REFRESH_TOKEN_COOKIE_SECURE: true,
+        REFRESH_TOKEN_COOKIE_SAME_SITE: 'Strict',
+        REFRESH_TOKEN_COOKIE_DOMAIN:
+          process.env.IO_REFRESH_TOKEN_COOKIE_DOMAIN || 'localhost',
       },
     },
     {
       name: 'frontend',
       script: 'server.js',
+      // args: process.env.NODE_ENV == 'production' ? 'start' : 'dev',
       cwd: path.join(__dirname, 'frontend'),
       exec_mode: process.env.IO_FRONTEND_INSTANCES > 1 ? 'cluster' : 'fork',
       instances:
@@ -74,19 +78,6 @@ module.exports = {
       error_file: '../logs/frontend/err.log',
       exp_backoff_restart_delay: 100,
       env: {},
-    },
-    {
-      name: 'server',
-      script: 'server.js',
-      exec_mode: process.env.IO_SERVER_INSTANCES > 1 ? 'cluster' : 'fork',
-      instances:
-        process.env.IO_SERVER_INSTANCES > 1
-          ? process.env.IO_SERVER_INSTANCES
-          : 1,
-      instance_var: 'INSTANCE_ID',
-      out_file: './logs/server/out.log',
-      error_file: './logs/server/err.log',
-      exp_backoff_restart_delay: 100,
     },
   ],
   deploy: {
