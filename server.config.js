@@ -79,14 +79,6 @@ module.exports = {
       exp_backoff_restart_delay: 100,
       env: {},
     },
-    {
-      name: 'gateway',
-      script: 'caddy run -config ./Caddyfile',
-      instance_var: 'INSTANCE_ID',
-      out_file: '../logs/frontend/out.log',
-      error_file: '../logs/frontend/err.log',
-      exp_backoff_restart_delay: 100,
-    },
   ],
   deploy: {
     production: {
@@ -97,7 +89,8 @@ module.exports = {
       path: '/home/node/apps/io',
       ssh_options: ['IdentityFile=~/.ssh/id_rsa_devops'],
       'post-setup': 'npm run delete',
-      'post-deploy': 'npm install && npm run build && npm start',
+      'post-deploy':
+        'npm install && npm run build && npm start && caddy reload',
     },
   },
 };
