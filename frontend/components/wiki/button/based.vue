@@ -74,9 +74,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .is-square {
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 
 </style>
