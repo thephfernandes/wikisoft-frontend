@@ -130,7 +130,7 @@ module.exports = {
   },
 
   directus: {
-    apiUrl: process.env.IO_API_URL || 'http://io.wikiprofile.com',
+    apiUrl: process.env.IO_API_URL || 'https://io.wikiprofile.com',
     accessTokenCookieName: 'directus_access_token', // the name of the cookie the access_token will be saved in
     refreshTokenCookieName: 'directus_refresh_token', // the name of the cookie the refresh_token will be saved in
     loginRoute: '/login', // the route containing your login-form
