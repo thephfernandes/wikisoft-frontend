@@ -7,7 +7,7 @@ module.exports = {
       name: 'directus',
       script: 'node_modules/directus/dist/start.js',
       exec_mode: 'cluster',
-      instances: 'max',
+      instances: '4',
       out_file: '../logs/directus/out.log',
       error_file: '../logs/directus/err.log',
       exp_backoff_restart_delay: 100,
