@@ -110,7 +110,6 @@ module.exports = {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/proxy',
     // https://www.npmjs.com/package/@pnodev/nuxt-directus
     '@pnodev/nuxt-directus',
     // https://www.npmjs.com/package/cookie-universal-nuxt
@@ -120,16 +119,6 @@ module.exports = {
     '@nuxtjs/style-resources',
     '@nuxtjs/axios',
   ],
-
-  proxy: {
-    // With options
-    '/api': {
-      target: 'http://localhost:8055/',
-      ws: true,
-      changeOrigin: true,
-      pathRewrite: { '^/api': '' },
-    },
-  },
 
   axios: {
     baseURL: 'https://search.wikiprofile.com',

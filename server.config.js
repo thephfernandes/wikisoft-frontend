@@ -61,8 +61,8 @@ module.exports = {
     },
     {
       name: 'frontend',
-      script: 'nuxt',
-      args: process.env.NODE_ENV == 'production' ? 'start' : 'dev',
+      script: 'server.js',
+      // args: process.env.NODE_ENV == 'production' ? 'start' : 'dev',
       cwd: path.join(__dirname, 'frontend'),
       exec_mode: process.env.IO_FRONTEND_INSTANCES > 1 ? 'cluster' : 'fork',
       instances:
