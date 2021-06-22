@@ -28,7 +28,7 @@ module.exports = {
       path: '/home/hostmaster/www/frontend',
       ssh_options: ['IdentityFile=~/.ssh/id_rsa_devops'],
       'post-deploy':
-        'npm install && npm run build && npm run start:frontend',
+        'npm install && npm run start:frontend',
     },
   },
 };
