@@ -1,0 +1,10 @@
+localhost {
+	encode zstd gzip
+
+	handle_path /api/* {
+		rewrite * {path}
+		reverse_proxy localhost:8055
+	}
+
+	reverse_proxy localhost:3000
+}

@@ -130,10 +130,9 @@ module.exports = {
   },
 
   directus: {
-    watchLoggedIn: true,
-    apiUrl: process.env.IO_API_URL || '/api/',
-    accessTokenCookieName: 'wikiprofile_access_token', // the name of the cookie the access_token will be saved in
-    refreshTokenCookieName: 'wikiprofile_refresh_token', // the name of the cookie the refresh_token will be saved in
+    apiUrl: process.env.IO_API_URL || 'http://io.wikiprofile.com',
+    accessTokenCookieName: 'directus_access_token', // the name of the cookie the access_token will be saved in
+    refreshTokenCookieName: 'directus_refresh_token', // the name of the cookie the refresh_token will be saved in
     loginRoute: '/login', // the route containing your login-form
     homeRoute: '/', // the route the user w ill be redirected to after authentication
     hideLoginWhenAuthenticated: true, // when set to true, authenticated users will be redirected to homeRoute, when accessing loginRoute
@@ -148,17 +147,9 @@ module.exports = {
   modulesDir: ['../node_modules'],
 
   server: {
-    port: process.env.IO_PORT || 8443,
+    port: process.env.FRONTEND_PORT || 3000,
     host: '0.0.0.0',
     timing: false,
-    https: {
-      key: fs.readFileSync(
-        path.resolve(__dirname, '../', 'certs', 'wikiprofile.com.key'),
-      ),
-      cert: fs.readFileSync(
-        path.resolve(__dirname, '../', 'certs', 'wikiprofile.com.cert'),
-      ),
-    },
   },
   // Font Awesome Pro
 

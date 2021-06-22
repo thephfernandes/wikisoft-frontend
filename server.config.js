@@ -20,11 +20,11 @@ module.exports = {
       error_file: '../logs/directus/err.log',
       exp_backoff_restart_delay: 100,
       env: {
-        PORT: 8055,
+        PORT: process.env.IO_DIRECTUS_PORT || 8055,
         LOG_LEVEL: 'info',
         LOG_STYLE: 'pretty',
-        PUBLIC_URL: '/api/',
-        ROOT_REDIRECT: '/',
+        PUBLIC_URL: '/',
+        ROOT_REDIRECT: false,
         ADMIN_EMAIL: 'hostmaster@wikisoft.com',
         ADMIN_PASSWORD: 'wikiprofile',
         DB_CLIENT: 'pg',
@@ -58,15 +58,15 @@ module.exports = {
         EMAIL_SMTP_POOL: true,
         EMAIL_SMTP_SECURE: true,
         REFRESH_TOKEN_COOKIE_SECURE: true,
-        REFRESH_TOKEN_COOKIE_SAME_SITE: 'Strict',
+        REFRESH_TOKEN_COOKIE_SAME_SITE: 'Lax',
         REFRESH_TOKEN_COOKIE_DOMAIN:
           process.env.IO_REFRESH_TOKEN_COOKIE_DOMAIN || 'localhost',
       },
     },
     {
       name: 'frontend',
-      script: 'server.js',
-      // args: process.env.NODE_ENV == 'production' ? 'start' : 'dev',
+      script: 'nuxt',
+      args: process.env.NODE_ENV == 'production' ? 'start' : 'dev',
       cwd: path.join(__dirname, 'frontend'),
       exec_mode: process.env.IO_FRONTEND_INSTANCES > 1 ? 'cluster' : 'fork',
       instances:
@@ -78,6 +78,14 @@ module.exports = {
       error_file: '../logs/frontend/err.log',
       exp_backoff_restart_delay: 100,
       env: {},
+    },
+    {
+      name: 'gateway',
+      script: 'caddy run -config ./Caddyfile',
+      instance_var: 'INSTANCE_ID',
+      out_file: '../logs/frontend/out.log',
+      error_file: '../logs/frontend/err.log',
+      exp_backoff_restart_delay: 100,
     },
   ],
   deploy: {

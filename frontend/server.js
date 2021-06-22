@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const proxy = require('fastify-http-proxy');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 // Get ENV Settings
 require('dotenv').config();
@@ -38,23 +39,6 @@ gracefulServer.on(GracefulServer.SHUTDOWN, (error) => {
 
 fastify.register(require('fastify-blipp'), {
   blippLog: (msg) => console.log(msg),
-});
-
-fastify.register(proxy, {
-  upstream: 'http://localhost:8055',
-  prefix: '/api/',
-  rewritePrefix: '/',
-  http2: false,
-  httpMethods: [
-    'DELETE',
-    'GET',
-    'HEAD',
-    'PATCH',
-    'POST',
-    'PUT',
-    'OPTIONS',
-    'SEARCH',
-  ],
 });
 
 // Inject nuxt routes
