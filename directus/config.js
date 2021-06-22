@@ -8,7 +8,7 @@ module.exports = function (env) {
         LOG_LEVEL: 'info',
         LOG_STYLE: 'pretty',
         PUBLIC_URL: '/',
-        ROOT_REDIRECT: false,
+        ROOT_REDIRECT: 'https://beta.wikiprofile.com',
         ADMIN_EMAIL: 'hostmaster@wikisoft.com',
         ADMIN_PASSWORD: 'wikiprofile',
         DB_CLIENT: 'pg',
