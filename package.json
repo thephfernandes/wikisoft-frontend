@@ -58,7 +58,7 @@
     "js-cookie": "^2.2.1",
     "k-fastify-gateway": "^2.8.4",
     "minimist": "^1.2.5",
-    "nuxt": "^2.15.6",
+    "nuxt": "^2.4.5",
     "nuxt-buefy": "^0.4.7",
     "pg": "^8.6.0",
     "pg-format": "^1.0.4",

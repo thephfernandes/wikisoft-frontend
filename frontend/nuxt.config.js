@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 module.exports = {
   // Available on server and client ($config)
   publicRuntimeConfig: {
@@ -154,10 +157,19 @@ module.exports = {
     parallel: true,
   },
   modulesDir: ['../node_modules'],
+
   server: {
-    port: 3000, // default: 3000
+    port: process.env.IO_PORT || 8443,
     host: '0.0.0.0',
     timing: false,
+    https: {
+      key: fs.readFileSync(
+        path.resolve(__dirname, '../', 'certs', 'wikiprofile.com.key'),
+      ),
+      cert: fs.readFileSync(
+        path.resolve(__dirname, '../', 'certs', 'wikiprofile.com.cert'),
+      ),
+    },
   },
   // Font Awesome Pro
 
