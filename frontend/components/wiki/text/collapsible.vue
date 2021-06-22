@@ -1,14 +1,14 @@
 <template>
-  <p>
-    <span v-if="!readMoreActive"> {{ fullText.slice(0, maxLength) }}<span v-if="exceeds">...</span> </span>
+  <article class="has-text-black py-3">
+    <p v-if="!readMoreActive"> {{ fullText.slice(0, maxLength) }}<span v-if="exceeds">...</span> </p>
 
-    <span v-else>
+    <p v-else>
       {{ fullText }}
-    </span>
-    <span v-if="exceeds"
-      ><a @click="readMoreActive = !readMoreActive">Read {{ !readMoreActive ? "more" : "less" }}</a></span
+    </p>
+    <p class="pt-2" v-if="exceeds"
+      ><a @click="readMoreActive = !readMoreActive">Read {{ !readMoreActive ? "more" : "less" }}</a></p
     >
-  </p>
+  </article>
 </template>
 
 <script>

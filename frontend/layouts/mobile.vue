@@ -1,6 +1,5 @@
 <template>
   <div class="base-layout-outer">
-    <h1>MOBILE LAYOUT</h1>
     <BaseLayout>
       <template v-slot:menu><horizontal /></template>
       <template v-slot:sidebar>

@@ -66,7 +66,7 @@ export default {
 
 .featured-person-card {
   @include desktop {
-    min-height: 375px;
+    min-height: 350px;
   }
 }
 </style>

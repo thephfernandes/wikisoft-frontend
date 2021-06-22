@@ -48,7 +48,7 @@ export default {
   }
 
   @include desktop {
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   }
 }
 </style>

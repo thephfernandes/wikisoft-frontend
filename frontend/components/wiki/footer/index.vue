@@ -1,21 +1,25 @@
 <template>
   <footer class="footer">
-    <div class="content">
+    <div class="content pb-3">
       <span v-if="lastEdit">This page was last edited on {{ lastEdit }}</span>
       <div class="is-flex is-justify-content-space-between is-align-items-center">
         <div class="footer-links is-flex">
-          <span class="link has-text-weight-semibold">
-            <a href="/privacy">Privacy policy</a>
-          </span>
-          <span class="link has-text-weight-semibold icon2-wrapper">
-            <a href="/about">About</a>
-          </span>
-          <span class="link has-text-weight-semibold">
-            <a href="/disclaimer">Disclaimer</a>
-          </span>
+          <ul>
+            <li><span class="has-text-weight-semibold has-text-white">WikiProfile</span></li>
+            <li><a href="/cookies">Cookie policy</a></li>
+            <li><a href="/privacy">Privacy policy</a></li>
+            <li><a href="/user-agreement">User agreement</a></li>
+          </ul>
+          <ul>
+            <li><span class="has-text-weight-semibold has-text-white">Wikisoft Corp.</span></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/investors">Investor relations</a></li>
+            <li><a href="/disclaimers">Disclaimers</a></li>
+          </ul>
         </div>
-        <div class="footer-vanity-wrapper is-flex is-align-items-baseline">
-          <WikiFooterIcon class="logo" />
+        <div class="footer-vanity-wrapper is-flex is-align-items-center">
+          <WikiFooterIcon class="logo mr-1 mt-1" />
           <WikiTextTLine :size="0.35" class="has-text-white">from Wikisoft</WikiTextTLine>
         </div>
       </div>
@@ -39,20 +43,13 @@ export default {
   margin: 0px !important;
   padding: 0.25em 2em !important;
 
-  position: fixed;
-  bottom: 0;
-
   .footer-links {
-    @include mobile {
-      flex-direction: column;
+    ul {
+      list-style: none;
     }
 
-    .link {
-      margin-right: 1.5em;
-
-      @include mobile {
-        margin-bottom: 1em;
-      }
+    @include mobile {
+      flex-direction: column;
     }
 
     a {
@@ -73,22 +70,6 @@ export default {
   }
 
   .logo {
-    @include desktop {
-      padding-top: 2px;
-      position: absolute;
-      bottom: 8px;
-      right: 9em;
-      width: 93.13px;
-      height: 17px;
-    }
-    @include tablet {
-      position: absolute;
-      bottom: 6px;
-      right: 8.4em;
-      width: 93.13px;
-      height: 17px;
-    }
-
     @include mobile {
       max-width: 150px;
     }
