@@ -15,8 +15,8 @@ module.exports = {
       out_file: '../logs/directus/out.log',
       error_file: '../logs/directus/err.log',
       exp_backoff_restart_delay: 100,
-        env: {
-       1 CONFIG_PATH: './directus/config.js'
+      env: {
+        CONFIG_PATH: './directus/config.js'
       }
     }
   ],
