@@ -16,7 +16,7 @@ module.exports = {
       error_file: '../logs/directus/err.log',
       exp_backoff_restart_delay: 100,
         env: {
-        CONFIG_PATH: './directus/config.js'
+       1 CONFIG_PATH: './directus/config.js'
       }
     }
   ],
@@ -26,7 +26,7 @@ module.exports = {
       host: ['10.0.0.251'],
       ref: 'origin/main',
       repo: 'git@github.com:wikisoft-code/io.git',
-      path: '/home/hostmaster/directus',
+      path: '/home/hostmaster/www/directus',
       ssh_options: ['IdentityFile=~/.ssh/id_rsa_devops'],
       'post-deploy':
         'npm install && npm start:directus',

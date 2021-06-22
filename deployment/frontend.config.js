@@ -27,11 +27,11 @@ module.exports = {
   ],
   deploy: {
     production: {
-      user: 'web',
+      user: 'hostmaster',
       host: ['10.0.0.252'],
       ref: 'origin/main',
       repo: 'git@github.com:wikisoft-code/io.git',
-      path: '/home/node/apps/io',
+      path: '/home/hostmaster/www/frontend',
       ssh_options: ['IdentityFile=~/.ssh/id_rsa_devops'],
       'post-deploy':
         'npm install && npm run build && npm start',
