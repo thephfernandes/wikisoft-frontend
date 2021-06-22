@@ -29,7 +29,7 @@ module.exports = {
       path: '/home/hostmaster/www/directus',
       ssh_options: ['IdentityFile=~/.ssh/id_rsa_devops'],
       'post-deploy':
-        'npm install && npm start:directus',
+        'npm install && npm run start:directus',
     },
   },
 };
