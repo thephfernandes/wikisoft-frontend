@@ -5,7 +5,7 @@ module.exports = {
   apps: [
     {
       name: 'directus',
-      script: 'npx directus start',
+      script: 'node_modules/directus/dist/start.js',
       exec_mode: 'cluster',
       instances: 'max',
       out_file: '../logs/directus/out.log',
