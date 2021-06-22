@@ -57,6 +57,8 @@ module.exports = {
         EMAIL_SMTP_PASSWORD: process.env.IO_SMTP_PASSWORD || '',
         EMAIL_SMTP_POOL: true,
         EMAIL_SMTP_SECURE: true,
+        REFRESH_TOKEN_COOKIE_SECURE: true,
+        REFRESH_TOKEN_COOKIE_DOMAIN: 'localhost',
       },
     },
     {
