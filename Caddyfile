@@ -1,12 +1,11 @@
-tls {
-	dns cloudflare {env.CLOUDFLARE_API_TOKEN}
-}
 io.wikiprofile.com {
 	encode zstd gzip
+	tls ./certs/wikiprofile.com.cert ./certs/wikiprofile.com.key
 	reverse_proxy localhost:8055
 }
 
 beta.wikiprofile.com {
 	encode zstd gzip
+	tls ./certs/wikiprofile.com.cert ./certs/wikiprofile.com.key
 	reverse_proxy localhost:3000
 }
