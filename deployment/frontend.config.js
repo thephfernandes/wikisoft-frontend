@@ -8,7 +8,7 @@ module.exports = {
       name: 'frontend',
       script: 'nuxt',
       args: process.env.NODE_ENV == 'production' ? 'start' : 'dev',
-      cwd: path.join(__dirname, 'frontend'),
+      cwd: 'frontend',
       exec_mode: 'cluster',
       instances: 'max',
       out_file: '../logs/frontend/out.log',
