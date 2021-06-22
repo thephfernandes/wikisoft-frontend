@@ -3,7 +3,7 @@ io.wikiprofile.com {
 	reverse_proxy localhost:8055
 }
 
-beta.io.wikiprofile.com {
+beta.wikiprofile.com {
 	encode zstd gzip
 	reverse_proxy localhost:3000
 }
