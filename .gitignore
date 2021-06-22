@@ -106,7 +106,6 @@ dist
 package-lock.json
 
 files/
-config.js
 
 google_cloud_storage_key.json
 .DS_Store
