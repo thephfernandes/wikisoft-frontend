@@ -1,17 +1,13 @@
-const { readdirSync } = require('fs');
-const $$path = require('path');
+// Get ENV Settings
+require('dotenv').config();
 
 module.exports = {
   apps: [
     {
       name: 'directus',
       script: 'npx directus start',
-      exec_mode: process.env.IO_DIRECTUS_INSTANCES > 1 ? 'cluster' : 'fork',
-      instances:
-        process.env.IO_DIRECTUS_INSTANCES > 1
-          ? process.env.IO_DIRECTUS_INSTANCES
-          : 1,
-      instance_var: 'INSTANCE_ID',
+      exec_mode: 'cluster',
+      instances: 'max',
       out_file: '../logs/directus/out.log',
       error_file: '../logs/directus/err.log',
       exp_backoff_restart_delay: 100,

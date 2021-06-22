@@ -1,5 +1,3 @@
-const { readdirSync } = require('fs');
-const path = require('path');
 
 // Get ENV Settings
 require('dotenv').config();
@@ -11,12 +9,8 @@ module.exports = {
       script: 'nuxt',
       args: process.env.NODE_ENV == 'production' ? 'start' : 'dev',
       cwd: path.join(__dirname, 'frontend'),
-      exec_mode: process.env.IO_FRONTEND_INSTANCES > 1 ? 'cluster' : 'fork',
-      instances:
-        process.env.IO_FRONTEND_INSTANCES > 1
-          ? process.env.IO_FRONTEND_INSTANCES
-          : 1,
-      instance_var: 'INSTANCE_ID',
+      exec_mode: 'cluster',
+      instances: 'max',
       out_file: '../logs/frontend/out.log',
       error_file: '../logs/frontend/err.log',
       exp_backoff_restart_delay: 100,
