@@ -19,7 +19,7 @@ module.exports = {
   deploy: {
     production: {
       user: 'hostmaster',
-      host: ['10.0.0.251'],
+      host: ['94.237.42.33'],
       ref: 'origin/main',
       repo: 'git@github.com:wikisoft-code/io.git',
       path: '/home/hostmaster/www/directus',
