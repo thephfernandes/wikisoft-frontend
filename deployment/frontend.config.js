@@ -1,4 +1,3 @@
-
 // Get ENV Settings
 require('dotenv').config();
 
@@ -15,20 +14,19 @@ module.exports = {
       error_file: '../logs/frontend/err.log',
       exp_backoff_restart_delay: 100,
       env: {
-        API_URL: process.env.IO_API_URL || 'https://io.wikiprofile.com'
+        API_URL: process.env.IO_API_URL || 'https://io.wikiprofile.com',
       },
     },
   ],
   deploy: {
     production: {
-      user: 'hostmaster',
-      host: ['94.237.125.71'],
+      user: 'root',
+      host: ['94.237.41.100'],
       ref: 'origin/main',
       repo: 'git@github.com:wikisoft-code/io.git',
-      path: '/home/hostmaster/www/frontend',
+      path: '/var/www/frontend',
       ssh_options: ['IdentityFile=~/.ssh/id_rsa_devops'],
-      'post-deploy':
-        'npm install && npm run start:frontend',
+      'post-deploy': 'npm install && npm run start:frontend',
     },
   },
 };
