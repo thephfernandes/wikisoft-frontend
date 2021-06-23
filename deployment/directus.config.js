@@ -18,7 +18,7 @@ module.exports = {
   ],
   deploy: {
     production: {
-      user: 'hostmaster',
+      user: 'root',
       host: ['94.237.41.158'],
       ref: 'origin/main',
       repo: 'git@github.com:wikisoft-code/io.git',
