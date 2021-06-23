@@ -26,7 +26,7 @@
               {{ company.company_name }}
             </WikiHeaderPrimary>
           </div>
-          <a :href="company.url">{{ company.url }}</a>
+          <a class="company-website" :href="company.url">{{ company.url }}</a>
         </div>
 
         <WikiButtonBased
@@ -64,6 +64,10 @@ export default {
 
 <style lang="scss" scoped>
 .company-logo {
+  @include mobile {
+    max-height: 85px;
+  }
+  
   @include desktop {
     max-height: 45px;
     max-width: 300px;
@@ -74,6 +78,12 @@ export default {
   background-color: aliceblue;
   color: royalblue;
   padding: 0.5rem 1rem;
+}
+
+.company-website {
+  @include mobile {
+    display: none;
+  }
 }
 
 .featured-company-card {

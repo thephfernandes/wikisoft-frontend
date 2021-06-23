@@ -41,14 +41,19 @@ export default {
 }
 
 .featured-companies {
-  display: grid;
-
+  
   @include mobile {
-    grid-template-columns: auto;
+    display: flex;
+    flex-flow: column nowrap;
   }
 
   @include desktop {
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+
+  .featured-company {
+    max-width: 100%;
   }
 }
 </style>

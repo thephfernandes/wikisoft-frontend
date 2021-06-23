@@ -8,7 +8,7 @@
       <div class="navbar main-menu">
         <slot name="menu"></slot>
       </div>
-      <div class="main-content px-4 py-4 m-0 tile is-ancestor is-vertical is-12 container is-fluid is-fullwidth">
+      <div class="main-content px-0 py-4 m-0 tile is-ancestor is-vertical is-12 container is-fluid is-fullwidth">
         <slot name="content"></slot>
       </div>
       <div class="main-footer">
