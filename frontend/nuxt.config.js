@@ -13,7 +13,9 @@ module.exports = {
   },
 
   // Only available on server ($config)
-  privateRuntimeConfig: {},
+  privateRuntimeConfig: {
+    googleApiKey: process.env.GOOGLE_API_KEY
+  },
 
   ssr: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -24,17 +26,13 @@ module.exports = {
     },
   },
 
-  env: {
-    googleApiKey: process.env.GOOGLE_API_KEY
-  },
-
   head: {
     title: 'wikiprofile',
     htmlAttrs: {
       lang: 'en',
     },
     script: [
-      {src: `https://maps.googleapis.com/maps/api/js?key=${process.env.googleApiKey}&libraries=places`}
+      { src: `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&libraries=places`, defer: true }
     ],
     meta: [
       { charset: 'utf-8' },

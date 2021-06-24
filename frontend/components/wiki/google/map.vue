@@ -1,13 +1,10 @@
 <template>
   <div>
-    hello world
     <div id="map"></div>
   </div>
 </template>
 
 <script>
-const apiKey = process.env.GOOGLE_API_KEY;
-
 export default {
   props: {
     place: {
@@ -16,20 +13,9 @@ export default {
     },
   },
 
-  head() {
-    return {
-      script: [
-        { 
-          src: `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`,
-          async: true,
-        }
-      ]
-    }
-  },
-
   methods: {
     initMap() {
-      let map =  window.google.maps.Map(
+      let map =  new google.maps.Map(
         document.getElementById('map')
       );
 
@@ -38,9 +24,9 @@ export default {
         fields: ["name", "geometry"],
       };
 
-      let service = window.google.maps.places.PlacesService(map);
+      let service = new google.maps.places.PlacesService(map);
       service.findPlaceFromQuery(request, (results, status) => {
-        if (status === window.google.maps.places.PlaceServiceStatus.OK) {
+        if (status === google.maps.places.PlaceServiceStatus.OK) {
           // for (let i = 0; i < results.length; i++) {
           //   createMarker(results[i]);
           // }
