@@ -41,7 +41,6 @@
       <p class="has-text-grey pt-5 pb-2">
         {{ company.headquarters }}
       </p>
-
       <WikiTextCollapsible :fullText="company.description" :charLimit="150" />
 
       <div class="py-3">

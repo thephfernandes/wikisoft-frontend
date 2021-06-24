@@ -16,7 +16,7 @@
             <img
               class="profile-image is-rounded"
               :src="
-                profilePhotoSrc ||
+                photoSrc ||
                 'https://bulma.io/images/placeholders/128x128.png'
               "
               alt="profile picture"
@@ -43,6 +43,13 @@
 
 <script>
 export default {
+  props: {
+    photoSrc: {
+      type: String,
+      required: false,
+    },
+  },
+
   computed: {
     fullName() {
       return `${this.$auth.user?.first_name} ${this.$auth.user?.last_name}`;

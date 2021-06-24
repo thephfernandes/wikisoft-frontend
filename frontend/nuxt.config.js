@@ -24,11 +24,18 @@ module.exports = {
     },
   },
 
+  env: {
+    googleApiKey: process.env.GOOGLE_API_KEY
+  },
+
   head: {
     title: 'wikiprofile',
     htmlAttrs: {
       lang: 'en',
     },
+    script: [
+      {src: `https://maps.googleapis.com/maps/api/js?key=${process.env.googleApiKey}&libraries=places`}
+    ],
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
