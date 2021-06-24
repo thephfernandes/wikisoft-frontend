@@ -88,7 +88,10 @@ module.exports = {
   css: ['bulma', './assets/styles/global.scss', 'animate.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: '~/plugins/persistedState.js' }],
+  plugins: [
+    { src: '~/plugins/persistedState.js' },
+    { src: '~plugins/vueGoogleMaps.js' },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
