@@ -4,7 +4,7 @@
       <div class="tile is-vertical" v-if="selectedCompany.company_id || featuredCompany.company_name">
         <div class="tile is-parent">
           <div class="tile is-child">
-            <WikiCompanyBanner :company="selectedCompany || featuredCompany" />
+            <WikiCompanyBanner :company="selectedCompany.company_id ? selectedCompany : featuredCompany" />
           </div>
         </div>
         <div class="tile is-parent is-vertical is-8">
