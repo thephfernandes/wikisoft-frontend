@@ -1,15 +1,15 @@
 <template>
   <div class="company-profile-page">
     <div class="container">
-      <div class="tile is-vertical" v-if="selectedCompany.company_id">
+      <div class="tile is-vertical" v-if="selectedCompany.company_id || featuredCompany.company_name">
         <div class="tile is-parent">
           <div class="tile is-child">
-            <WikiCompanyBanner :company="selectedCompany" />
+            <WikiCompanyBanner :company="selectedCompany || featuredCompany" />
           </div>
         </div>
         <div class="tile is-parent is-vertical is-8">
           <div class="tile is-child">
-            <WikiCompanyOverview class="block" :company="selectedCompany" />
+            <!-- <WikiCompanyOverview class="block" :company="selectedCompany" /> -->
             <!-- <WikiCompanyJob
                   class="block"
                   v-for="(item, i) in jobs"
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import companyData from "~/assets/data/featured-companies.json";
+
 export default {
   name: "CompanyProfilePage",
 
@@ -47,7 +49,7 @@ export default {
   data() {
     return {
       companyId: this.$route.params.companyID,
-
+      featuredCompany: {},
       tabs: [
         {
           name: "overview",
@@ -77,7 +79,6 @@ export default {
           amount: "17",
         },
       ],
-
       jobs: [
         {
           title: "Head of Finance",
@@ -114,9 +115,10 @@ export default {
   },
 
   async created() {
-    if (this.selectedCompany?.company_id === undefined) {
-      await this.$store.dispatch("companies/fetchSelectedCompany", this.companyId);
-    }
+    // if (this.selectedCompany?.company_id === undefined) {
+    //   await this.$store.dispatch("companies/fetchSelectedCompany", this.companyId);
+    // }
+    this.findFeaturedCompany()
   },
 
   computed: {
@@ -132,5 +134,11 @@ export default {
       return `http://io.wikiprofile.com/assets/${this.selectedCompany.photo}`;
     }
   },
+
+  methods: {
+    findFeaturedCompany() {
+      this.featuredCompany = companyData.find(item => item.company_name = this.companyId)
+    }
+  }
 };
 </script>

@@ -37,7 +37,7 @@
             src="../../../assets/logos/wikiprofile/wikiprofile-logo-icon.svg"
           />
           <WikiHeaderPrimary class="ml-2" :size="4" :semantic="2">
-            {{ company.name }}
+            {{ company.name || company.company_name }}
           </WikiHeaderPrimary>
           <!-- <h1>{{ company.name ? company.name : "default" }}</h1> -->
         </div>
@@ -123,7 +123,7 @@ export default {
   },
 
   async created() {
-    await this.$store.dispatch("companies/fetchClaimedCompanies");
+    // await this.$store.dispatch("companies/fetchClaimedCompanies");
   }
 };
 </script>
@@ -191,14 +191,14 @@ export default {
   transform: translateY(-55%);
 }
 
-// .company_logo, .company-logo {
-//   position: absolute;
-//   z-index: 1;
-//   left: -8px;
-//   bottom: 32px;
-//   height: 64px;
-//   width: 64px;
-// }
+.company_logo, .company-logo {
+  position: absolute;
+  z-index: 1;
+  left: -8px;
+  bottom: 32px;
+  height: 64px;
+  width: 64px;
+}
 
 .company_titlelogo {
   grid-area: logotitle;

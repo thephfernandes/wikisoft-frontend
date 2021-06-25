@@ -16,7 +16,9 @@
         </div>
         <div class="featured-companies">
           <div class="featured-company" v-for="(item, i) in companies" :key="i">
-            <WikiCompanyFeaturedCard :company="item" />
+            <nuxt-link :to="`/companies/${item.company_name}`">
+              <WikiCompanyFeaturedCard :company="item" />
+            </nuxt-link>
           </div>
         </div>
       </div>
