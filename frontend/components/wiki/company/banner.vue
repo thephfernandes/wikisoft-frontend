@@ -16,51 +16,76 @@
       <div class="company-banner-content px-3 pb-3">
         <div class="banner-header">
           <div class="company-logo-wrapper">
-            <img
-              class="company_logo"
-              v-show="company.photo !== undefined"
-              :src="photoSrc"
-            />
-            <img
-              class="company_logo default"
-              v-show="company.photo === undefined"
-              src="../../../assets/logos/wikiprofile/wikiprofile-logo-icon.svg"
-            />
+            <img class="company_logo" :src="photoSrc" />
           </div>
-          <div
-            class="
-              is-flex is-align-items-center is-justify-content-space-between
-            "
-            style="width: 100%"
-          >
-            <WikiHeaderPrimary class="ml-2" :size="4" :semantic="2">
+          <div class="header-name-actions" style="width: 100%">
+            <WikiHeaderPrimary class="company-name" :size="4" :semantic="2">
               {{ company.name ? company.name : company.company_name }}
             </WikiHeaderPrimary>
-            <div class="action-buttons is-flex is-align-items-center">
+            <div class="actions is-flex is-align-items-center">
               <div class="settings-button" v-if="companyClaimedByAccount">
                 <a :href="`/companies/${this.id}/settings`">
                   <WikiIconWicon icon="cog-outline" size="is-medium" />
                 </a>
               </div>
               <!-- TODO: remember to add v-if="$auth.user && !companyClaimedByAccount" -->
-              <WikiCompanyClaim class="mr-3" />
+              <WikiCompanyClaim />
               <WikiButtonBased
-                outlined
-                @click="$emit('toggleFollow')"
-                class="follow-button"
-                :type="isFollowing ? 'is-success' : 'is-success is-light'"
-                size="is-small"
-              >
-                <span class="is-uppercase has-text-weight-semibold">
-                  {{ isFollowing ? "unfollow" : "follow" }}
-                </span>
-              </WikiButtonBased>
+                  outlined
+                  @click="$emit('toggleFollow')"
+                  class="follow-button"
+                  :type="isFollowing ? 'is-success' : 'is-success is-light'"
+                  size="is-small"
+                >
+                  <span class="is-size-7-mobile is-uppercase has-text-weight-semibold">
+                    {{ isFollowing ? "unfollow" : "follow" }}
+                  </span>
+                </WikiButtonBased>
+
+                <WikiButtonBased
+                  @click="$emit('redirectAddReview')"
+                  class="add-review-button"
+                  type="is-primary"
+                  size="is-small"
+                >
+                  <div class="button-content is-flex is-align-items-center">
+                    <WikiIconWicon icon="plus" size="is-medium" />
+                    <span class="is-size-7-mobile is-uppercase has-text-weight-semibold">
+                      add a review
+                    </span>
+                  </div>
+                </WikiButtonBased>
+              <!-- <div class="action-buttons">
+                <WikiButtonBased
+                  outlined
+                  @click="$emit('toggleFollow')"
+                  class="follow-button"
+                  :type="isFollowing ? 'is-success' : 'is-success is-light'"
+                  size="is-small"
+                >
+                  <span class="is-uppercase has-text-weight-semibold">
+                    {{ isFollowing ? "unfollow" : "follow" }}
+                  </span>
+                </WikiButtonBased>
+
+                <WikiButtonBased
+                  @click="$emit('redirectAddReview')"
+                  class="add-review-button"
+                  type="is-primary"
+                  size="is-small"
+                >
+                  <div class="button-content is-flex is-align-items-center">
+                    <WikiIconWicon icon="plus" size="is-medium" />
+                    <span class="is-uppercase has-text-weight-semibold">
+                      add a review
+                    </span>
+                  </div>
+                </WikiButtonBased>
+              </div> -->
             </div>
           </div>
         </div>
-        <div class="banner-items">
-          <WikiCompanyProfileStats :id="this.id" />
-        </div>
+        <WikiCompanyProfileStats class="company-profile-stats" :id="id" />
       </div>
     </div>
   </div>
@@ -92,7 +117,9 @@ export default {
     },
 
     photoSrc() {
-      return `http://io.wikiprofile.com/assets/${this.company.photo}`;
+      return this.company.photo
+        ? `http://io.wikiprofile.com/assets/${this.company.photo}`
+        : "/_nuxt/frontend/assets/logos/wikiprofile/wikiprofile-logo-icon.svg";
     },
 
     companyClaimedByAccount() {
@@ -123,21 +150,9 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  border-radius: 0.6em;
+  border-radius: 0.6rem;
   border: 1px solid lightgrey;
   box-shadow: none;
-
-  .card-header {
-    box-shadow: none;
-  }
-
-  .card-content {
-    padding-top: 0.5rem;
-  }
-
-  .card-footer {
-    border-top: none;
-  }
 }
 
 .settings-button {
@@ -161,8 +176,8 @@ export default {
   }
 
   .company_coverpicture {
-    border-top-left-radius: 0.6em;
-    border-top-right-radius: 0.6em;
+    border-top-left-radius: 0.6rem;
+    border-top-right-radius: 0.6rem;
     grid-area: bannerpicture;
     width: 100%;
     max-height: 100%;
@@ -170,12 +185,47 @@ export default {
   }
 
   .company-banner-content {
+    position: relative;
     grid-area: bannercontent;
 
     .banner-header {
-      width: 100%;
-      display: flex;
-      transform: translateY(-20%);
+      position: relative;
+
+      @include desktop {
+        width: 100%;
+        display: flex;
+        transform: translateY(-20%);
+      }
+
+      .header-name-actions {
+        @include desktop {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .company-name {
+          @include mobile {
+            position: absolute;
+            top: 0;
+            left: 70px;
+          }
+          
+          @include desktop {
+            margin-left: 1.5rem;
+          }
+        }
+
+        .actions > :not(:last-child) {
+          @include mobile {
+            margin-right: 0.3rem;
+          }
+
+          @include desktop {
+            margin-right: 0.75rem;
+          }
+        }
+      }
     }
   }
 }
@@ -187,30 +237,31 @@ export default {
   background: white;
   padding: 0.2em;
 
-  @include desktop {
+  @include mobile {
+    transform: translateY(-40%);
+    max-height: 55px;
+    max-width: 55px;
+  }
+
+  @include tablet {
     max-height: 75px;
     max-width: 75px;
   }
-}
-
-.company_logo {
-  @include mobile {
-  }
 
   @include desktop {
-    height: 100%;
-    width: 100%;
+    max-height: 95px;
+    max-width: 95px;
   }
 }
 
 .company_titlelogo {
   grid-area: logotitle;
   position: relative;
-  h1 {
-    font-size: 28px;
-    font-weight: 700;
-    max-height: 48px;
-    text-overflow: ellipsis;
-  }
+}
+
+.company-profile-stats {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 </style>

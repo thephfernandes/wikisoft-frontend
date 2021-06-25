@@ -3,7 +3,7 @@
     <template v-slot:trigger>
       <a role="button" class="is-flex is-align-items-center">
         <div class="claim-icon"></div>
-        <span class="has-text-grey has-text-weight-semibold">Is this your company?</span>
+        <span class="is-size-7 has-text-grey has-text-weight-semibold claim-text">Is this your company?</span>
       </a>
     </template>
     <b-dropdown-item custom>
@@ -24,10 +24,18 @@ export default {};
 
 .<style lang="scss" scoped>
 .claim-icon {
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
     border-radius: 100%;
     background: rgb(255, 109, 42);
     margin-right: 0.25em;
+
+    @include mobile {
+      display: none;
+    }
+}
+
+.claim-text {
+  white-space: nowrap;
 }
 </style>
