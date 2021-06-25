@@ -10,11 +10,11 @@ module.exports = {
     apiURL: process.env.IO_API_URL || '/api',
     searchURL: process.env.IO_API_URL + '/search',
     adminURL: process.env.IO_ADMIN_URL || '/admin',
+    googleApiKey: process.env.GOOGLE_API_KEY
   },
 
   // Only available on server ($config)
   privateRuntimeConfig: {
-    googleApiKey: process.env.GOOGLE_API_KEY
   },
 
   ssr: true,
@@ -31,9 +31,6 @@ module.exports = {
     htmlAttrs: {
       lang: 'en',
     },
-    script: [
-      { src: `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&libraries=places`, defer: true }
-    ],
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -151,6 +148,8 @@ module.exports = {
     extractCSS: false,
     cache: true,
     parallel: true,
+    transpile: [/^vue2-google-maps($|\/)/],
+    vendor: ["vue2-google-maps"], 
   },
   modulesDir: ['../node_modules'],
 
