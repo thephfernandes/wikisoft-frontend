@@ -48,7 +48,18 @@ export default {
   }
 
   @include desktop {
+    max-height: 125vh;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+}
+
+@include desktop {
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .featured-people::-webkit-scrollbar {
+    display: none;
   }
 }
 </style>

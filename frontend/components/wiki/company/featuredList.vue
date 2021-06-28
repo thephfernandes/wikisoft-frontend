@@ -43,7 +43,6 @@ export default {
 }
 
 .featured-companies {
-  
   @include mobile {
     display: flex;
     flex-flow: column nowrap;
@@ -52,10 +51,21 @@ export default {
   @include desktop {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    max-height: 125vh;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 
   .featured-company {
     max-width: 100%;
+  }
+}
+
+@include desktop {
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .featured-companies::-webkit-scrollbar {
+    display: none;
   }
 }
 </style>
