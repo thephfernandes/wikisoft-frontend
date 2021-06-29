@@ -46,7 +46,7 @@
     </template>
 
     <template v-slot:footer>
-      <span class="company-industry-tag">{{ company.industry }}</span>
+      <WikiProfileTag :tag="company.industry" />
     </template>
   </WikiCardPrimary>
 </template>
@@ -72,12 +72,6 @@ export default {
     max-height: 45px;
     max-width: 300px;
   }
-}
-
-.company-industry-tag {
-  background-color: #e3f2ff;
-  color: royalblue;
-  padding: 0.5rem 1rem;
 }
 
 .company-website {

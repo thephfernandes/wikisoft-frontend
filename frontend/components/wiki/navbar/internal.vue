@@ -112,6 +112,7 @@ export default {
   background: linear-gradient(180deg, #ffffff 0%, #e3f2ff 100%);
   @include desktop {
     padding: 0.25rem 1.5rem;
+    padding-bottom: 0.5rem;
   }
 }
 

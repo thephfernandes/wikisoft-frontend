@@ -18,24 +18,17 @@
         </template>
       </WikiProfileVanity>
     </template>
+
     <template v-slot:content>
       <p class="has-text-weight-semibold pb-2">
         {{ person.location }} · {{ person.founder_of }}
       </p>
 
       <WikiTextCollapsible :fullText="person.about" :charLimit="150" />
+    </template>
 
-      <!-- <div class="py-3">
-        <div class="person-industry-tags is-flex">
-          <div
-            class="person-industry-tag mr-3"
-            v-for="(item, i) in industries"
-            :key="i"
-          >
-            <span class="has-text-weight-semibold">{{ item }}</span>
-          </div>
-        </div>
-      </div> -->
+    <template v-slot:footer>
+      <WikiProfileTag :tag="person.industry"/>
     </template>
   </WikiCardPrimary>
 </template>
@@ -58,12 +51,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.person-industry-tag {
-  background-color: #e3f2ff;
-  color: royalblue;
-  padding: 0.5rem 1rem;
-}
-
 .featured-person-card {
   @include desktop {
     height: 420px;
