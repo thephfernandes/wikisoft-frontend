@@ -9,6 +9,7 @@
         />
       </div>
     </template>
+
     <template v-slot:content>
       <div
         class="is-flex is-align-items-center is-justify-content-space-between"
@@ -38,14 +39,14 @@
           <span class="is-uppercase">follow</span>
         </WikiButtonBased>
       </div>
-      <p class="has-text-grey pt-5 pb-2">
+      <p class="has-text-grey company-headquarters">
         {{ company.headquarters }}
       </p>
       <WikiTextCollapsible :fullText="company.description" :charLimit="150" />
+    </template>
 
-      <div class="py-3">
-        <span class="company-industry-tag">{{ company.industry }}</span>
-      </div>
+    <template v-slot:footer>
+      <span class="company-industry-tag">{{ company.industry }}</span>
     </template>
   </WikiCardPrimary>
 </template>
@@ -66,7 +67,7 @@ export default {
   @include mobile {
     max-height: 85px;
   }
-  
+
   @include desktop {
     max-height: 45px;
     max-width: 300px;
@@ -74,7 +75,7 @@ export default {
 }
 
 .company-industry-tag {
-  background-color: aliceblue;
+  background-color: #e3f2ff;
   color: royalblue;
   padding: 0.5rem 1rem;
 }
@@ -85,9 +86,19 @@ export default {
   }
 }
 
+.company-headquarters {
+  padding: 0.5rem 0;
+}
+
 .featured-company-card {
   @include desktop {
-    min-height: 425px;
+    height: 420px;
+  }
+}
+
+.card-header-icon {
+  @include desktop {
+    height: 75px;
   }
 }
 </style>

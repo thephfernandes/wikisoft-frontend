@@ -59,14 +59,14 @@ export default {
 
 <style lang="scss" scoped>
 .person-industry-tag {
-  background-color: aliceblue;
+  background-color: #e3f2ff;
   color: royalblue;
   padding: 0.5rem 1rem;
 }
 
 .featured-person-card {
   @include desktop {
-    min-height: 350px;
+    height: 420px;
   }
 }
 </style>
