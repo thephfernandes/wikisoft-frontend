@@ -1,24 +1,31 @@
 <template>
   <div class="nav">
     <div class="nav-links nav-links__left">
-      <div class="nav-links__item"  v-for="(item, i) in leftList" :key="i">
-        <nuxt-link :to="item.link">
-          <WikiIconWicon class="nav-links__icon" :icon="item.icon" size="0.7" />
-          <span class="has-text-weight-semibold">
-            {{ item.name }}
-          </span>
-        </nuxt-link>
-      </div>
+      <nuxt-link
+        :to="item.link"
+        class="nav-links__item"
+        v-for="(item, i) in leftList"
+        :key="i"
+      >
+        <WikiIconWicon class="nav-links__icon" :icon="item.icon" size="0.7" />
+        <span class="has-text-weight-semibold">
+          {{ item.name }}
+        </span>
+      </nuxt-link>
     </div>
     <div class="nav-links nav-links__right">
-      <div class="nav-links__item" v-for="(item, i) in rightList" :key="i" v-show="item.name !== 'Me' || $auth.user">
-        <nuxt-link :to="item.link">
-          <WikiIconWicon :icon="item.icon" size="0.7" />
-          <span class="has-text-weight-semibold">
-            {{ item.name }}
-          </span>
-        </nuxt-link>
-      </div>
+      <!-- v-show="item.name !== 'Me' || $auth.user" -->
+      <nuxt-link
+        :to="item.link"
+        class="nav-links__item"
+        v-for="(item, i) in rightList"
+        :key="i"
+      >
+        <WikiIconWicon :icon="item.icon" size="0.7" />
+        <span class="has-text-weight-semibold">
+          {{ item.name }}
+        </span>
+      </nuxt-link>
     </div>
   </div>
 </template>
@@ -88,23 +95,29 @@ export default {
 .nav {
   justify-content: space-between;
   border-bottom: $wikiline;
+  width: 100%;
 }
 
 .nav-links__left > .nav-links__item {
-  border-right: $wikiline;
+  border-right: $wikiline_thin;
 }
 
 .nav-links__right > .nav-links__item {
-  border-left: $wikiline;
+  border-left: $wikiline_thin;
 }
 
 .nav-links__item {
   height: 100%;
   align-items: center;
-
+  background: linear-gradient(180deg, #ffffff 0%, #e3f2ff 100%);
   @include desktop {
-    padding: 0.5rem 1.5rem;
+    padding: 0.25rem 1.5rem;
   }
+}
+
+.nav-links__item.nuxt-link-exact-active {
+  background: white;
+  color: #007bff;
 }
 
 .nav-links__icon {

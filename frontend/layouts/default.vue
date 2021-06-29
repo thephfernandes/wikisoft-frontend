@@ -2,12 +2,12 @@
   <div class="base-layout-outer">
     <WikiSearchResults />
     <WikiNavbar />
-    <div class="base-layout-content columns mb-0">
+    <WikiNavbarInternal class="internal-nav" />
+    <div class="base-layout-content columns my-0">
       <div class="column base-layout__sidebar is-one-fifth pr-0 pt-1">
         <WikiSidebarPrimary />
       </div>
       <div class="column pt-1 pl-0 base-layout__content">
-        <WikiNavbarInternal />
         <nuxt class="main-content mt-3 px-3" />
       </div>
     </div>
@@ -47,9 +47,9 @@ export default {
 }
 
 .base-layout-content {
-  @include desktop {
-    margin-top: 2rem;
-  }
+  // @include desktop {
+  //   margin-top: 2rem;
+  // }
 
   // .base-layout__sidebar, .base-layout__content {
   //   @include desktop {
@@ -78,6 +78,12 @@ export default {
 
   @include mobile {
     min-height: calc(100vh - 170px);
+  }
+}
+
+.internal-nav {
+  @include desktop {
+    margin-top: 3rem;
   }
 }
 </style>
