@@ -12,6 +12,12 @@
           v-show="company.thumbnail === undefined"
           src="../../../assets/unsplash/empty_office_640x426.jpg"
         />
+        <!-- TODO: don't forget v-if="companyClaimedByAccount" after demo -->
+        <div class="settings-button">
+          <a :href="`/companies/${this.id}/settings`">
+            <WikiIconWicon icon="cog-outline" size="is-medium" />
+          </a>
+        </div>
       </div>
       <div class="company-banner-content px-3 pb-3">
         <div class="banner-header">
@@ -23,38 +29,40 @@
               {{ company.name ? company.name : company.company_name }}
             </WikiHeaderPrimary>
             <div class="actions is-flex is-align-items-center">
-              <div class="settings-button" v-if="companyClaimedByAccount">
-                <a :href="`/companies/${this.id}/settings`">
-                  <WikiIconWicon icon="cog-outline" size="is-medium" />
-                </a>
-              </div>
               <!-- TODO: remember to add v-if="$auth.user && !companyClaimedByAccount" -->
               <WikiCompanyClaim />
               <WikiButtonBased
-                  outlined
-                  @click="$emit('toggleFollow')"
-                  class="follow-button"
-                  :type="isFollowing ? 'is-success' : 'is-success is-light'"
-                  size="is-small"
+                outlined
+                @click="$emit('toggleFollow')"
+                class="follow-button"
+                :type="isFollowing ? 'is-success' : 'is-success is-light'"
+                size="is-small"
+              >
+                <span
+                  class="is-size-7-mobile is-uppercase has-text-weight-semibold"
                 >
-                  <span class="is-size-7-mobile is-uppercase has-text-weight-semibold">
-                    {{ isFollowing ? "unfollow" : "follow" }}
-                  </span>
-                </WikiButtonBased>
+                  {{ isFollowing ? "unfollow" : "follow" }}
+                </span>
+              </WikiButtonBased>
 
-                <WikiButtonBased
-                  @click="$emit('redirectAddReview')"
-                  class="add-review-button"
-                  type="is-primary"
-                  size="is-small"
-                >
-                  <div class="button-content is-flex is-align-items-center">
-                    <WikiIconWicon icon="plus" size="is-medium" />
-                    <span class="is-size-7-mobile is-uppercase has-text-weight-semibold">
-                      add a review
-                    </span>
-                  </div>
-                </WikiButtonBased>
+              <WikiButtonBased
+                @click="$emit('redirectAddReview')"
+                class="add-review-button"
+                type="is-primary"
+                size="is-small"
+              >
+                <div class="button-content is-flex is-align-items-center">
+                  <WikiIconWicon icon="plus" size="is-medium" />
+                  <span
+                    class="
+                      is-size-7-mobile is-uppercase
+                      has-text-weight-semibold
+                    "
+                  >
+                    add a review
+                  </span>
+                </div>
+              </WikiButtonBased>
               <!-- <div class="action-buttons">
                 <WikiButtonBased
                   outlined
@@ -162,6 +170,7 @@ export default {
 }
 
 .company_banner_container {
+  position: relative;
   display: grid;
   width: 100%;
   height: auto;
@@ -210,7 +219,7 @@ export default {
             top: 0;
             left: 70px;
           }
-          
+
           @include desktop {
             margin-left: 1.5rem;
           }
@@ -249,6 +258,8 @@ export default {
   }
 
   @include desktop {
+    min-height: 95px;
+    min-width: 95px;
     max-height: 95px;
     max-width: 95px;
   }
