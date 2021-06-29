@@ -258,6 +258,8 @@ export default {
   }
 
   @include desktop {
+    min-height: 95px;
+    min-width: 95px;
     max-height: 95px;
     max-width: 95px;
   }
