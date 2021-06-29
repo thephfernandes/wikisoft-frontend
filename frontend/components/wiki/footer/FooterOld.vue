@@ -16,7 +16,6 @@
           <a href="">Mobile view</a>
         </span>
       </div>
-      <!-- TODO: get mediaWiki Icon -->
       <div class="media-wiki-icon"></div>
     </div>
   </footer>
