@@ -3,7 +3,7 @@
     <WikiCardPrimary>
       <template v-slot:header>
         <div class="card-header-title">
-          <p>{{ company.name }} Overview</p>
+          <p>{{ company.company_name }} Overview</p>
         </div>
       </template>
 
@@ -12,7 +12,7 @@
           <div
             class="field"
             :style="{ gridArea: key }"
-            v-for="(key, index) in getCompanyInfoKeys"
+            v-for="(key, index) in companyInfoKeys"
             :key="index"
           >
             <div class="has-text-weight-semibold">
@@ -55,7 +55,7 @@ export default {
   },
 
   computed: {
-    getCompanyInfoKeys() {
+    companyInfoKeys() {
       const arr = [];
       Object.keys(this.company).forEach((key) => {
         if (key.toLowerCase().includes("data_")) {

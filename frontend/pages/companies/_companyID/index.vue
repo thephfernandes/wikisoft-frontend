@@ -9,7 +9,7 @@
         </div>
         <div class="tile is-parent is-vertical is-8">
           <div class="tile is-child">
-            <!-- <WikiCompanyOverview class="block" :company="selectedCompany" /> -->
+            <WikiCompanyOverview class="block" :company="selectedCompany.company_id ? selectedCompany : featuredCompany" />
             <!-- <WikiCompanyJob
                   class="block"
                   v-for="(item, i) in jobs"
