@@ -54,7 +54,7 @@ export default {
   }
 
   .card-content {
-    padding: 1.25rem;
+    padding: 1rem;
     padding-top: 0.5rem;
 
     @include mobile {

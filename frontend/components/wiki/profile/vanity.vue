@@ -2,36 +2,47 @@
   <div class="vanity-card-wrapper">
     <div class="card-header-title">
       <div class="card-header-icon">
-        <figure class="is-128x128">
-          <a @click.prevent="redirectToSelected(name)">
+        <a @click.prevent="redirectToSelected(name)">
+          <div class="profile-image__container">
             <img
-              class="profile-image is-rounded"
+              class="profile-image__content is-rounded"
               :src="
                 profileImage ||
                 'https://bulma.io/images/placeholders/128x128.png'
               "
               alt="profile picture"
             />
-          </a>
-        </figure>
+          </div>
+        </a>
       </div>
       <div class="is-flex is-flex-direction-column header-title-contents">
         <a @click.prevent="redirectToSelected()" style="color: black">
-          <p class="is-size-5 profile-name is-size-6-tablet is-size-6-mobile">{{ name }}</p>
+          <p class="is-size-5 profile-name is-size-6-tablet is-size-6-mobile">
+            {{ name }}
+          </p>
         </a>
         <p
-          class="is-size-6 is-size-7-mobile has-text-weight-normal has-text-grey"
+          class="
+            is-size-6 is-size-7-mobile
+            has-text-weight-normal has-text-grey
+          "
         >
           {{ role }}
         </p>
         <p
-          class="is-size-6 is-size-7-mobile has-text-weight-normal has-text-grey"
+          class="
+            is-size-6 is-size-7-mobile
+            has-text-weight-normal has-text-grey
+          "
           v-if="since"
         >
           {{ since }}
         </p>
         <p
-          class="is-size-6 is-size-7-mobile has-text-weight-normal has-text-grey"
+          class="
+            is-size-6 is-size-7-mobile
+            has-text-weight-normal has-text-grey
+          "
           v-if="edited"
         >
           Edited
@@ -79,6 +90,7 @@ export default {
 .vanity-card-wrapper {
   display: flex;
   width: 100%;
+  padding: 0 0.25rem;
 }
 
 .card-header-icon {
@@ -88,16 +100,6 @@ export default {
   @include mobile {
     min-width: 60px;
   }
-
-  .profile-image {
-    height: 70px;
-    width: 70px;
-
-    @include mobile {
-      height: 45px;
-      width: 45px;
-    }
-  }
 }
 
 .card-header-title {
@@ -106,7 +108,7 @@ export default {
   @include mobile {
     padding-left: 0;
   }
-  
+
   @include tablet {
     padding-left: 1em;
   }
@@ -131,5 +133,23 @@ export default {
 
 .profile-name:hover {
   text-decoration: underline;
+}
+
+.profile-image__container {
+  @include desktop {
+    width: 85px;
+    height: 85px;
+  }
+
+  @include mobile {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.profile-image__content {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>

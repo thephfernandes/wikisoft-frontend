@@ -1,37 +1,14 @@
 <template>
   <div class="base-layout-outer">
     <WikiSearchResults />
-
-    <!-- <BaseLayout>
-      <template v-slot:menu><horizontal /></template>
-      <template v-slot:sidebar>
-        <BigSidebar
-          :user_name="profile.first_name"
-          :user_id="profile.person_profiles ? profile.person_profiles[0] : '/404'"
-          :job_title="profile.description"
-          :img_url="profile.avatar"
-          :has_finished_profile="false"
-          :has_premium="false"
-          :statistics_array="[
-            { key: 'test', value: 76 },
-            { key: 'test1', value: 762 },
-          ]"
-        />
-      </template>
-      <template v-slot:content>
-        <nuxt />
-      </template>
-      <template v-slot:footer>
-        <Footer />
-      </template>
-    </BaseLayout> -->
     <WikiNavbar />
     <div class="base-layout-content columns mb-0">
-      <div class="column is-one-fifth pr-0 py-0">
+      <div class="column base-layout__sidebar is-one-fifth pr-0 pt-1">
         <WikiSidebarPrimary />
       </div>
-      <div class="column py-0">
-        <nuxt class="main-content mt-3" />
+      <div class="column pt-1 pl-0 base-layout__content">
+        <WikiNavbarInternal />
+        <nuxt class="main-content mt-3 px-3" />
       </div>
     </div>
     <WikiFooter />
@@ -70,15 +47,25 @@ export default {
 }
 
 .base-layout-content {
-  padding-top: 38px;
+  @include desktop {
+    margin-top: 2rem;
+  }
+
+  // .base-layout__sidebar, .base-layout__content {
+  //   @include desktop {
+  //     padding-top: 1rem;
+  //   }
+  // }
+
+  .base-layout__content {
+    border-left: $wikiline;
+  }
 }
 
 .main-content {
   position: relative;
   // background: linear-gradient(180deg, #ffffff 0%, #e9ebef 100%);
   min-height: calc(100vh - 80px);
-  border-left: $wikiline;
-  // border-bottom: $wikiline;
   // @include tablet {
   //   min-height: calc(100vh - 80px);
   // }
