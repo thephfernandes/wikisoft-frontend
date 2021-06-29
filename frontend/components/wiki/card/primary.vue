@@ -39,6 +39,14 @@ export default {
   border: 1px solid lightgrey;
   box-shadow: none;
 
+  .card-header, .card-content, .card-footer {
+    padding: 0.5rem 1rem;
+
+    @include mobile {
+      padding: 0.5rem;
+    }
+  }
+
   .card-header {
     box-shadow: none;
 
@@ -51,15 +59,6 @@ export default {
 
   .card-header.borderBottom {
       border-bottom: 1px solid lightgrey;
-  }
-
-  .card-content {
-    padding: 1rem;
-    padding-top: 0.5rem;
-
-    @include mobile {
-      padding: 0.5rem;
-    }
   }
 
   .card-footer {
