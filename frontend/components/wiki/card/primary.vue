@@ -1,12 +1,12 @@
 <template>
-  <div class="card block">
-    <div class="card-header " :class="{ borderBottom: headerBorder,  }">
+  <div class="card block" :class="{ borderless: borderless }">
+    <div class="card-header " :class="{ borderBottom: headerBorder  }">
       <slot name="header"></slot>
     </div>
     <div class="card-content">
       <slot name="content"></slot>
     </div>
-    <div class="card-footer" :class="{ borderTop: footerBorder, }">
+    <div class="card-footer" :class="{ borderTop: footerBorder }">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -17,6 +17,12 @@ export default {
   name: "WikiCard",
 
   props: {
+    borderless: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+
     headerBorder: {
       type: Boolean,
       default: false,
@@ -28,12 +34,15 @@ export default {
       default: false,
       required: false,
     }
-
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.card.borderless {
+  border: none;
+}
+
 .card {
   border-radius: 0.6em;
   border: 1px solid lightgrey;

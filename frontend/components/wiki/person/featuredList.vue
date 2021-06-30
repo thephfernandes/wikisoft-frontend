@@ -1,5 +1,5 @@
 <template>
-  <WikiCardPrimary>
+  <WikiCardPrimary borderless>
     <template v-slot:header>
       <div class="list-header">
         <div class="is-flex is-justify-content-space-between">
