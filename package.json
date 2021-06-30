@@ -60,5 +60,9 @@
     "vue-recaptcha": "^1.3.0",
     "vue2-google-maps": "^0.10.7",
     "vuex-persistedstate": "^4.0.0-beta.3"
+  },
+  "devDependencies": {
+    "@directus/cli": "^9.0.0-rc.83",
+    "@directus/extension-sdk": "^9.0.0-rc.83"
   }
 }
