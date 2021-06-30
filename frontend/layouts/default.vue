@@ -84,6 +84,8 @@ export default {
 .internal-nav {
   @include desktop {
     margin-top: 3rem;
+    border-left: $wikiline;
+    border-right: $wikiline;
   }
 }
 </style>
