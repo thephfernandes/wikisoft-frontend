@@ -1,29 +1,30 @@
 <template>
   <WikiCardFeatured class="featured-company-card">
     <template v-slot:header>
-      <div class="card-header-icon">
-        <img
-          :src="company.company_logo"
-          :alt="`${company.company_name} logo`"
-          class="company-logo"
-        />
-      </div>
-
-      <div>
-        <div
-          class="
-            card-header-title
-            px-0
-            py-0
-            is-flex-direction-column is-align-items-flex-start
-          "
-        >
-          <WikiHeaderPrimary :size="3" :semantic="3">
-            {{ company.company_name }}
-          </WikiHeaderPrimary>
+      <nuxt-link :to="`/companies/${company.company_name}`">
+        <div class="card-header-icon">
+          <img
+            :src="company.company_logo"
+            :alt="`${company.company_name} logo`"
+            class="company-logo"
+          />
         </div>
-        <a class="company-website" :href="company.url">{{ company.url }}</a>
-      </div>
+        <div>
+          <div
+            class="
+              card-header-title
+              px-0
+              py-0
+              is-flex-direction-column is-align-items-flex-start
+            "
+          >
+            <WikiHeaderPrimary :size="3" :semantic="3">
+              {{ company.company_name }}
+            </WikiHeaderPrimary>
+          </div>
+        </div>
+      </nuxt-link>
+      <a class="company-website" :href="company.url">{{ publicWebsite }}</a>
     </template>
 
     <template v-slot:content>
@@ -58,8 +59,21 @@ export default {
       required: true,
     },
   },
+
+  computed: {
+    publicWebsite() {
+      if (this.company.url.includes('https://')) {
+        return this.company.url.slice(12, this.company.url.length);
+      } else {
+        return this.company.url.slice(11, this.company.url.length)
+      }
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+.company-logo {
+  max-height: 45px;
+}
 </style>

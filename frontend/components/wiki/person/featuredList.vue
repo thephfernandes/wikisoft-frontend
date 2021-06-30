@@ -18,14 +18,16 @@
     <template v-slot:content>
       <div class="featured-people-list">
         <div class="featured-people">
-          <nuxt-link
+          <!-- <nuxt-link
             class="featured-person"
-            v-for="(item, i) in people"
-            :key="i"
+            
             :to="`/people/${item.person_name}`"
           >
-            <WikiPersonFeaturedCard :person="item" />
-          </nuxt-link>
+            <WikiPersonFeaturedCard v-for="(item, i) in people"
+            :key="i" :person="item" />
+          </nuxt-link> -->
+          <WikiPersonFeaturedCard v-for="(item, i) in people"
+            :key="i" :person="item" />
         </div>
       </div>
     </template>

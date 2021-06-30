@@ -1,12 +1,14 @@
 <template>
   <WikiCardFeatured class="featured-person-card">
     <template v-slot:header>
-      <WikiProfileVanity
-        :name="person.full_name"
-        :profileImage="person.image"
-        category="people"
-      >
-      </WikiProfileVanity>
+      <nuxt-link :to="`/people/${person.full_name}`">
+        <WikiProfileVanity
+          :name="person.full_name"
+          :profileImage="person.image"
+          category="people"
+        >
+        </WikiProfileVanity>
+      </nuxt-link>
     </template>
 
     <template v-slot:content>

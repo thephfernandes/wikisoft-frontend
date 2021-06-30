@@ -18,14 +18,18 @@
     <template v-slot:content>
       <div class="featured-companies-list">
         <div class="featured-companies">
-          <nuxt-link
+          <!-- <nuxt-link
             class="featured-company"
             v-for="(item, i) in companies"
             :key="i"
             :to="`/companies/${item.company_name}`"
           >
-            <WikiCompanyFeaturedCard :company="item" />
-          </nuxt-link>
+            <WikiCompanyFeaturedCard  v-for="(item, i) in companies"
+            :key="i" :company="item" />
+          </nuxt-link> -->
+          
+          <WikiCompanyFeaturedCard  v-for="(item, i) in companies"
+            :key="i" :company="item" />
         </div>
       </div>
     </template>
