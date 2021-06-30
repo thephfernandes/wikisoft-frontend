@@ -18,11 +18,14 @@
     <template v-slot:content>
       <div class="featured-companies-list">
         <div class="featured-companies">
-          <div class="featured-company" v-for="(item, i) in companies" :key="i">
-            <nuxt-link :to="`/companies/${item.company_name}`">
-              <WikiCompanyFeaturedCard :company="item" />
-            </nuxt-link>
-          </div>
+          <nuxt-link
+            class="featured-company"
+            v-for="(item, i) in companies"
+            :key="i"
+            :to="`/companies/${item.company_name}`"
+          >
+            <WikiCompanyFeaturedCard :company="item" />
+          </nuxt-link>
         </div>
       </div>
     </template>
@@ -52,6 +55,7 @@ export default {
   }
 
   @include desktop {
+    padding: 0rem 0.25rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     max-height: 125vh;
@@ -60,9 +64,10 @@ export default {
     scrollbar-width: none; /* Firefox */
   }
 
-  .featured-company {
-    max-width: 100%;
-  }
+  // .featured-company {
+  //   max-width: 100%;
+  //   padding: 0.5rem 0.25rem;
+  // }
 }
 
 @include desktop {

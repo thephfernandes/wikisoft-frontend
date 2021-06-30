@@ -1,26 +1,16 @@
 <template>
-  <WikiCardPrimary class="featured-person-card">
+  <WikiCardFeatured class="featured-person-card">
     <template v-slot:header>
       <WikiProfileVanity
         :name="person.full_name"
         :profileImage="person.image"
         category="people"
       >
-        <template v-slot:action>
-          <WikiButtonBased
-            outlined
-            squared
-            type="is-success is-light"
-            class="follow-button"
-          >
-            <span class="is-uppercase">follow</span>
-          </WikiButtonBased>
-        </template>
       </WikiProfileVanity>
     </template>
 
     <template v-slot:content>
-      <p class="has-text-weight-semibold pb-2">
+      <p class="has-text-grey">
         {{ person.location }} · {{ person.founder_of }}
       </p>
 
@@ -28,9 +18,20 @@
     </template>
 
     <template v-slot:footer>
-      <WikiProfileTag :tag="person.industry"/>
+      <WikiProfileTag :tag="person.industry" />
     </template>
-  </WikiCardPrimary>
+
+    <template v-slot:action>
+      <WikiButtonBased
+        outlined
+        squared
+        type="is-success is-light"
+        class="follow-button"
+      >
+        <span class="is-uppercase">follow</span>
+      </WikiButtonBased>
+    </template>
+  </WikiCardFeatured>
 </template>
 
 <script>
@@ -51,9 +52,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.featured-person-card {
-  @include desktop {
-    height: 420px;
-  }
-}
 </style>

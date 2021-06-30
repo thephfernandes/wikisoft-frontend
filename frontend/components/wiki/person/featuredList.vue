@@ -14,13 +14,18 @@
         </div>
       </div>
     </template>
-    
+
     <template v-slot:content>
       <div class="featured-people-list">
         <div class="featured-people">
-          <div class="featured-person" v-for="(item, i) in people" :key="i">
+          <nuxt-link
+            class="featured-person"
+            v-for="(item, i) in people"
+            :key="i"
+            :to="`/people/${item.person_name}`"
+          >
             <WikiPersonFeaturedCard :person="item" />
-          </div>
+          </nuxt-link>
         </div>
       </div>
     </template>
@@ -51,6 +56,7 @@ export default {
   }
 
   @include desktop {
+    padding: 0rem 0.25rem;
     max-height: 125vh;
     overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */

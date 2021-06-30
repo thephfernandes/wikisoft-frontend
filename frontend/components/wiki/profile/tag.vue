@@ -1,9 +1,9 @@
 <template>
   <div class="profile-tag">
     <WikiIconWicon class="profile-tag__icon" v-if="icon" :icon="icon" size="medium" />
-    <span class="profile-tag__content">
+    <p class="profile-tag__content">
       {{ tag }}
-    </span>
+    </p>
   </div>
 </template>
 

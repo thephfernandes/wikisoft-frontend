@@ -1,5 +1,5 @@
 <template>
-  <WikiCardPrimary class="featured-company-card">
+  <WikiCardFeatured class="featured-company-card">
     <template v-slot:header>
       <div class="card-header-icon">
         <img
@@ -8,37 +8,25 @@
           class="company-logo"
         />
       </div>
+
+      <div>
+        <div
+          class="
+            card-header-title
+            px-0
+            py-0
+            is-flex-direction-column is-align-items-flex-start
+          "
+        >
+          <WikiHeaderPrimary :size="3" :semantic="3">
+            {{ company.company_name }}
+          </WikiHeaderPrimary>
+        </div>
+        <a class="company-website" :href="company.url">{{ company.url }}</a>
+      </div>
     </template>
 
     <template v-slot:content>
-      <div
-        class="is-flex is-align-items-center is-justify-content-space-between"
-      >
-        <div>
-          <div
-            class="
-              card-header-title
-              px-0
-              py-0
-              is-flex-direction-column is-align-items-flex-start
-            "
-          >
-            <WikiHeaderPrimary :size="3" :semantic="3">
-              {{ company.company_name }}
-            </WikiHeaderPrimary>
-          </div>
-          <a class="company-website" :href="company.url">{{ company.url }}</a>
-        </div>
-
-        <WikiButtonBased
-          outlined
-          squared
-          type="is-success is-light"
-          class="follow-button"
-        >
-          <span class="is-uppercase">follow</span>
-        </WikiButtonBased>
-      </div>
       <p class="has-text-grey company-headquarters">
         {{ company.headquarters }}
       </p>
@@ -48,7 +36,18 @@
     <template v-slot:footer>
       <WikiProfileTag :tag="company.industry" />
     </template>
-  </WikiCardPrimary>
+
+    <template v-slot:action>
+      <WikiButtonBased
+        outlined
+        squared
+        type="is-success is-light"
+        class="follow-button"
+      >
+        <span class="is-uppercase">follow</span>
+      </WikiButtonBased>
+    </template>
+  </WikiCardFeatured>
 </template>
 
 <script>
@@ -63,36 +62,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.company-logo {
-  @include mobile {
-    max-height: 85px;
-  }
-
-  @include desktop {
-    max-height: 45px;
-    max-width: 300px;
-  }
-}
-
-.company-website {
-  @include mobile {
-    display: none;
-  }
-}
-
-.company-headquarters {
-  padding: 0.5rem 0;
-}
-
-.featured-company-card {
-  @include desktop {
-    height: 420px;
-  }
-}
-
-.card-header-icon {
-  @include desktop {
-    height: 75px;
-  }
-}
 </style>
