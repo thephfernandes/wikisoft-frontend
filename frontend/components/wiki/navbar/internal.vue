@@ -21,7 +21,8 @@
         v-for="(item, i) in rightList"
         :key="i"
       >
-        <WikiIconWicon :icon="item.icon" size="0.7" />
+        <WikiIconWicon v-if="item.name !== $auth.user.first_name" class="nav-links__icon" :icon="item.icon" size="0.7" />
+        <WikiProfilePhoto v-else class="nav-links__icon" dimensions="16x16"/>
         <span class="has-text-weight-semibold">
           {{ item.name }}
         </span>
@@ -70,14 +71,14 @@ export default {
 
       rightList: [
         {
-          link: "/messages",
-          name: "Messages",
-          icon: "chat-outline",
+          link: "/account",
+          name: "Settings",
+          icon: "cog-outline",
           size: "medium",
         },
         {
           link: "/account",
-          name: "Me",
+          name: this.$auth.user.first_name,
         },
       ],
     };
@@ -122,6 +123,6 @@ export default {
 }
 
 .nav-links__icon {
-  margin-right: 0.25rem;
+  margin-right: 0.5rem;
 }
 </style>
