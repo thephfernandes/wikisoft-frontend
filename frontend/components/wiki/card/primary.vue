@@ -1,12 +1,12 @@
 <template>
-  <div class="card block" :class="{ borderless: borderless }">
-    <div class="card-header " :class="{ borderBottom: headerBorder  }">
+  <div class="card block" :class="{ borderless: borderless, featured: featured }">
+    <div class="card-header" :class="{ borderBottom: headerBorder, featured: featured }">
       <slot name="header"></slot>
     </div>
-    <div class="card-content">
+    <div class="card-content" :class="{ featured: featured   }">
       <slot name="content"></slot>
     </div>
-    <div class="card-footer" :class="{ borderTop: footerBorder }">
+    <div class="card-footer" :class="{ borderTop: footerBorder, featured: featured }">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -18,6 +18,12 @@ export default {
 
   props: {
     borderless: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+
+    featured: {
       type: Boolean,
       default: false,
       required: false,
@@ -43,13 +49,23 @@ export default {
   border: none;
 }
 
+.card.featured {
+  @include desktop {
+    height: 420px;
+  }
+}
+
 .card {
   border-radius: 0.6em;
   border: 1px solid lightgrey;
   box-shadow: none;
 
+  display: flex;
+  flex-direction: column;
+
   .card-header, .card-content, .card-footer {
     padding: 0.5rem 1rem;
+    flex-grow: 1;
 
     @include mobile {
       padding: 0.5rem;
@@ -66,12 +82,30 @@ export default {
     }
   }
 
+  .featured {
+    width: 100%;
+  }
+  
   .card-header.borderBottom {
       border-bottom: 1px solid lightgrey;
   }
 
+  .card-header.featured {
+    height: 30%;
+  }
+
+  .card-content.featured {
+    height: 50%;
+    display: flex;
+    align-items: center;
+  }
+
   .card-footer {
     border-top: none;
+  }
+
+  .card-footer.featured {
+    height: 20%;
   }
 
   .card-footer.borderTop {

@@ -1,5 +1,5 @@
 <template>
-  <article class="has-text-black py-3">
+  <article class="has-text-black">
     <p v-if="!readMoreActive"> {{ fullText.slice(0, maxLength) }}<span v-if="exceeds">...</span> </p>
 
     <p v-else>
