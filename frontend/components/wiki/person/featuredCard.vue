@@ -20,7 +20,7 @@
     </template>
 
     <template v-slot:footer>
-      <WikiProfileTag :tag="person.industry" />
+      <WikiProfileTag :tag="industries[0]" />
     </template>
 
     <template v-slot:action>
