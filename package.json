@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/wikisoft-code/io#readme",
   "dependencies": {
+    "@directus/sdk-js": "^9.0.0-rc.53",
     "@fortawesome/fontawesome-pro": "^5.15.3",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
@@ -37,7 +38,7 @@
     "@nuxtjs/fontawesome": "^1.1.2",
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/style-resources": "^1.0.0",
-    "@pnodev/nuxt-directus": "^0.2.0",
+    "@pnodev/nuxt-directus": "github:rubenbonilla/nuxt-directus",
     "animate.css": "^4.1.1",
     "cookie": "^0.4.1",
     "cookie-universal-nuxt": "^2.1.4",
