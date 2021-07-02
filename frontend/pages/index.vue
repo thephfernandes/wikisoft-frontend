@@ -1,14 +1,18 @@
 <template>
   <div>
     <div class="block">
-      <div class="columns">
-        <div class="column">
-          <WikiCompanyFeaturedList :companies="featuredCompanies" />
-        </div>
-        <div class="column">
-          <WikiPersonFeaturedList :people="featuredPeople" />
-        </div>
-      </div>
+      <WikiCardPrimary style="background: rgb(242, 245, 247);">
+        <template v-slot:content>
+          <div class="columns">
+            <div class="column">
+              <WikiCompanyFeaturedList style="background: rgb(242, 245, 247);" :companies="featuredCompanies" />
+            </div>
+            <div class="column">
+              <WikiPersonFeaturedList style="background: rgb(242, 245, 247);" :people="featuredPeople" />
+            </div>
+          </div>
+        </template>
+      </WikiCardPrimary>
     </div>
   </div>
 </template>

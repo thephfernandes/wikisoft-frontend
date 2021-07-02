@@ -21,7 +21,7 @@
         v-for="(item, i) in rightList"
         :key="i"
       >
-        <WikiIconWicon v-if="item.name !== $auth.user.first_name" class="nav-links__icon" :icon="item.icon" size="0.7" />
+        <WikiIconWicon v-if="item.name !== 'Me'" class="nav-links__icon" :icon="item.icon" size="0.7" />
         <WikiProfilePhoto v-else class="nav-links__icon" dimensions="16x16"/>
         <span class="has-text-weight-semibold">
           {{ item.name }}
@@ -78,7 +78,7 @@ export default {
         },
         {
           link: "/account",
-          name: this.$auth.user.first_name,
+          name: 'Me',
         },
       ],
     };
