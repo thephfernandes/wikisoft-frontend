@@ -22,14 +22,17 @@
               }}
             </div>
             <span class="has-text-grey">
-              <a v-if="key == 'data_website'" :href="companyWebsite">{{ company[key] || "-" }}</a>
+              <a v-if="key === 'data_website'" :href="companyWebsite">{{ company[key] || "-" }}</a>
+              <span v-else-if="key === 'data_competitors'">
+                {{ trimmedCompetitors }}
+              </span>
               <span v-else>
                 {{ company[key] || "-" }}
               </span>
             </span>
           </div>
         </div>
-        <WikiTextCollapsible :fullText="company.description" :charLimit="300" />
+        <WikiTextCollapsible :fullText="company.description" :charLimit="300" expanded />
       </template>
       <template v-slot:footer> </template>
     </WikiCardPrimary>
@@ -75,6 +78,23 @@ export default {
         }
       }
       return "";
+    },
+
+    trimmedCompetitors() {
+      const competitors = this.company.data_competitors.split(",");
+      if (competitors.length > 3) {
+        let str = "";
+        for (let i = 0; i < 3; i++) {
+          if (i !== 2) {
+            str += competitors[i] + ','
+          } else {
+            str += competitors[i]
+          }
+        }
+        return str;
+      } else {
+        return this.company.data_competitors;
+      }
     }
   },
 };
@@ -90,7 +110,7 @@ export default {
   grid-template-rows: auto auto auto auto;
   grid-template-areas:
     "data_website data_headquarters"
-    "data_size data_founded"
+    "data_employees data_founded"
     "data_type data_industry"
     "data_revenue data_competitors";
   .field {
@@ -114,7 +134,7 @@ export default {
     grid-template-areas:
       "data_website"
       "data_headquarters"
-      "data_size"
+      "data_employees"
       "data_founded"
       "data_type"
       "data_industry"
