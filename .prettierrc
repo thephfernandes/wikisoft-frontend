@@ -1,0 +1,7 @@
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "single-quote": true,
+  "quote-props": "preserve",
+  "vue-indent-script-and-style": true
+}
