@@ -1,15 +1,15 @@
 <template>
   <div class="company-profile-page">
     <div class="container">
-      <div class="tile is-vertical" v-if="selectedCompany.company_id || featuredCompany.company_name">
+      <div class="tile is-vertical" v-if="featuredCompany.company_name || selectedCompany.company_id">
         <div class="tile is-parent">
           <div class="tile is-child">
-            <WikiCompanyBanner :company="selectedCompany.company_id ? selectedCompany : featuredCompany" />
+            <WikiCompanyBanner :company="!featuredCompany ? selectedCompany : featuredCompany" />
           </div>
         </div>
         <div class="tile is-parent is-vertical is-8">
           <div class="tile is-child">
-            <WikiCompanyOverview class="block" :company="selectedCompany.company_id ? selectedCompany : featuredCompany" />
+            <WikiCompanyOverview class="block" :company="!featuredCompany ? selectedCompany : featuredCompany" />
             <!-- <WikiCompanyJob
                   class="block"
                   v-for="(item, i) in jobs"
@@ -137,7 +137,7 @@ export default {
 
   methods: {
     findFeaturedCompany() {
-      this.featuredCompany = companyData.find(item => item.company_name = this.companyId)
+      this.featuredCompany = companyData.find(item => item.company_name.toLowerCase() === this.companyId.toLowerCase())
     }
   }
 };
