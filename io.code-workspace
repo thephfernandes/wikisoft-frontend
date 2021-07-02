@@ -1,22 +1,38 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"sqltools.connections": [
-			{
-				"previewLimit": 5110134443410,
-				"server": "10.0.0.251",
-				"port": 5432,
-				"askForPassword": true,
-				"driver": "PostgreSQL",
-				"name": "wikiprofile-production",
-				"group": "wikiprofile",
-				"database": "wikiprofile",
-				"username": "wikiprofile"
-			}
-		]
-	}
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "sqltools.connections": [
+      {
+        "previewLimit": 5110134443410,
+        "server": "10.0.0.251",
+        "port": 5432,
+        "askForPassword": true,
+        "driver": "PostgreSQL",
+        "name": "wikiprofile-production",
+        "group": "wikiprofile",
+        "database": "wikiprofile",
+        "username": "wikiprofile"
+      }
+    ],
+    "javascript.preferences.quoteStyle": "single",
+    "typescript.preferences.quoteStyle": "single",
+    "prettier.jsxSingleQuote": true,
+    "prettier.quoteProps": "preserve",
+    "prettier.singleQuote": true,
+    "javascript.format.insertSpaceAfterConstructor": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+    "typescript.format.insertSpaceAfterConstructor": true,
+    "eslint.format.enable": true,
+    "prettier.documentSelectors": [
+      ".js"
+    ],
+    "prettier.insertPragma": true,
+    "prettier.requireConfig": true,
+    "prettier.requirePragma": true
+  }
 }
