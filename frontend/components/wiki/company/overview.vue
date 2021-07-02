@@ -2,8 +2,10 @@
   <div class="company-overview">
     <WikiCardPrimary>
       <template v-slot:header>
-        <div class="card-header-title">
-          <p>{{ company.company_name }} Overview</p>
+        <div class="card-header-title px-0">
+          <WikiHeaderPrimary :size="3" :semantic="2">
+            {{ company.company_name }} overview
+          </WikiHeaderPrimary>
         </div>
       </template>
 
@@ -22,7 +24,7 @@
               }}
             </div>
             <span class="has-text-grey">
-              <a v-if="key === 'data_website'" :href="companyWebsite">{{ company[key] || "-" }}</a>
+              <a v-if="key === 'data_website'" :href="companyWebsite">{{ trimmedWebsite || "-" }}</a>
               <span v-else-if="key === 'data_competitors'">
                 {{ trimmedCompetitors }}
               </span>
@@ -80,6 +82,14 @@ export default {
       return "";
     },
 
+    trimmedWebsite() {
+      if (this.company.url.includes('https://')) {
+        return this.company.url.slice(12, this.company.url.length);
+      } else {
+        return this.company.url.slice(11, this.company.url.length)
+      }
+    },
+
     trimmedCompetitors() {
       const competitors = this.company.data_competitors.split(",");
       if (competitors.length > 3) {
@@ -111,8 +121,8 @@ export default {
   grid-template-areas:
     "data_website data_headquarters"
     "data_employees data_founded"
-    "data_type data_industry"
-    "data_revenue data_competitors";
+    "data_revenue data_competitors"
+    "data_industry data_type";
   .field {
     @include desktop {
       width: 100%;
