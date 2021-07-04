@@ -1,0 +1,57 @@
+
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: Start Server
+    init: npm install
+    command: npm start
+
+  - name: Start Server
+    init: npm install
+    command: npm start
+
+  - name: pgadmin4
+    command: docker run --name pgadmin -host -e 'PGADMIN_LISTEN_ADDRESS=0.0.0.0' -e 'PGADMIN_LISTEN_PORT=5050' -e 'PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION=True' -e 'PGADMIN_CONFIG_LOGIN_BANNER="Authorised users only!"' -d dpage/pgadmin4
+
+github:
+  prebuilds:
+    # enable for the default branch (defaults to true)
+    master: true
+# enable for all branches in this repo (defaults to false)
+    branches: true
+# enable for pull requests coming from this repo (defaults to true)
+    pullRequests: true
+# enable for pull requests coming from forks (defaults to false)
+    pullRequestsFromForks: false
+# add a check to pull requests (defaults to true)
+    addCheck: true
+# add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
+    addComment: false
+# add a "Review in Gitpod" button to the pull request's description (defaults to false)
+    addBadge: true
+
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 8080
+    onOpen: ignore
+  - port: 8443
+    onOpen: ignore
+  - port: 8055
+    onOpen: ignore
+  - port: 5432
+    onOpen: ignore
+  - port: 5050
+    onOpen: ignore
+
+
+vscode:
+  extensions:
+    - cweijan.vscode-postgresql-client2
+    - eg2.vscode-npm-script
+    - christian-kohler.npm-intellisense
+    - octref.vetur
+    - eamodio.gitlens
+    - github.vscode-pull-request-github
+    - dbaeumer.vscode-eslint
+    - ms-azuretools.vscode-docker
