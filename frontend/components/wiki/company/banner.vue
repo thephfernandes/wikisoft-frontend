@@ -1,91 +1,82 @@
 <template>
   <div class="block">
-    <div class="card company_banner_container">
-      <div class="coverpicture_container">
-        <img
-          class="company_coverpicture"
-          v-show="company.thumbnail !== undefined"
-          :src="thumbnailSrc"
-        />
-        <img
-          class="company_coverpicture"
-          v-show="company.thumbnail === undefined"
-          src="../../../assets/unsplash/empty_office_640x426.jpg"
-        />
+    <div class="card company-banner is-flex is-flex-direction-column">
+      <img
+        class="company-banner__coverpicture"
+        v-show="company.thumbnail !== undefined"
+        :src="thumbnailSrc"
+        alt="company banner"
+      />
+      <img
+        class="company-banner__coverpicture"
+        v-show="company.thumbnail === undefined"
+        src="../../../assets/logos/globe_banner_grey.png"
+      />
+      <div class="settings-button">
+        <a :href="`/companies/${this.id}/settings`">
+          <WikiIconWicon icon="cog-outline" size="is-medium" />
+        </a>
       </div>
-      <div class="company-banner-content px-3 pb-3">
-        <div class="banner-header">
-          <div class="company-logo-wrapper">
-            <img class="company_logo" :src="photoSrc" />
-          </div>
-          <div class="header-name-actions" style="width: 100%">
-            <WikiHeaderPrimary class="company-name" :size="4" :semantic="2">
-              {{ company.name ? company.name : company.company_name }}
-            </WikiHeaderPrimary>
-            <div class="actions is-flex is-align-items-center">
-              <div class="settings-button" v-if="companyClaimedByAccount">
-                <a :href="`/companies/${this.id}/settings`">
-                  <WikiIconWicon icon="cog-outline" size="is-medium" />
-                </a>
-              </div>
-              <!-- TODO: remember to add v-if="$auth.user && !companyClaimedByAccount" -->
-              <WikiCompanyClaim />
-              <WikiButtonBased
-                  outlined
-                  @click="$emit('toggleFollow')"
-                  class="follow-button"
-                  :type="isFollowing ? 'is-success' : 'is-success is-light'"
-                  size="is-small"
-                >
-                  <span class="is-size-7-mobile is-uppercase has-text-weight-semibold">
-                    {{ isFollowing ? "unfollow" : "follow" }}
-                  </span>
-                </WikiButtonBased>
-
-                <WikiButtonBased
-                  @click="$emit('redirectAddReview')"
-                  class="add-review-button"
-                  type="is-primary"
-                  size="is-small"
-                >
-                  <div class="button-content is-flex is-align-items-center">
-                    <WikiIconWicon icon="plus" size="is-medium" />
-                    <span class="is-size-7-mobile is-uppercase has-text-weight-semibold">
-                      add a review
-                    </span>
-                  </div>
-                </WikiButtonBased>
-              <!-- <div class="action-buttons">
-                <WikiButtonBased
-                  outlined
-                  @click="$emit('toggleFollow')"
-                  class="follow-button"
-                  :type="isFollowing ? 'is-success' : 'is-success is-light'"
-                  size="is-small"
-                >
-                  <span class="is-uppercase has-text-weight-semibold">
-                    {{ isFollowing ? "unfollow" : "follow" }}
-                  </span>
-                </WikiButtonBased>
-
-                <WikiButtonBased
-                  @click="$emit('redirectAddReview')"
-                  class="add-review-button"
-                  type="is-primary"
-                  size="is-small"
-                >
-                  <div class="button-content is-flex is-align-items-center">
-                    <WikiIconWicon icon="plus" size="is-medium" />
-                    <span class="is-uppercase has-text-weight-semibold">
-                      add a review
-                    </span>
-                  </div>
-                </WikiButtonBased>
-              </div> -->
-            </div>
+      <div class="company-banner__content">
+        <div class="company-banner__logo">
+          <div class="company-logo__wrapper is-flex is-align-items-center is-justify-content-center">
+            <img
+              class="company-logo__image"
+              :src="
+                company.company_logo ||
+                `https://io.wikiprofile.com/files/${logoSrc}`
+              "
+              alt=""
+            />
           </div>
         </div>
-        <WikiCompanyProfileStats class="company-profile-stats" :id="id" />
+        <div class="company-banner__header is-flex is-justify-content-space-between">
+          <WikiHeaderPrimary class="company-name" :size="4" :semantic="2">
+            {{ company.name ? company.name : company.company_name }}
+          </WikiHeaderPrimary>
+          <div
+            class="
+              company-banner__actions
+              is-flex
+              is-align-items-center
+              is-justify-content-space-between
+            "
+          >
+            <WikiCompanyClaim v-if="worksAtCompany" />
+            <WikiButtonBased
+              outlined
+              @click="$emit('toggleFollow')"
+              class="follow-button"
+              :type="isFollowing ? 'is-success' : 'is-success is-light'"
+              size="is-small"
+            >
+              <span
+                class="is-size-7-mobile is-uppercase has-text-weight-semibold"
+              >
+                {{ isFollowing ? "unfollow" : "follow" }}
+              </span>
+            </WikiButtonBased>
+
+            <WikiButtonBased
+              @click="$emit('redirectAddReview')"
+              class="add-review-button"
+              type="is-primary"
+              size="is-small"
+            >
+              <div class="button-content is-flex is-align-items-center">
+                <WikiIconWicon icon="plus" size="is-medium" />
+                <span
+                  class="is-size-7-mobile is-uppercase has-text-weight-semibold"
+                >
+                  add a review
+                </span>
+              </div>
+            </WikiButtonBased>
+          </div>
+        </div>
+        <!-- <div class="company-banner__stats">
+        <WikiCompanyProfileStats :id="id" />
+      </div> -->
       </div>
     </div>
   </div>
@@ -108,25 +99,32 @@ export default {
       isFollowing: false,
       displayClaimMessage: false,
       id: this.$route.params.companyID,
+      logoSrc: "",
     };
   },
 
   computed: {
     thumbnailSrc() {
-      return `http://io.wikiprofile.com/assets/${this.company.thumbnail}`;
+      if (this.company.thumbnail) {
+        return `http://io.wikiprofile.com/assets/${this.company.thumbnail}`;
+      }
     },
 
-    photoSrc() {
-      return this.company.photo
-        ? `http://io.wikiprofile.com/assets/${this.company.photo}`
-        : "/_nuxt/frontend/assets/logos/wikiprofile/wikiprofile-logo-icon.svg";
-    },
+    // photoSrc() {
+    //   return this.company.photo
+    //     ? `http://io.wikiprofile.com/assets/${this.company.photo}`
+    //     : "/_nuxt/frontend/assets/logos/wikiprofile/wikiprofile-logo-icon.svg";
+    // },
 
     companyClaimedByAccount() {
       return this.$store.getters["companies/getClaimedCompanies"].find(
         (item) => item.company_id === this.id
       );
     },
+
+    worksAtCompany() {
+      return this.$auth.user.companies.find(item => item.company_id === this.id);
+    }
   },
 
   methods: {
@@ -140,10 +138,27 @@ export default {
         this.$router.push("/login");
       }
     },
+
+    //TODO: generate signed urls for image sources because this sucks
+    async fetchLogoSrc() {
+      if (this.id) {
+        try {
+          const file = await this.$directus.files.read(
+            this.$store.getters["companies/getSelectedCompany"].avatar
+          );
+          if (file.data) {
+            this.logoSrc = file.data.id;
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    },
   },
 
   async created() {
     // await this.$store.dispatch("companies/fetchClaimedCompanies");
+    await this.fetchLogoSrc();
   },
 };
 </script>
@@ -155,113 +170,60 @@ export default {
   box-shadow: none;
 }
 
-.settings-button {
-  position: absolute;
-  right: 1em;
-  top: 1em;
-}
+.company-banner {
+  position: relative;
 
-.company_banner_container {
-  display: grid;
-  width: 100%;
-  height: auto;
-  grid-template-columns: 100%;
-  grid-template-rows: 50% 50%;
-  grid-template-areas:
-    "bannerpicture"
-    "bannercontent";
-
-  @include desktop {
-    max-height: 270px;
-  }
-
-  .company_coverpicture {
-    border-top-left-radius: 0.6rem;
-    border-top-right-radius: 0.6rem;
-    grid-area: bannerpicture;
-    width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-  }
-
-  .company-banner-content {
-    position: relative;
-    grid-area: bannercontent;
-
-    .banner-header {
-      position: relative;
-
-      @include desktop {
-        width: 100%;
-        display: flex;
-        transform: translateY(-20%);
-      }
-
-      .header-name-actions {
-        @include desktop {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .company-name {
-          @include mobile {
-            position: absolute;
-            top: 0;
-            left: 70px;
-          }
-          
-          @include desktop {
-            margin-left: 1.5rem;
-          }
-        }
-
-        .actions > :not(:last-child) {
-          @include mobile {
-            margin-right: 0.3rem;
-          }
-
-          @include desktop {
-            margin-right: 0.75rem;
-          }
-        }
-      }
-    }
+  .settings-button {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
   }
 }
 
-.company-logo-wrapper {
-  transform: translateY(-30%);
-  border: 1px solid rgba($primary-light-gray, 50%);
-  border-radius: 0.5em;
-  background: white;
-  padding: 0.2em;
-
-  @include mobile {
-    transform: translateY(-40%);
-    max-height: 55px;
-    max-width: 55px;
-  }
+.company-banner__coverpicture {
+  border-top-left-radius: 0.6rem;
+  border-top-right-radius: 0.6rem;
 
   @include tablet {
-    max-height: 75px;
-    max-width: 75px;
-  }
-
-  @include desktop {
-    max-height: 95px;
-    max-width: 95px;
+    max-height: 125px;
   }
 }
 
-.company_titlelogo {
-  grid-area: logotitle;
+.company-banner__content {
   position: relative;
-}
 
-.company-profile-stats {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  .company-logo__wrapper {
+    position: absolute;
+    left: 1rem;
+    transform: translateY(-50%);
+    border: 1px solid rgba($primary-light-gray, 50%);
+    border-radius: 0.6rem;
+    background: white;
+    padding: 0.2rem;
+
+    @include tablet {
+      height: 75px;
+      width: 75px;
+    }
+
+    .company-logo__image {
+      max-height: 100%;
+    }
+  }
+
+  .company-banner__header {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    
+    @include tablet {
+      padding-left: calc(75px + 1.5rem);
+    }
+  }
+
+  .company-banner__actions > :not(:last-child) {
+    @include tablet {
+      margin-right: 0.75rem;
+    }    
+  }
 }
 </style>

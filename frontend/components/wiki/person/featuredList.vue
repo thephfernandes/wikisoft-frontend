@@ -1,23 +1,33 @@
 <template>
-  <WikiCardPrimary>
-    <template v-slot:content>
-      <div class="featured-people-list block">
-        <div class="list-header">
-          <div class="is-flex is-justify-content-space-between">
-            <WikiHeaderPrimary class="has-text-grey" :size="2" :semantic="3">
-              Showing a total of {{ people.length }} people
+  <WikiCardPrimary borderless>
+    <template v-slot:header>
+      <div class="list-header">
+        <div class="is-flex is-justify-content-space-between">
+          <WikiHeaderPrimary class="has-text-grey" :size="2" :semantic="3">
+            Showing a total of {{ people.length }} people
+          </WikiHeaderPrimary>
+          <div class="show-all-link">
+            <WikiHeaderPrimary :size="2" :semantic="3">
+              <nuxt-link to="/people">Show all</nuxt-link>
             </WikiHeaderPrimary>
-            <div class="show-all-link">
-              <WikiHeaderPrimary :size="2" :semantic="3">
-                <nuxt-link to="/people">Show all</nuxt-link>
-              </WikiHeaderPrimary>
-            </div>
           </div>
         </div>
+      </div>
+    </template>
+
+    <template v-slot:content>
+      <div class="featured-people-list">
         <div class="featured-people">
-          <div class="featured-person" v-for="(item, i) in people" :key="i">
-            <WikiPersonFeaturedCard :person="item" />
-          </div>
+          <!-- <nuxt-link
+            class="featured-person"
+            
+            :to="`/people/${item.person_name}`"
+          >
+            <WikiPersonFeaturedCard v-for="(item, i) in people"
+            :key="i" :person="item" />
+          </nuxt-link> -->
+          <WikiPersonFeaturedCard v-for="(item, i) in people"
+            :key="i" :person="item" />
         </div>
       </div>
     </template>
@@ -37,7 +47,7 @@ export default {
 
 <style lang="scss" scoped>
 .list-header {
-  padding: 0.5em;
+  width: 100%;
 }
 
 .featured-people {
@@ -48,6 +58,7 @@ export default {
   }
 
   @include desktop {
+    padding: 0rem 0.25rem;
     max-height: 125vh;
     overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */

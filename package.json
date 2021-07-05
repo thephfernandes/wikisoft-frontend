@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/wikisoft-code/io#readme",
   "dependencies": {
+    "@directus/sdk-js": "^9.0.0-rc.53",
     "@fortawesome/fontawesome-pro": "^5.15.3",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
@@ -37,13 +38,16 @@
     "@nuxtjs/fontawesome": "^1.1.2",
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/style-resources": "^1.0.0",
-    "@pnodev/nuxt-directus": "^0.2.0",
+    "@pnodev/nuxt-directus": "github:rubenbonilla/nuxt-directus",
     "animate.css": "^4.1.1",
     "cookie": "^0.4.1",
     "cookie-universal-nuxt": "^2.1.4",
     "core-js": "^3.9.1",
-    "directus": "^9.0.0-rc.81",
+    "directus": "^9.0.0-rc.83",
     "dotenv": "^10.0.0",
+    "eslint": "^7.29.0",
+    "fastify": "^3.18.1",
+    "fastify-postgres": "^3.5.0",
     "figlet": "^1.5.0",
     "inquirer": "^8.1.1",
     "js-cookie": "^2.2.1",
@@ -60,5 +64,9 @@
     "vue-recaptcha": "^1.3.0",
     "vue2-google-maps": "^0.10.7",
     "vuex-persistedstate": "^4.0.0-beta.3"
+  },
+  "devDependencies": {
+    "@directus/cli": "^9.0.0-rc.83",
+    "@directus/extension-sdk": "^9.0.0-rc.83"
   }
 }

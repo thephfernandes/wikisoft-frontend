@@ -2,8 +2,10 @@
   <div class="company-overview">
     <WikiCardPrimary>
       <template v-slot:header>
-        <div class="card-header-title">
-          <p>{{ company.name }} Overview</p>
+        <div class="card-header-title px-0">
+          <WikiHeaderPrimary :size="3" :semantic="2">
+            {{ company.company_name }} overview
+          </WikiHeaderPrimary>
         </div>
       </template>
 
@@ -12,7 +14,7 @@
           <div
             class="field"
             :style="{ gridArea: key }"
-            v-for="(key, index) in getCompanyInfoKeys"
+            v-for="(key, index) in companyInfoKeys"
             :key="index"
           >
             <div class="has-text-weight-semibold">
@@ -22,14 +24,17 @@
               }}
             </div>
             <span class="has-text-grey">
-              <a v-if="key == 'data_website'" :href="companyWebsite">{{ company[key] || "-" }}</a>
+              <a v-if="key === 'data_website'" :href="companyWebsite">{{ trimmedWebsite || "-" }}</a>
+              <span v-else-if="key === 'data_competitors'">
+                {{ trimmedCompetitors }}
+              </span>
               <span v-else>
                 {{ company[key] || "-" }}
               </span>
             </span>
           </div>
         </div>
-        <WikiTextCollapsible :fullText="company.description" :charLimit="300" />
+        <WikiTextCollapsible :fullText="company.description" :charLimit="300" expanded />
       </template>
       <template v-slot:footer> </template>
     </WikiCardPrimary>
@@ -55,7 +60,7 @@ export default {
   },
 
   computed: {
-    getCompanyInfoKeys() {
+    companyInfoKeys() {
       const arr = [];
       Object.keys(this.company).forEach((key) => {
         if (key.toLowerCase().includes("data_")) {
@@ -75,6 +80,31 @@ export default {
         }
       }
       return "";
+    },
+
+    trimmedWebsite() {
+      if (this.company.url.includes('https://')) {
+        return this.company.url.slice(12, this.company.url.length);
+      } else {
+        return this.company.url.slice(11, this.company.url.length)
+      }
+    },
+
+    trimmedCompetitors() {
+      const competitors = this.company.data_competitors.split(",");
+      if (competitors.length > 3) {
+        let str = "";
+        for (let i = 0; i < 3; i++) {
+          if (i !== 2) {
+            str += competitors[i] + ','
+          } else {
+            str += competitors[i]
+          }
+        }
+        return str;
+      } else {
+        return this.company.data_competitors;
+      }
     }
   },
 };
@@ -90,9 +120,9 @@ export default {
   grid-template-rows: auto auto auto auto;
   grid-template-areas:
     "data_website data_headquarters"
-    "data_size data_founded"
-    "data_type data_industry"
-    "data_revenue data_competitors";
+    "data_employees data_founded"
+    "data_revenue data_competitors"
+    "data_industry data_type";
   .field {
     @include desktop {
       width: 100%;
@@ -114,7 +144,7 @@ export default {
     grid-template-areas:
       "data_website"
       "data_headquarters"
-      "data_size"
+      "data_employees"
       "data_founded"
       "data_type"
       "data_industry"

@@ -1,48 +1,36 @@
 <template>
   <footer class="footer">
-    <b-collapse
-      animation="slide"
-      class="footer-section"
-      v-for="(section, i) in sections"
-      :key="i"
-      :open="false"
-    >
-      <template v-slot:trigger>
-        <div class="footer-section__title">
-          {{ section.title }}
-        </div>
-      </template>
-      <template v-slot:default>
-        <div class="footer-section__links">
-          <div
-            class="footer-section__links-item"
-            v-for="(link, j) in section.links"
-            :key="j"
-          >
-            <nuxt-link :to="link.to">
-              {{ link.title }}
-            </nuxt-link>
-          </div>
-        </div>
-      </template>
-    </b-collapse>
-
-    <!-- <div class="footer-section" v-for="(section, i) in sections" :key="i">
-      <div class="footer-section__title">
-        {{ section.title }}
-      </div>
-      <div class="footer-section__links">
-        <div
-          class="footer-section__links-item"
-          v-for="(link, j) in section.links"
-          :key="j"
+    <div class="columns">
+      <div class="column is-one-fifth"></div>
+      <div class="column has-links">
+        <b-collapse
+          animation="slide"
+          class="footer-section"
+          v-for="(section, i) in sections"
+          :key="i"
+          :open="false"
         >
-          <nuxt-link :to="link.to">
-            {{ link.title }}
-          </nuxt-link>
-        </div>
+          <template v-slot:trigger>
+            <div class="footer-section__title">
+              {{ section.title }}
+            </div>
+          </template>
+          <template v-slot:default>
+            <div class="footer-section__links">
+              <div
+                class="footer-section__links-item"
+                v-for="(link, j) in section.links"
+                :key="j"
+              >
+                <a :href="link.to">
+                  {{ link.title }}
+                </a>
+              </div>
+            </div>
+          </template>
+        </b-collapse>
       </div>
-    </div> -->
+    </div>
   </footer>
 </template>
 
@@ -56,23 +44,23 @@ export default {
           links: [
             {
               title: "Privacy policy",
-              to: "/privacy",
+              to: "https://www.wikiprofile.com/pdf/021521_Wikisoft-privacy-policy.pdf",
             },
             {
               title: "Cookie policy",
-              to: "/cookies",
+              to: "https://www.wikiprofile.com/pdf/021521_Cookie-policy.pdf",
             },
             {
               title: "User agreement",
-              to: "/user-agreement",
+              to: "https://www.wikiprofile.com/pdf/021621_-Terms-of-Use.pdf",
             },
             {
               title: "Code of ethics",
-              to: "/ethics",
+              to: "https://www.wikiprofile.com/pdf/021521_Code-of-ethics_.pdf",
             },
             {
               title: "Review guidelines",
-              to: "/guidelines",
+              to: "https://www.wikiprofile.com/pdf/Review_guidelines_wikiprofile.pdf",
             },
           ],
         },
@@ -81,11 +69,11 @@ export default {
           links: [
             {
               title: "Get a free account",
-              to: "/register",
+              to: "/auth/sign-up",
             },
             {
               title: "Get a free employer account",
-              to: "/employers",
+              to: "/employer",
             },
           ],
         },
@@ -94,19 +82,19 @@ export default {
           links: [
             {
               title: "About",
-              to: "/about",
+              to: "https://wikisoft.com",
             },
             {
               title: "Contact",
-              to: "/contact",
+              to: "https://wikisoft.com/contact",
             },
             {
               title: "Investor relations",
-              to: "/investor",
+              to: "https://wikisoft.com/press",
             },
             {
               title: "Disclaimers",
-              to: "/disclaimers",
+              to: "https://www.wikiprofile.com/pdf/Website-Disclaimers.pdf",
             },
           ],
         },
@@ -117,6 +105,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.columns {
+  width: 100%;
+
+  .column.has-links {
+    width: 100%;
+    display: flex;
+  }
+}
 .footer {
   border-top: $wikiline;
   display: flex;

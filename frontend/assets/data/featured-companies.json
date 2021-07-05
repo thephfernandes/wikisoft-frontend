@@ -7,7 +7,7 @@
     "ceo_name": "Shu Gu",
     "city": "Beijing",
     "company_logo": "https://upload.wikimedia.org/wikipedia/en/thumb/3/33/Industrial_and_Commercial_Bank_of_China_logo.svg/2880px-Industrial_and_Commercial_Bank_of_China_logo.svg.png",
-    "competitors": "SBC, Agricultural Bank of China, HDFC, CMB, Wellington Management, Citi, BoCD, Bank of America, Wells Fargo, UBS",
+    "competitors": "SBC, Agricultural Bank of China, HDFC",
     "country_name": "China",
     "description": "Industrial and Commercial Bank of China (ICBC) is a Chinese multinational banking company, and the largest bank in the world by total assets and by market capitalization. It is one of China’s ‘Big Four’ state-owned commercial banks. Industrial and Commercial Bank of China was established on 1 January 1984. On 28 October 2005, the Bank was wholly restructured to a joint-stock limited company. On 27 October 2006, the Bank was successfully listed on both Shanghai Stock Exchange and The Stock Exchange of Hong Kong Limited. Through its continuous endeavor and stable development, the Bank has developed into the leading bank in the world, possessing an excellent customer base, a diversified business structure, strong innovation capabilities and market competitiveness. The Bank regards service as the very foundation to seek further development and adheres to creating value through services while providing a comprehensive range of financial products and services to 8,098 thousand corporate customers and 650 million personal customers. The Bank has been consciously integrating the social responsibilities with its development strategy and operation and management activities, and gaining wide recognition in the aspects of promoting inclusive finance, supporting targeted poverty relief, protecting environment and resources and participating in public welfare undertakings. The Bank was ranked the 1st place among the Top 1000 World Banks by The Banker, ranked 1st place in the Global 2000 listed by Forbes and topped the sub-list of commercial banks of the Global 500 in Fortune for the seventh consecutive year, and took the 1st place among the Top 500 Banking Brands of Brand Finance for the fourth consecutive year.",
     "facebook": "https://www.facebook.com/theICBC",
@@ -19,7 +19,14 @@
     "phone": "1-800-663-3051",
     "phone_toll_free": "1-800-910-4222",
     "url": "http://www.icbc-ltd.com",
-    "wikipedia_url": "https://en.wikipedia.org/wiki/Industrial_and_Commercial_Bank_of_China"
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Industrial_and_Commercial_Bank_of_China",
+    "data_website": "http://www.icbc-ltd.com",
+    "data_headquarters": "Xicheng District, Beijing, China",
+    "data_employees": 434798,
+    "data_industry": "Banking",
+    "data_revenue": "$191B",
+    "data_founded": 1984,
+    "data_competitors": "SBC, Agricultural Bank of China, HDFC"
   },
   {
     "company_name": "JPMorgan Chase",
@@ -41,7 +48,14 @@
     "phone": "+1 212-270-6000",
     "phone_toll_free": "1-800-935-9935",
     "url": "https://www.jpmorganchase.com",
-    "wikipedia_url": "https://en.wikipedia.org/wiki/JPMorgan_Chase"
+    "wikipedia_url": "https://en.wikipedia.org/wiki/JPMorgan_Chase",
+    "data_website": "https://www.jpmorganchase.com",
+    "data_headquarters": "New York, USA",
+    "data_employees": 255351,
+    "data_industry": "Diversified Financials",
+    "data_revenue": "$30B",
+    "data_founded": 2000,
+    "data_competitors": "State Street, Morgan Stanley, Goldman Sachs, HSBC, Citi, Wells Fargo, Bank of America"
   },
   {
     "company_name": "Berkshire Hathaway Inc.",
@@ -63,7 +77,14 @@
     "phone": "1-888-395-6349",
     "phone_toll_free": "1-402-346-1400",
     "url": "https://www.berkshirehathaway.com",
-    "wikipedia_url": "https://en.wikipedia.org/wiki/Berkshire_Hathaway"
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Berkshire_Hathaway",
+    "data_website": "https://www.berkshirehathaway.com",
+    "data_headquarters": "Nebraska, USA",
+    "data_employees": 360000,
+    "data_industry": "Diversified Financials",
+    "data_revenue": "$246B",
+    "data_founded": 1955,
+    "data_competitors": "The Carlyle Group, BlackRock, Allstate, Howard Hanna Real Estate Services, Allegheny Technologies"
   },
   {
     "company_name": "China Construction Bank",
@@ -73,7 +94,7 @@
     "ceo_name": "Wang Zuji",
     "city": "Beijing",
     "company_logo": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/China_Construction_Bank.svg/2880px-China_Construction_Bank.svg.png",
-    "competitors": "SBC, Agricultural Bank of China, HDFC, CMB, Wellington Management, Citi, BoCD, Bank of America, Wells Fargo, UBS",
+    "competitors": "SBC, Agricultural Bank of China, HDFC",
     "country_name": "China",
     "description": "China Construction Bank Corp. engages in the provision of a wide range of financial services to corporate and personal customers. It operates through the following business segments: Corporate Banking, Personal Banking, Treasury, and Others. The Corporate Banking segment provides a range of financial products and services to corporations, government agencies and financial institutions, which comprises of corporate loans, trade financing, deposit taking and wealth management services, agency services, financial consulting and advisory services, cash management services, remittance and settlement services, custody services, and guarantee services. The Personal Banking segment provides personal loans, deposit taking and wealth management services, card business, remittance services, and agency services to individual customers. The Treasury segment represents inter-bank money market transactions, repurchase and resale transactions, investments in debt securities, and trade of derivatives and foreign currency. The Others segment refers to equity investments and revenues, results, assets and liabilities of overseas branches and subsidiaries.",
     "facebook": "https://www.facebook.com/China-Construction-Bank-384180208783122/",
@@ -84,8 +105,15 @@
     "revenue": "$174B",
     "phone": "",
     "phone_toll_free": "1-852-2779-5533",
-    "url": "http://www.ccb.com/",
-    "wikipedia_url": "https://en.wikipedia.org/wiki/China_Construction_Bank"
+    "url": "http://www.ccb.com",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/China_Construction_Bank",
+    "data_website": "http://www.ccb.com",
+    "data_headquarters": "Beijing, China",
+    "data_employees": 347156,
+    "data_industry": "Banking",
+    "data_revenue": "$174B",
+    "data_founded": 2014,
+    "data_competitors": "SBC, Agricultural Bank of China, HDFC"
   },
   {
     "company_name": "Saudi Arabian Oil Company",
@@ -107,7 +135,14 @@
     "phone": "966-11-297-8775",
     "phone_toll_free": "",
     "url": "https://www.aramco.com",
-    "wikipedia_url": "https://en.wikipedia.org/wiki/Saudi_Aramco"
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Saudi_Aramco",
+    "data_website": "https://www.aramco.com",
+    "data_headquarters": "Dhahran, Saudi Arabia",
+    "data_employees": 66800,
+    "data_industry": "Oil & Gas",
+    "data_revenue": "$230B",
+    "data_founded": 1933,
+    "data_competitors": "Exxon Mobil, Shell, BP, Total, ADNOC, Chevron, ConocoPhillips"
   },
   {
     "company_name": "Apple",
@@ -129,7 +164,14 @@
     "phone": "+1 (408) 996- 1010",
     "phone_toll_free": "",
     "url": "https://www.apple.com",
-    "wikipedia_url": "https://en.wikipedia.org/wiki/Apple_Inc."
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Apple_Inc",
+    "data_website": "https://www.apple.com",
+    "data_headquarters": "California, USA",
+    "data_employees": 147000,
+    "data_industry": "Technology Hardware & Equipment",
+    "data_revenue": "$294B",
+    "data_founded": 1976,
+    "data_competitors": "Samsung, Microsoft, Dell, Lenovo, HP, Sony, Asus, Xiaomi, Huawei, Oppo"
   },
   {
     "company_name": "Bank of America",
@@ -151,7 +193,14 @@
     "phone": "",
     "phone_toll_free": "+1(866)607-1234",
     "url": "https://www.bankofamerica.com",
-    "wikipedia_url": "https://en.wikipedia.org/wiki/Bank_of_America"
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bank_of_America",
+    "data_website": "https://www.bankofamerica.com",
+    "data_headquarters": "North Carolina, USA",
+    "data_employees": 213000,
+    "data_industry": "Banking",
+    "data_revenue": "$99B",
+    "data_founded": 1904,
+    "data_competitors": "SBC, Agricultural Bank of China, HDFC, CMB, Wellington Management, Citi, BoCD, Wells Fargo, UBS, ICBC"
   },
   {
     "company_name": "Amazon",
@@ -173,7 +222,14 @@
     "phone": "+1(206)266-1000",
     "phone_toll_free": "",
     "url": "https://www.amazon.com",
-    "wikipedia_url": "https://en.wikipedia.org/wiki/Amazon_(company)"
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Amazon_(company)",
+    "data_website": "https://www.amazon.com",
+    "data_headquarters": "Washington, USA",
+    "data_employees": 1298000,
+    "data_industry": "Retailing",
+    "data_revenue": "$386B",
+    "data_founded": 1994,
+    "data_competitors": "Target, Walmart, Best Buy, and Costco"
   },
   {
     "company_name": "Samsung Electronics",
@@ -195,7 +251,14 @@
     "phone": "+82-2-2053-3000",
     "phone_toll_free": "",
     "url": "https://www.samsung.com",
-    "wikipedia_url": "https://en.wikipedia.org/wiki/Samsung"
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Samsung",
+    "data_website": "https://www.samsung.com",
+    "data_headquarters": "Suwon, Korea",
+    "data_employees": 109000,
+    "data_industry": "Consumer and Industry Electronics",
+    "data_revenue": "$200B",
+    "data_founded": 1938,
+    "data_competitors": "Apple, LG Electronics, Sony, HTC, Huawei Technologies, Intel, Electrolux, Lenovo Group Limited, Panasonic"
   },
   {
     "company_name": "Microsoft",
@@ -217,6 +280,13 @@
     "phone": "+1 425-882-8080",
     "phone_toll_free": "",
     "url": "https://www.microsoft.com",
-    "wikipedia_url": "https://en.wikipedia.org/wiki/Microsoft"
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Microsoft",
+    "data_website": "https://www.microsoft.com",
+    "data_headquarters": "Washington, USA",
+    "data_employees": 163000,
+    "data_industry": "IT Software & Services",
+    "data_revenue": "$153B",
+    "data_founded": 1975,
+    "data_competitors": "Apple, Cisco, Google, Facebook, IBM, Oracle, Salesforce, SAP, Okta, Proofpoint"
   }
 ]

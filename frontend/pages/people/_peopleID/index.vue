@@ -397,7 +397,7 @@ export default {
 
 .interest-item,
 .skill-item {
-  background-color: aliceblue;
+  background-color: #e3f2ff;
   color: cornflowerblue;
   min-width: 7rem;
   padding: 0.5rem;

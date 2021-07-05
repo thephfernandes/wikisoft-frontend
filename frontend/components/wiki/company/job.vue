@@ -34,7 +34,7 @@
           <div
             class="company-category mr-3"
             style="
-              background-color: aliceblue;
+              background-color: #e3f2ff;
               color: cornflowerblue;
               padding: 0.4rem;
             "

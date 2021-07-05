@@ -10,11 +10,11 @@ module.exports = {
     apiURL: process.env.IO_API_URL || '/api',
     searchURL: process.env.IO_API_URL + '/search',
     adminURL: process.env.IO_ADMIN_URL || '/admin',
-    googleApiKey: process.env.GOOGLE_API_KEY
   },
 
   // Only available on server ($config)
   privateRuntimeConfig: {
+    googleApiKey: process.env.GOOGLE_API_KEY
   },
 
   ssr: true,
@@ -161,6 +161,6 @@ module.exports = {
   // Font Awesome Pro
 
   router: {
-    middleware: ['mobile'],
+    middleware: ['mobile', 'auth'],
   },
 };
