@@ -161,6 +161,6 @@ module.exports = {
   // Font Awesome Pro
 
   router: {
-    middleware: ['mobile', 'auth'],
+    middleware: ['auth'],
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="base-layout-outer">
     <WikiSearchResults />
-    <WikiNavbar />
+    <WikiNavbarTest />
     <WikiNavbarInternal class="internal-nav" />
     <div class="base-layout-content columns my-0">
       <div class="column base-layout__sidebar is-one-fifth pr-0 pt-1">
