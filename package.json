@@ -5,7 +5,7 @@
   "scripts": {
     "dev:frontend": "nuxt dev ./frontend",
     "dev:directus": "env CONFIG_PATH=./directus/config.js directus start",
-    "start": "npm run start:directus && npm run start:frontend",
+    "start": "node server.js",
     "start:frontend": "nuxt build ./frontend && pm2 startOrReload ./deployment/frontend.config.js",
     "start:directus": "pm2 startOrReload ./deployment/directus.config.js",
     "stop": "npm run stop:directus && npm run stop:frontend",
