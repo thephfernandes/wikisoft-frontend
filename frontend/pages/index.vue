@@ -25,11 +25,11 @@ export default {
 
   computed: {
     featuredCompanies() {
-      return featuredCompaniesData;
+      return this.$store.getters["companies/getCompanies"].length > 0 ? this.$store.getters["companies/getCompanies"] : featuredCompaniesData;
     },
 
     featuredPeople() {
-      return featuredPeopleData;
+      return this.$store.getters["people/getPeople"].length > 0 ? this.$store.getters["people/getPeople"] : featuredPeopleData;
     },
   },
 };
