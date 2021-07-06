@@ -64,15 +64,14 @@
             </template>
 
             <b-autocomplete
-              placeholder="Type here to search"
+              placeholder="Search"
               v-model="search"
               class="autocomplete-input"
               group-field="type"
-              size="is-small"
               clearable
               :rounded="$device.isMobile"
               group-options="items"
-              icon-right="magnify"
+              icon="magnify"
               :loading="isFetching"
               @focus="search_focus(true)"
               @blur="search_focus(false)"
@@ -170,47 +169,118 @@
           />
         </button>
       </div>
-      <div class="navigation-drawer__items" @click="toggleNavigationDrawer">
-        <div class="nav-links nav-links__left">
-          <nuxt-link
-            class="drawer-item nav-links__item"
-            v-for="(item, i) in navItems"
-            v-show="!($device.isMobile && item.name === 'Home')"
-            :key="i"
-            :to="item.link"
-          >
-            <WikiIconWicon class="drawer-item__icon" :icon="item.icon" />
-            <span class="has-text-weight-semibold">
-              {{ item.name }}
-            </span>
-          </nuxt-link>
+      <div class="navigation-drawer__items">
+        <div class="event-wrapper" @click="toggleNavigationDrawer">
+          <div class="nav-links nav-links__left" v-if="$device.isDesktop">
+            <nuxt-link
+              class="drawer-item nav-links__item"
+              v-for="(item, i) in navItems"
+              v-show="!($device.isMobile && item.name === 'Home')"
+              :key="i"
+              :to="item.link"
+            >
+              <WikiIconWicon class="drawer-item__icon" :icon="item.icon" />
+              <span class="has-text-weight-semibold">
+                {{ item.name }}
+              </span>
+            </nuxt-link>
+          </div>
+
+          <div class="nav-links nav-links__right" v-if="$device.isDesktop">
+            <nuxt-link
+              class="nav-links__item"
+              v-for="(item, i) in desktopNavItems"
+              :key="i"
+              :to="item.link"
+            >
+              <WikiIconWicon
+                v-if="item.name !== 'Me'"
+                class="nav-links__icon"
+                :icon="item.icon"
+                size="0.7"
+              />
+              <WikiProfilePhoto
+                v-else
+                class="nav-links__icon"
+                dimensions="16x16"
+              />
+              <span class="has-text-weight-semibold">
+                {{ item.name }}
+              </span>
+            </nuxt-link>
+          </div>
         </div>
 
-        <div class="nav-links nav-links__right" v-if="$device.isDesktop">
+        <div class="nav-links nav-links__bottom" v-if="$device.isMobile">
           <nuxt-link
-            class="nav-links__item"
-            v-for="(item, i) in desktopNavItems"
+            to="/account"
+            class="nav-links__item drawer-item has-text-weight-semibold"
+            style="line-height: 2.25rem; color: inherit"
+          >
+            <span class="has-text-weight-semibold"> My account </span>
+          </nuxt-link>
+          <nuxt-link
+            to="/account"
+            class="nav-links__item drawer-item has-text-weight-semibold"
+            style="line-height: 2.25rem; color: inherit"
+          >
+            <span class="has-text-weight-semibold"> Settings </span>
+          </nuxt-link>
+          <b-collapse
+            animation="slide"
+            class="footer-section"
+            v-for="(section, i) in sections"
+            :key="i"
+            :open="false"
+          >
+            <template v-slot:trigger>
+              <div
+                class="
+                  footer-section__title
+                  nav-links__item
+                  drawer-item
+                  has-text-weight-semibold
+                "
+                style="line-height: 2.25rem"
+              >
+                {{ section.title }}
+              </div>
+            </template>
+            <template v-slot:default>
+              <div class="footer-section__links">
+                <div
+                  class="footer-section__links-item drawer-item"
+                  style="border-bottom: none"
+                  v-for="(link, j) in section.links"
+                  :key="j"
+                >
+                  <nuxt-link :to="link.to">
+                    {{ link.title }}
+                  </nuxt-link>
+                </div>
+              </div>
+            </template>
+          </b-collapse>
+        </div>
+      </div>
+    </nav>
+    <div class="appbar" v-if="$device.isMobile">
+      <div class="appbar__content">
+        <div class="appbar__links">
+          <nuxt-link
+            class="appbar__item is-flex is-flex-direction-column is-align-items-center"
+            v-for="(item, i) in navItems.slice(1, navItems.length)"
             :key="i"
             :to="item.link"
           >
-            <WikiIconWicon
-              v-if="item.name !== 'Me'"
-              class="nav-links__icon"
-              :icon="item.icon"
-              size="0.7"
-            />
-            <WikiProfilePhoto
-              v-else
-              class="nav-links__icon"
-              dimensions="16x16"
-            />
+            <WikiIconWicon :icon="item.icon" :size="0.75" />
             <span class="has-text-weight-semibold">
               {{ item.name }}
             </span>
           </nuxt-link>
         </div>
       </div>
-    </nav>
+    </div>
   </div>
 </template>
 
@@ -260,6 +330,68 @@ export default {
         {
           link: "/account",
           name: "Me",
+        },
+      ],
+
+      sections: [
+        {
+          title: "About WikiProfile",
+          links: [
+            {
+              title: "Privacy policy",
+              to: "https://www.wikiprofile.com/pdf/021521_Wikisoft-privacy-policy.pdf",
+            },
+            {
+              title: "Cookie policy",
+              to: "https://www.wikiprofile.com/pdf/021521_Cookie-policy.pdf",
+            },
+            {
+              title: "User agreement",
+              to: "https://www.wikiprofile.com/pdf/021621_-Terms-of-Use.pdf",
+            },
+            {
+              title: "Code of ethics",
+              to: "https://www.wikiprofile.com/pdf/021521_Code-of-ethics_.pdf",
+            },
+            {
+              title: "Review guidelines",
+              to: "https://www.wikiprofile.com/pdf/Review_guidelines_wikiprofile.pdf",
+            },
+          ],
+        },
+        {
+          title: "Account",
+          links: [
+            {
+              title: "Get a free account",
+              to: "/auth/sign-up",
+            },
+            {
+              title: "Get a free employer account",
+              to: "/employer",
+            },
+          ],
+        },
+        {
+          title: "About Wikisoft Corp.",
+          links: [
+            {
+              title: "About",
+              to: "https://wikisoft.com",
+            },
+            {
+              title: "Contact",
+              to: "https://wikisoft.com/contact",
+            },
+            {
+              title: "Investor relations",
+              to: "https://wikisoft.com/press",
+            },
+            {
+              title: "Disclaimers",
+              to: "https://www.wikiprofile.com/pdf/Website-Disclaimers.pdf",
+            },
+          ],
         },
       ],
     };
@@ -640,6 +772,10 @@ export default {
   }
 }
 
+.nav-links__bottom {
+  width: 100%;
+}
+
 @include desktop {
   .nav-links__left > .nav-links__item {
     border-right: $wikiline_thin;
@@ -665,5 +801,24 @@ export default {
   .nav-links__icon {
     margin-right: 0.5rem;
   }
+}
+
+.appbar {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  border: $wikiline;
+  background: white;
+}
+
+.appbar__links {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+
+.appbar__item {
+  flex-grow: 1;
 }
 </style>
