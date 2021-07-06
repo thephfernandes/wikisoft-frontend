@@ -67,6 +67,7 @@
   },
   "devDependencies": {
     "@directus/cli": "^9.0.0-rc.83",
-    "@directus/extension-sdk": "^9.0.0-rc.83"
+    "@directus/extension-sdk": "^9.0.0-rc.83",
+    "@nuxtjs/device": "^2.1.0"
   }
 }

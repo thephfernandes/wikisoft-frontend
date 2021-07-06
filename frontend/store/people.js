@@ -55,12 +55,24 @@ export const mutations = {
 };
 
 export const actions = {
-  async fetchPeople({ commit }, query) {
+  async fetchPeople({ commit, rootState }, query) {
     if (this.$user) {
       try {
         const people = await this.$directus.items("people");
-        const response = await people.read(this.$user.person_profiles[0]);
-        commit('setSelectedPerson', response);
+        let response = {};
+        if (query) {
+          response = await people.read({
+            search: query
+          })
+        } else {
+          response = await people.read({
+            search: rootState.search.query
+          })
+        }
+        if (response.data) {
+          console.log("fetched people:", response.data);
+          commit('setSelectedPerson', response.data);
+        }
       } catch (error) {
         console.error("failed to fetch people:", error);
       }
@@ -119,7 +131,7 @@ export const actions = {
     try {
       // if (this.$auth.user && this.$auth.user.id !== "") {
       //   const resposne = await this.$auth.user.me.read()
-      //   if (response && resposne.id) {
+      //   if (response && response.id) {
       //     Promise.revolse(dispatch("updatePerson", resposne.id, Person))
       //   }
       // }

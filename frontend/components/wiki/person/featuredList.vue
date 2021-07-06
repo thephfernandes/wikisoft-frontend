@@ -4,7 +4,7 @@
       <div class="list-header">
         <div class="is-flex is-justify-content-space-between">
           <WikiHeaderPrimary class="has-text-grey" :size="2" :semantic="3">
-            Showing a total of {{ people.length }} people
+            Showing a total of {{ people.length }} {{people.length !== 1 ? 'people' : 'person' }}
           </WikiHeaderPrimary>
           <div class="show-all-link">
             <WikiHeaderPrimary :size="2" :semantic="3">
