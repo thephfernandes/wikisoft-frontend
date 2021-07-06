@@ -1,10 +1,10 @@
 <template>
   <div class="base-layout-outer">
-    <WikiSearchResults />
-    <WikiNavbarTest />
+    <!-- <WikiSearchResults /> -->
+    <WikiNavbar />
     <div class="base-layout-content">
-      <div class="columns">
-        <div class="colum is-one-fifth">
+      <div class="columns mx-0">
+        <div class="column is-one-fifth" v-if="$device.isDesktop">
           <WikiSidebarPrimary />
         </div>
 
@@ -67,11 +67,8 @@ export default {
   }
 
   @include desktop {
-    margin-top: 95px;
+    margin-top: 139px;
   }
-  // @include desktop {
-  //   margin-top: 2rem;
-  // }
 
   // .base-layout__sidebar, .base-layout__content {
   //   @include desktop {
