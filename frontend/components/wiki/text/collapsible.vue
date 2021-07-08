@@ -1,5 +1,5 @@
 <template>
-  <article class="has-text-black">
+  <article class="has-text-black" v-if="fullText">
     <p v-if="!expanded && !readMoreActive"> {{ fullText.slice(0, charLimit) }}<span v-if="exceeds">...</span> </p>
 
     <p v-else>
@@ -18,7 +18,7 @@ export default {
   props: {
     fullText: {
       type: String,
-      required: true,
+      required: false,
     },
     
     charLimit: {

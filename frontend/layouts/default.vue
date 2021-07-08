@@ -22,7 +22,7 @@
         <nuxt class="main-content mt-3 px-3" />
       </div>
     </div> -->
-    <WikiFooterPrimary />
+    <WikiFooterPrimary v-if="$device.isDesktop" />
   </div>
 </template>
 
@@ -48,6 +48,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.columns {
+  width: 100%;
+}
+
 .base-layout-outer {
   width: 100vw;
 }
@@ -64,6 +68,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 75px;
   }
 
   @include desktop {

@@ -1,9 +1,12 @@
+import featuredPeopleData from "~/assets/data/featured-people.json";
+
 export const state = () => ({
   people: [],
   claimedPeople: [],
   selectedPerson: {},
   me: {},
   fields: {},
+  featuredPeople: featuredPeopleData
 });
 
 export const getters = {
@@ -29,6 +32,10 @@ export const getters = {
 
   getFields: (state) => {
     return state.me;
+  },
+
+  getFeaturedPeople: (state) => {
+    return state.featuredPeople;
   }
 };
 
@@ -56,26 +63,23 @@ export const mutations = {
 
 export const actions = {
   async fetchPeople({ commit, rootState }, query) {
-    if (this.$user) {
-      try {
-        const people = await this.$directus.items("people");
-        let response = {};
-        if (query) {
-          response = await people.read({
-            search: query
-          })
-        } else {
-          response = await people.read({
-            search: rootState.search.query
-          })
-        }
-        if (response.data) {
-          console.log("fetched people:", response.data);
-          commit('setSelectedPerson', response.data);
-        }
-      } catch (error) {
-        console.error("failed to fetch people:", error);
+    try {
+      const people = await this.$directus.items("people");
+      let response = {};
+      if (query) {
+        response = await people.read({
+          search: query
+        })
+      } else {
+        response = await people.read({
+          search: rootState.search.query
+        })
       }
+      if (response.data) {
+        commit('setPeople', response.data);
+      }
+    } catch (error) {
+      console.error("failed to fetch people:", error);
     }
   },
 

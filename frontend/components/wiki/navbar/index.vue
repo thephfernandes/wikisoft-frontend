@@ -171,8 +171,8 @@
         </button>
       </div>
       <div class="navigation-drawer__items">
-        <div class="event-wrapper" @click="toggleNavigationDrawer">
-          <div class="nav-links nav-links__left" v-if="$device.isDesktop">
+        <div class="event-wrapper" v-if="$device.isDesktop" @click="toggleNavigationDrawer">
+          <div class="nav-links nav-links__left">
             <nuxt-link
               class="drawer-item nav-links__item"
               v-for="(item, i) in navItems"
@@ -187,7 +187,7 @@
             </nuxt-link>
           </div>
 
-          <div class="nav-links nav-links__right" v-if="$device.isDesktop">
+          <div class="nav-links nav-links__right">
             <nuxt-link
               class="nav-links__item"
               v-for="(item, i) in desktopNavItems"
@@ -269,12 +269,15 @@
       <div class="appbar__content">
         <div class="appbar__links">
           <nuxt-link
-            class="appbar__item is-flex is-flex-direction-column is-align-items-center"
+            class="
+              appbar__item
+              is-flex is-flex-direction-column is-align-items-center
+            "
             v-for="(item, i) in navItems.slice(1, navItems.length)"
             :key="i"
             :to="item.link"
           >
-            <WikiIconWicon :icon="item.icon" :size="0.75" />
+            <WikiIconWicon :icon="item.icon" size="medium" />
             <span class="has-text-weight-semibold">
               {{ item.name }}
             </span>
@@ -444,9 +447,19 @@ export default {
 
       this.$emit("input", { search: this.search, category: this.category });
       this.setQuery(this.search);
-
-      await this.searchPeople(this.search);
-      await this.searchCompanies(this.search);
+      if (this.search && this.search.length > 0) {
+        await this.searchPeople(this.search);
+        await this.searchCompanies(this.search);
+      } else {
+        this.$store.commit(
+          "companies/setCompanies",
+          this.$store.getters["companies/getFeaturedCompanies"]
+        );
+        this.$store.commit(
+          "people/setPeople",
+          this.$store.getters["people/getFeaturedPeople"]
+        );
+      }
 
       this.isFetching = false;
 

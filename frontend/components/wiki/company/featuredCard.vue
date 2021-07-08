@@ -42,6 +42,7 @@
       <WikiButtonBased
         outlined
         squared
+        :size="$device.isMobile ? 'is-small' : ''"
         type="is-success is-light"
         class="follow-button"
       >

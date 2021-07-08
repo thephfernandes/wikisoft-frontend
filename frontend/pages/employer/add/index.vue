@@ -32,15 +32,16 @@
               </b-field>
 
               <b-field label="Vacancies">
-                <b-numberinput
+                <b-input
                   exponential
                   max="9999"
                   :step="1"
                   v-model="vacancies"
+                  type="number"
                   min="0"
                   required
                   controls-position="compact"
-                ></b-numberinput>
+                ></b-input>
               </b-field>
             </b-field>
           </template>
@@ -67,6 +68,17 @@
                 v-model="pwd"
                 expanded
                 type="password"
+                validation-message="Minimum eight characters, at least one letter, one number and one special character"
+                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+                password-reveal
+              ></b-input>
+            </b-field>
+
+            <b-field label="Confirm password" expanded :type="matchPasswordValidationMessage ? 'is-danger' : ''" :message="matchPasswordValidationMessage">
+              <b-input
+                v-model="confirmPwd"
+                expanded
+                type="password"
               ></b-input>
             </b-field>
           </template>
@@ -87,9 +99,9 @@
             <b-field expanded>
               <b-checkbox v-model="checked" expanded></b-checkbox>
               <WikiTextMultiline gray>
-                I confirm i represent HR, recuriting, management, PR or an
+                I confirm I represent HR, recuriting, management, PR or an
                 executive branch at
-                {{ company !== "" ? company : "my company" }} and i agree to
+                {{ company !== "" ? company : "my company" }} and I agree to
                 Wikisoft's
                 <NuxtLink to="/terms-of-service/">Terms of Service</NuxtLink>
                 and <NuxtLink to="/privacy-policy/">Privacy Policy</NuxtLink> on
@@ -98,10 +110,13 @@
               </WikiTextMultiline>
             </b-field>
             <b-field expanded>
-              <WikiButton @click="register" expanded :disabled="!isFormComplete"
+              <WikiButton @click="register" expanded :disabled="!isFormComplete || !companyConfirmed"
                 >Create Account</WikiButton
               >
             </b-field>
+            <b-message type="is-warning" v-if="isFormComplete && !companyConfirmed">
+              Your profile isn't currently working at this company. Please register at the company you would like to create an employer account for and try again later.
+            </b-message>
           </template>
         </WikiCardPrimary>
       </div>
@@ -120,22 +135,47 @@ export default {
       email: this.$route.query.email ? this.$route.query.email : "",
       title: "",
       pwd: "",
+      confirmPwd: "",
       checked: false,
     };
   },
 
   computed: {
+    passwordsMatch: function () {
+      return this.pwd === this.confirmPwd;
+    },
+
+    matchPasswordValidationMessage: function () {
+      if (!this.pwd) {
+        return;
+      }
+
+      if (!this.confirmPwd) {
+        return "Please fill out this field";
+      }
+
+      if (!this.passwordsMatch) {
+        return "Passwords don't match";
+      }
+    },
+
     isFormComplete: function () {
       return (
         this.checked &&
         this.fname &&
         this.lname &&
         this.title &&
+        this.company &&
         this.email &&
         this.pwd &&
+        this.passwordsMatch &&
         this.vacancies
       );
     },
+
+    companyConfirmed: function () {
+      return this.$auth.user.companies.find(item => item.company_name.toLowerCase() === this.company) !== undefined; 
+    }
   },
 
   methods: {

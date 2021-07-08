@@ -1,7 +1,10 @@
+import featuredCompaniesData from "~/assets/data/featured-companies.json";
+
 export const state = () => ({
   companies: [],
   claimedCompanies: [],
   selectedCompany: {},
+  featuredCompanies: featuredCompaniesData,
 });
 
 export const getters = {
@@ -15,6 +18,10 @@ export const getters = {
 
   getSelectedCompany: (state) => {
     return state.selectedCompany;
+  },
+
+  getFeaturedCompanies: (state) => {
+    return state.featuredCompanies;
   }
 };
 
@@ -29,7 +36,7 @@ export const mutations = {
 
   setSelectedCompany(state, payload) {
     state.selectedCompany = payload;
-  }
+  },
 };
 
 export const actions = {
