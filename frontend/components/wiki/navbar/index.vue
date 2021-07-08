@@ -69,6 +69,7 @@
               class="autocomplete-input"
               group-field="type"
               clearable
+              :size="$device.isMobile ? '' : 'is-small'"
               :rounded="$device.isMobile"
               group-options="items"
               icon="magnify"
