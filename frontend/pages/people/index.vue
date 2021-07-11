@@ -35,11 +35,11 @@
           </WikiListPaginated> -->
       <div class="tile container is-12 is-parent is-vertical">
         <div class="tile is-child">
-          <WikiPersonList v-if="paginatedProfiles.length > 0" :profiles="paginatedProfiles" class="block" />
+          <WikiPersonList v-if="paginatedProfiles.length > 0" :profiles="paginatedProfiles" class="block" headerless/>
         </div>
         <div class="tile is-child">
           <b-pagination
-            v-if="paginatedProfiles.length > 0"
+            v-if="paginatedProfiles.length > perPage"
             :total="total"
             :order="'is-centered'"
             v-model="current"

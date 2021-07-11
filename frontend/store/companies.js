@@ -45,9 +45,7 @@ export const actions = {
       const companies = await this.$directus.items("companies");
       let response = {}
       if (query) {
-        response = await companies.read({
-          search: query
-        })
+        response = await companies.read(query)
       } else {
         response = await companies.read({
           search: rootState.search.query

@@ -22,6 +22,15 @@
                         rounded
                         expanded
                         @input="searchForCompanies"
+                        @keyup.enter="searchForCompanies"
+                      />
+                      <b-input
+                        placeholder="company industry, banking/retail/etc"
+                        v-model="industry"
+                        rounded
+                        expanded
+                        @input="searchForCompanies"
+                        @keyup.enter="searchForCompanies" 
                       />
                       <p class="control">
                         <WikiButton @click="searchForCompanies" rounded
@@ -36,10 +45,10 @@
           </div>
           <div class="tile is-parent is-vertical">
             <div class="tile is-child">
-              <WikiCompanyList v-if="paginatedCompanies.length > 0" :companies="paginatedCompanies" class="block" />
+              <WikiCompanyList v-if="paginatedCompanies.length > 0" :companies="paginatedCompanies" class="block" headerless/>
             </div>
             <div class="tile is-child">
-              <b-pagination v-if="paginatedCompanies.length > 0" :total="total" v-model:current="current" :order="'is-centered'" :per-page="perPage" />
+              <b-pagination v-if="paginatedCompanies.length > perPage" :total="total" v-model:current="current" :order="'is-centered'" :per-page="perPage" />
             </div>
           </div>
         </div>
@@ -59,6 +68,7 @@ export default {
       current: 1,
       perPage: 5,
       search: "",
+      industry: "",
     }
   },
 
@@ -82,14 +92,9 @@ export default {
   },
 
   methods: {
-    searchForCompanies: async function (query) {
-      await this.$store.dispatch("companies/fetchCompanies");
+    searchForCompanies: async function () {
+      await this.$store.dispatch("companies/fetchCompanies", {search: this.search, industry: this.category });
     }
-  },
-
-  async asyncData({ params }) {
-    console.log("unused", params);
-    return "";
   },
 };
 </script>
