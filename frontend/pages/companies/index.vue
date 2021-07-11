@@ -30,7 +30,7 @@
                         rounded
                         expanded
                         @input="searchForCompanies"
-                        @keyup.enter="searchForCompanies" 
+                        @keyup.enter="searchForCompanies"
                       />
                       <p class="control">
                         <WikiButton @click="searchForCompanies" rounded
@@ -44,11 +44,45 @@
             </div>
           </div>
           <div class="tile is-parent is-vertical">
-            <div class="tile is-child">
-              <WikiCompanyList v-if="paginatedCompanies.length > 0" :companies="paginatedCompanies" class="block" headerless/>
+            <div class="loading" v-if="loading">
+              <b-progress
+                class="my-2"
+                :value="60"
+                :type="'is-success'"
+              ></b-progress>
             </div>
-            <div class="tile is-child">
-              <b-pagination v-if="paginatedCompanies.length > perPage" :total="total" v-model:current="current" :order="'is-centered'" :per-page="perPage" />
+
+            <div v-else>
+              <div
+                class="no-results-placeholder"
+                v-if="
+                  paginatedCompanies.length === 0 &&
+                  (search.length > 0 || industry.length > 0)
+                "
+              >
+                <WikiHeaderPrimary :size="3" :semantic="3"
+                  >No companies found matching your search, try another
+                  term...</WikiHeaderPrimary
+                >
+              </div>
+              <div class="wrapper" v-else>
+                <div class="tile is-child">
+                  <WikiCompanyList
+                    :companies="paginatedCompanies"
+                    class="block"
+                    headerless
+                  />
+                </div>
+                <div class="tile is-child">
+                  <b-pagination
+                    v-if="paginatedCompanies.length > perPage"
+                    :total="total"
+                    v-model:current="current"
+                    :order="'is-centered'"
+                    :per-page="perPage"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -69,7 +103,8 @@ export default {
       perPage: 5,
       search: "",
       industry: "",
-    }
+      loading: false,
+    };
   },
 
   created() {
@@ -87,14 +122,22 @@ export default {
 
     paginatedCompanies() {
       const pageNumber = this.current - 1;
-      return this.companies.slice(pageNumber * this.perPage, (pageNumber + 1) * this.perPage);
+      return this.companies.slice(
+        pageNumber * this.perPage,
+        (pageNumber + 1) * this.perPage
+      );
     },
   },
 
   methods: {
     searchForCompanies: async function () {
-      await this.$store.dispatch("companies/fetchCompanies", {search: this.search, industry: this.category });
-    }
+      this.loading = true;
+      await this.$store.dispatch("companies/fetchCompanies", {
+        search: this.search,
+        industry: this.category,
+      });
+      this.loading = false;
+    },
   },
 };
 </script>

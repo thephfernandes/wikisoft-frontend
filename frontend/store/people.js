@@ -67,9 +67,7 @@ export const actions = {
       const people = await this.$directus.items("people");
       let response = {};
       if (query) {
-        response = await people.read({
-          search: query
-        })
+        response = await people.read(query)
       } else {
         response = await people.read({
           search: rootState.search.query

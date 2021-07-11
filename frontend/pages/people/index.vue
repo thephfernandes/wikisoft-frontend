@@ -6,7 +6,9 @@
           <WikiCardPrimary>
             <template v-slot:header>
               <div class="card-header-title">
-                <WikiHeaderPrimary :semantic="1" :size="4">Search for people</WikiHeaderPrimary>
+                <WikiHeaderPrimary :semantic="1" :size="4"
+                  >Search for people</WikiHeaderPrimary
+                >
               </div>
             </template>
             <template v-slot:content>
@@ -20,7 +22,9 @@
                     expanded
                   />
                   <p class="control">
-                    <WikiButton @click="searchForPeople" rounded><span>Search</span></WikiButton>
+                    <WikiButton @click="searchForPeople" rounded
+                      ><span>Search</span></WikiButton
+                    >
                   </p>
                 </b-field>
               </b-field>
@@ -34,17 +38,42 @@
             </template>
           </WikiListPaginated> -->
       <div class="tile container is-12 is-parent is-vertical">
-        <div class="tile is-child">
-          <WikiPersonList v-if="paginatedProfiles.length > 0" :profiles="paginatedProfiles" class="block" headerless/>
+        <div class="loading" v-if="loading">
+          <b-progress
+            class="my-2"
+            :value="60"
+            :type="'is-success'"
+          ></b-progress>
         </div>
-        <div class="tile is-child">
-          <b-pagination
-            v-if="paginatedProfiles.length > perPage"
-            :total="total"
-            :order="'is-centered'"
-            v-model="current"
-            :per-page="perPage"
-          />
+        <div v-else>
+          <div
+            class="no-results-placeholder"
+            v-if="paginatedProfiles.length === 0 && search.length > 0"
+          >
+            <WikiHeaderPrimary :size="3" :semantic="3"
+              >No people found matching your search, try another
+              term...</WikiHeaderPrimary
+            >
+          </div>
+          <div class="wrapper" v-else>
+            <div class="tile is-child">
+              <WikiPersonList
+                v-if="paginatedProfiles.length > 0"
+                :profiles="paginatedProfiles"
+                class="block"
+                headerless
+              />
+            </div>
+            <div class="tile is-child">
+              <b-pagination
+                v-if="paginatedProfiles.length > perPage"
+                :total="total"
+                :order="'is-centered'"
+                v-model="current"
+                :per-page="perPage"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -59,108 +88,36 @@ export default {
 
   data() {
     return {
-      current: 1,
-      perPage: 5,
       search: "",
-      profiles: [
-        // {
-        //   name: "John Doe",
-        //   role: "Looking for new opportunities",
-        //   connected: false,
-        // },
-        // {
-        //   name: "Adam Walker",
-        //   role: "Senior Project Manager",
-        //   connected: false,
-        // },
-        // {
-        //   name: "Jinki Mehta",
-        //   role: "Senior Product Designer",
-        //   connected: true,
-        // },
-        // {
-        //   name: "Alice Winkelvoss",
-        //   role: "Digital Designer",
-        //   connected: false,
-        // },
-        // {
-        //   name: "Pedro Fernandes",
-        //   role: "Professional Hacker",
-        //   connected: true,
-        // },
-        // {
-        //   name: "Jamie Fox",
-        //   role: "Digital Branding Consultant",
-        //   connected: false,
-        // },
-        // {
-        //   name: "Brandon Grimm",
-        //   role: "Freelance Sound Engineer",
-        //   connected: false,
-        // },
-        // {
-        //   name: "Angelo Bobangelo",
-        //   role: "Jack of all trades",
-        //   connected: true,
-        // },
-        // {
-        //   name: "Homer J Simpson",
-        //   role: "Nuclear Power Plant Manager",
-        //   connected: false,
-        // },
-        // {
-        //   name: "Pedro Fernandez",
-        //   role: "Professional Hacker but spanish",
-        //   connected: true,
-        // },
-        // {
-        //   name: "Benjamin Razzmuzen",
-        //   role: "Idk something with computers?",
-        //   connected: false,
-        // },
-        // {
-        //   name: "Michael Jordan",
-        //   role: "6x NBA Champions | Chicago Bulls",
-        //   connected: false,
-        // },
-        // {
-        //   name: "Joe Mama",
-        //   role: "Professional masterchef commentator",
-        //   connected: true,
-        // },
-        // {
-        //   name: "Alice Winkelvoss",
-        //   role: "Digital Designer",
-        //   connected: false,
-        // },
-        // {
-        //   name: "That bitch Carol Baskins",
-        //   role: "Husband Killer",
-        //   connected: true,
-        // },
-      ],
       current: 1,
       perPage: 5,
+      loading: false,
     };
   },
 
   computed: {
+    people() {
+      return this.$store.getters["people/getPeople"];
+    },
+
     total() {
-      return this.profiles.length;
+      return this.people.length;
     },
 
     paginatedProfiles() {
       const pageNumber = this.current - 1;
-      return this.profiles.slice(pageNumber * this.perPage, (pageNumber + 1) * this.perPage);
+      return this.people.slice(
+        pageNumber * this.perPage,
+        (pageNumber + 1) * this.perPage
+      );
     },
   },
 
   methods: {
     searchForPeople: async function () {
-      let people = await this.$directus.items("people").read({
-        search: this.search,
-      });
-      this.profiles = people.data;
+      this.loading = false;
+      await this.$store.dispatch("people/fetchPeople", { search: this.search });
+      this.loading = true;
     },
 
     emitSearchForPeople: async function () {

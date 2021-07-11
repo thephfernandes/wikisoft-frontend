@@ -27,7 +27,7 @@
             />
           </div>
         </div>
-        <div class="is-flex is-align-items-center is-justify-content-center" v-else>
+        <div class="is-flex is-align-items-center is-justify-content-center">
           <WikiHeaderPrimary :size="3" :semantic="3"><p>No companies found :/</p></WikiHeaderPrimary>
         </div>
       </div>
