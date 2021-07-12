@@ -22,7 +22,37 @@
 
             <b-field expanded grouped position="is-centered">
               <b-field label="Company" expanded>
-                <b-input required expanded v-model="company"></b-input>
+                <b-autocomplete
+                  required
+                  expanded
+                  v-model="company"
+                  field="name"
+                  :data="suggestedCompanies"
+                  clearable
+                  placeholder="your current company"
+                  @input="fetchEmployerAutocompleteCompanies"
+                  @select="setSelectedCompany"
+                >
+                  <template v-slot="props">
+                    <div
+                      class="
+                        company-item
+                        is-flex is-align-items-flex-start
+                        py-2
+                      "
+                    >
+                      <div class="company-logo mr-2">
+                        <figure>
+                          <img :src="props.option.logo" />
+                        </figure>
+                      </div>
+
+                      <div class="company-name">
+                        <strong>{{ props.option.name }}</strong>
+                      </div>
+                    </div>
+                  </template>
+                </b-autocomplete>
               </b-field>
             </b-field>
 
@@ -30,19 +60,6 @@
               <b-field label="Official job title" expanded>
                 <b-input required expanded v-model="title"></b-input>
               </b-field>
-
-              <!-- <b-field label="Vacancies">
-                <b-input
-                  exponential
-                  max="9999"
-                  :step="1"
-                  v-model="vacancies"
-                  type="number"
-                  min="0"
-                  required
-                  controls-position="compact"
-                ></b-input>
-              </b-field> -->
             </b-field>
           </template>
         </WikiCardPrimary>
@@ -74,12 +91,13 @@
               ></b-input>
             </b-field>
 
-            <b-field label="Confirm password" expanded :type="matchPasswordValidationMessage ? 'is-danger' : ''" :message="matchPasswordValidationMessage">
-              <b-input
-                v-model="confirmPwd"
-                expanded
-                type="password"
-              ></b-input>
+            <b-field
+              label="Confirm password"
+              expanded
+              :type="matchPasswordValidationMessage ? 'is-danger' : ''"
+              :message="matchPasswordValidationMessage"
+            >
+              <b-input v-model="confirmPwd" expanded type="password"></b-input>
             </b-field>
           </template>
         </WikiCardPrimary>
@@ -110,12 +128,20 @@
               </WikiTextMultiline>
             </b-field>
             <b-field expanded>
-              <WikiButton @click="register" expanded :disabled="!isFormComplete || !companyConfirmed"
+              <WikiButton
+                @click="register"
+                expanded
+                :disabled="!isFormComplete || !companyConfirmed"
                 >Create Account</WikiButton
               >
             </b-field>
-            <b-message type="is-warning" v-if="isFormComplete && !companyConfirmed">
-              Your profile isn't currently working at this company. Please register at the company you would like to create an employer account for and try again later.
+            <b-message
+              type="is-warning"
+              v-if="isFormComplete && !companyConfirmed"
+            >
+              Your profile isn't currently working at this company. Please
+              register at the company you would like to create an employer
+              account for and try again later.
             </b-message>
           </template>
         </WikiCardPrimary>
@@ -125,10 +151,10 @@
 </template>
 
 <script>
+import _ from "lodash";
 export default {
   data() {
     return {
-      vacancies: this.$route.query.vacancies ? this.$route.query.vacancies : 0,
       company: this.$route.query.company ? this.$route.query.company : "",
       fname: this.$route.query.fname ? this.$route.query.fname : "",
       lname: this.$route.query.lname ? this.$route.query.lname : "",
@@ -137,10 +163,16 @@ export default {
       pwd: "",
       confirmPwd: "",
       checked: false,
+      suggestedCompanies: [],
+      current_company: "",
     };
   },
 
   computed: {
+    full_name: function () {
+      return `${this.fname} ${this.lname}`;
+    },
+
     passwordsMatch: function () {
       return this.pwd === this.confirmPwd;
     },
@@ -159,6 +191,15 @@ export default {
       }
     },
 
+    formData: function () {
+      return {
+        first_name: this.fname,
+        last_name: this.lname,
+        current_company: this.current_company,
+        company_email: this.email,
+      };
+    },
+
     isFormComplete: function () {
       return (
         this.checked &&
@@ -169,36 +210,43 @@ export default {
         this.email &&
         this.pwd &&
         this.passwordsMatch &&
-        this.vacancies
+        this.current_company
       );
     },
 
     companyConfirmed: function () {
-      return this.$auth.user.companies.find(item => item.company_name.toLowerCase() === this.company) !== undefined; 
-    }
+      return (
+        this.$auth.user.companies.find(
+          (item) => item === this.current_company
+        ) !== undefined
+      );
+    },
   },
 
   methods: {
-    register: async function () {
-      try {
-        const employers = await this.$directus.items("employers");
-        const newEmployer = await employers.create({
-          name: this.fname + " " + this.lname,
-          companies: {},
-          // email: this.email,
-          // title: this.title,
-          // password: this.pwd,
-          partition: "DK",
-          public_id: 1,
-        });
+    async fetchEmployerAutocompleteCompanies() {
+      await this.$store.dispatch("companies/fetchCompanies", this.company);
+      this.suggestedCompanies = this.$store.getters["companies/getCompanies"];
+    },
 
-        if (newEmployer) {
-          this.$router.push(`/employer/${newEmployer.data.id}`);
-        }
-      } catch (error) {
-        console.error("failed to register employer:", error);
+    setSelectedCompany(company) {
+      if (company) {
+        this.current_company = company.id;
+      } else {
+        this.current_company = "";
       }
     },
+
+    register: async function () {
+      await this.$store.dispatch("user/createEmployer", this.formData);
+    },
+  },
+
+  created() {
+    this.fetchEmployerAutocompleteCompanies = _.debounce(
+      this.fetchEmployerAutocompleteCompanies,
+      300
+    );
   },
 };
 </script>
