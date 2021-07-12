@@ -5,7 +5,18 @@
         <img src="../assets/wikiprofile-logo-square-white.svg" />
       </div>
       <div class="desktop-jumbopic">
-        <WikiHeaderPrimary :size="2" :semantic="6" :style="{ color: 'whitesmoke' }"
+        <WikiHeaderPrimary
+          v-if="$device.isMobile"
+          :size="2"
+          :semantic="6"
+          :style="{ color: 'whitesmoke' }"
+          >Get your free professional profile now!</WikiHeaderPrimary
+        >
+        <WikiHeaderPrimary
+          v-else
+          :size="2"
+          :semantic="6"
+          :style="{ color: 'whitesmoke' }"
           >Get your free professional profile included <br />
           in the official business encyclopaedia.</WikiHeaderPrimary
         >
@@ -30,18 +41,18 @@ export default {};
 .auth-container {
   display: grid;
 
-    @include mobile {
+  @include mobile {
     grid-template-rows: 10vh 90vh;
     grid-template-columns: 100vw;
     grid-template-areas: "picture" "form";
   }
-  
+
   @include tablet {
     grid-template-rows: 100vh;
     grid-template-columns: 3fr 4fr;
     grid-template-areas: "picture form";
   }
-  
+
   @include desktop {
     grid-template-rows: 100vh;
     grid-template-columns: 1fr auto;
@@ -98,8 +109,8 @@ export default {};
     top: 20px;
   }
   @include mobile {
-    left: 5px;
-    top: 10px;
+    top: 1.25rem;
+    left: 0.5rem;
   }
 }
 

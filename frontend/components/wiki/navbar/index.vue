@@ -273,11 +273,11 @@
               appbar__item
               is-flex is-flex-direction-column is-align-items-center
             "
-            v-for="(item, i) in navItems.slice(1, navItems.length)"
+            v-for="(item, i) in navItems"
             :key="i"
             :to="item.link"
           >
-            <WikiIconWicon :icon="item.icon" size="medium" />
+            <WikiIconWicon :icon="item.icon" size="default" />
             <span class="has-text-weight-semibold">
               {{ item.name }}
             </span>
@@ -301,7 +301,7 @@ export default {
         {
           link: "/",
           name: "Home",
-          icon: "home",
+          icon: "home-outline",
           size: "medium",
         },
         {

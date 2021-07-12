@@ -31,7 +31,7 @@
                 <b-input required expanded v-model="title"></b-input>
               </b-field>
 
-              <b-field label="Vacancies">
+              <!-- <b-field label="Vacancies">
                 <b-input
                   exponential
                   max="9999"
@@ -42,7 +42,7 @@
                   required
                   controls-position="compact"
                 ></b-input>
-              </b-field>
+              </b-field> -->
             </b-field>
           </template>
         </WikiCardPrimary>

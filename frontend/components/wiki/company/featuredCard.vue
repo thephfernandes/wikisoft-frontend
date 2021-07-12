@@ -63,12 +63,12 @@ export default {
 
   computed: {
     publicWebsite() {
-      return "hello world";
-      // if (this.company.url.includes('https://')) {
-      //   return this.company.url.slice(12, this.company.url.length);
-      // } else {
-      //   return this.company.url.slice(11, this.company.url.length);
-      // }
+      // return "hello world";
+      if (this.company.url.includes('https://')) {
+        return this.company.url.slice(12, this.company.url.length);
+      } else {
+        return this.company.url.slice(11, this.company.url.length);
+      }
     }
   }
 };
