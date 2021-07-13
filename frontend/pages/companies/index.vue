@@ -55,10 +55,7 @@
             <div v-else>
               <div
                 class="no-results-placeholder"
-                v-if="
-                  paginatedCompanies.length === 0 &&
-                  (search.length > 0 || industry.length > 0)
-                "
+                v-if="paginatedCompanies.length === 0 && (search.length > 0 || industry.length > 0)"
               >
                 <WikiHeaderPrimary :size="3" :semantic="3"
                   >No companies found matching your search, try another
