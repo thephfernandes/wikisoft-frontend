@@ -97,7 +97,7 @@ export const actions = {
       const { data } = await accounts_companies.create({ account_id: account_id, company_id: id });
       const company_claims = company_id.concat(data.id);
       const response = await accounts.update(account_id, { company_id: company_claims });
-      
+
       if (response.data) {
         await dispatch("user/fetchAccount", account_id, { root: true });
       }
