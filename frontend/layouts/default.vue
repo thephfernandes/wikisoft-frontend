@@ -50,10 +50,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.columns {
-  width: 100%;
-}
-
 .base-layout-outer {
   width: 100vw;
 }
