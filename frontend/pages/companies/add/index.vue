@@ -19,8 +19,8 @@
             </b-field>
             <b-field>
               <b-checkbox v-model="noWebsite"></b-checkbox>
-              <WikiTextMultiline gray
-                >My organization doesn't have a website</WikiTextMultiline
+              <WikiTextMultiLine gray
+                >My organization doesn't have a website</WikiTextMultiLine
               >
             </b-field>
 
@@ -78,11 +78,11 @@
 
             <b-field>
               <b-checkbox v-model="authorized"></b-checkbox>
-              <WikiTextMultiline gray>
+              <WikiTextMultiLine gray>
                 I verify that I am authorized in this company to create and
                 manage this page. The company and I agree to the Wikiprofile
                 terms of service.
-              </WikiTextMultiline>
+              </WikiTextMultiLine>
             </b-field>
           </template>
         </WikiCardPrimary>
@@ -93,10 +93,16 @@
 
 <script>
 export default {
-  async asyncData({ params }) {
-    console.log("unused", params);
-    return "";
-  },
+  data() {
+    return {
+      companyName: "",
+      publicURL: "",
+      companyWebsite: "",
+      noWebsite: false,
+      logo: null,
+      authorized: false,
+    }
+  }
 };
 </script>
 

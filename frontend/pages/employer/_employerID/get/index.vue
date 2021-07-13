@@ -86,11 +86,11 @@
 
             <b-field>
               <b-checkbox v-model="checked"></b-checkbox>
-              <WikiTextMultiline gray>
+              <WikiTextMultiLine gray>
                 I verify that I am authorized in this company and manage this
                 page. The company and I agree to the Wikiprofile terms of
                 service.
-              </WikiTextMultiline>
+              </WikiTextMultiLine>
             </b-field>
           </template>
         </WikiCardPrimary>

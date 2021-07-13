@@ -52,6 +52,13 @@
                       </div>
                     </div>
                   </template>
+                  <template v-slot:empty>
+                    <p>No results found</p>
+                  </template>
+                  <template v-slot:footer>
+                    <hr class="mt-0 mb-2"/>
+                    <nuxt-link to="/companies/add">My company isn't on Wikiprofile</nuxt-link>
+                  </template>
                 </b-autocomplete>
               </b-field>
             </b-field>
@@ -116,7 +123,7 @@
           <template v-slot:content>
             <b-field expanded>
               <b-checkbox v-model="checked" expanded></b-checkbox>
-              <WikiTextMultiline gray>
+              <WikiTextMultiLine gray>
                 I confirm I represent HR, recuriting, management, PR or an
                 executive branch at
                 {{ company !== "" ? company : "my company" }} and I agree to
@@ -125,7 +132,7 @@
                 and <NuxtLink to="/privacy-policy/">Privacy Policy</NuxtLink> on
                 behalf of
                 {{ company !== "" ? company : "my company" }}
-              </WikiTextMultiline>
+              </WikiTextMultiLine>
             </b-field>
             <b-field expanded>
               <WikiButton
@@ -238,7 +245,9 @@ export default {
     },
 
     register: async function () {
-      await this.$store.dispatch("user/createEmployer", this.formData);
+      await this.$store.dispatch("user/createEmployer", this.formData).then(
+        this.$router.push("/")
+      );
     },
   },
 
