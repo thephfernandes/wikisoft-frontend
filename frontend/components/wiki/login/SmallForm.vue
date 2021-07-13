@@ -8,7 +8,7 @@
       <WikiDataErrorMessage v-if="errors.length > 0" isError :messages="errors"></WikiDataErrorMessage>
       <BaseForm class="inner-form-wrapper">
         <template v-slot:form>
-          <form @submit.prevent="emit_login">
+          <form>
             <Input
               :expanded="true"
               v-model="usr"
@@ -30,7 +30,7 @@
       <div class="password-reset-container">
         <MultiLine :size="0.3" :weight="0.7">
           <NuxtLink to="/account/recover">Forgot password?</NuxtLink> <br />
-          New to Wikisoft? <a @click="emit_registration">Join now</a>
+          New to Wikisoft? <NuxtLink to="/account/register">sign up</NuxtLink>
         </MultiLine>
       </div>
     </WikiStyleProvider>
@@ -73,9 +73,6 @@ export default {
       } catch (error) {
         this.$toast.emit("error");
       }
-    },
-    emit_registration: function () {
-      this.$emit("registrationAttempt");
     },
   },
 };

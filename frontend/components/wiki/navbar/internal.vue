@@ -1,12 +1,7 @@
 <template>
   <div class="nav">
     <div class="nav-links nav-links__left">
-      <nuxt-link
-        :to="item.link"
-        class="nav-links__item"
-        v-for="(item, i) in leftList"
-        :key="i"
-      >
+      <nuxt-link :to="item.link" class="nav-links__item" v-for="(item, i) in leftList" :key="i">
         <WikiIconWicon class="nav-links__icon" :icon="item.icon" size="0.7" />
         <span class="has-text-weight-semibold">
           {{ item.name }}
@@ -15,14 +10,14 @@
     </div>
     <div class="nav-links nav-links__right">
       <!-- v-show="item.name !== 'Me' || $auth.user" -->
-      <nuxt-link
-        :to="item.link"
-        class="nav-links__item"
-        v-for="(item, i) in rightList"
-        :key="i"
-      >
-        <WikiIconWicon v-if="item.name !== $auth.user.first_name" class="nav-links__icon" :icon="item.icon" size="0.7" />
-        <WikiProfilePhoto v-else class="nav-links__icon" dimensions="16x16"/>
+      <nuxt-link :to="item.link" class="nav-links__item" v-for="(item, i) in rightList" :key="i">
+        <WikiIconWicon
+          v-if="item.name !== $auth.user.first_name"
+          class="nav-links__icon"
+          :icon="item.icon"
+          size="0.7"
+        />
+        <WikiProfilePhoto v-else class="nav-links__icon" dimensions="16x16" />
         <span class="has-text-weight-semibold">
           {{ item.name }}
         </span>
@@ -32,6 +27,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   props: {
     photoSrc: {
@@ -39,7 +36,10 @@ export default {
       required: false,
     },
   },
-
+  methods: {
+    ...mapGetters({ getMe: ["user/getUser"] }),
+    ...mapActions(["user/fetchUser"]),
+  },
   data() {
     return {
       leftList: [
@@ -68,10 +68,9 @@ export default {
           size: "medium",
         },
       ],
-
       rightList: [
         {
-          link: "/account",
+          link: "/account/" + this.$auth.user.id + "/settings",
           name: "Settings",
           icon: "cog-outline",
           size: "medium",

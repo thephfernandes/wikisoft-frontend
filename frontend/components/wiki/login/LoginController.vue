@@ -47,12 +47,12 @@ export default {
 
     login: async function ({ usr, pwd }) {
       try {
-        await this.$auth.login({
+        let ret = await this.$auth.login({
           email: usr,
           password: pwd,
           mode: "json",
         });
-        await this.$store.dispatch("user/fetchAccount");
+        await this.$store.dispatch("user/fetchAccount", ret);
       } catch (error) {
         if (error && error.data) this.errorMessages = error.data;
         console.error(error);
