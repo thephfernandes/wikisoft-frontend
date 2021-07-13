@@ -5,7 +5,7 @@
   "scripts": {
     "dev:frontend": "nuxt dev ./frontend",
     "dev:directus": "env CONFIG_PATH=./directus/config.js directus start",
-    "start": "npm run start:directus && npm run start:frontend",
+    "start": "node server.js",
     "start:frontend": "nuxt build ./frontend && pm2 startOrReload ./deployment/frontend.config.js",
     "start:directus": "pm2 startOrReload ./deployment/directus.config.js",
     "stop": "npm run stop:directus && npm run stop:frontend",
@@ -45,6 +45,8 @@
     "core-js": "^3.9.1",
     "directus": "^9.0.0-rc.83",
     "dotenv": "^10.0.0",
+    "eslint": "^7.29.0",
+    "faker": "^5.5.3",
     "fastify": "^3.18.1",
     "fastify-postgres": "^3.5.0",
     "figlet": "^1.5.0",
@@ -66,6 +68,7 @@
   },
   "devDependencies": {
     "@directus/cli": "^9.0.0-rc.83",
-    "@directus/extension-sdk": "^9.0.0-rc.83"
+    "@directus/extension-sdk": "^9.0.0-rc.83",
+    "@nuxtjs/device": "^2.1.0"
   }
 }

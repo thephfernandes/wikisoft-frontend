@@ -1,32 +1,74 @@
 <template>
   <div>
     <div class="block">
-      <div class="columns">
-        <div class="column">
-          <WikiCompanyFeaturedList :companies="featuredCompanies" />
-        </div>
-        <div class="column">
-          <WikiPersonFeaturedList :people="featuredPeople" />
-        </div>
-      </div>
+      <WikiCardPrimary style="background: rgb(242, 245, 247)">
+        <template v-slot:content>
+          <div class="columns">
+            <div class="column">
+              <WikiCompanyFeaturedList
+                v-if="!hasSearchedCompanies"
+                style="background: rgb(242, 245, 247)"
+                :companies="featuredCompanies"
+              />
+              <WikiCompanyList v-else :companies="featuredCompanies" style="background: rgb(242, 245, 247)" />
+            </div>
+            <hr v-if="$device.isMobile" />
+            <div class="column">
+              <WikiPersonFeaturedList
+                v-if="!hasSearchedPeople"
+                style="background: rgb(242, 245, 247)"
+                :people="featuredPeople"
+              />
+              <WikiPersonList v-else :profiles="featuredPeople" style="background: rgb(242, 245, 247)" />
+            </div>
+          </div>
+        </template>
+      </WikiCardPrimary>
     </div>
   </div>
 </template>
 
 <script>
-import featuredCompaniesData from "~/assets/data/featured-companies.json";
-import featuredPeopleData from "~/assets/data/featured-people.json";
 export default {
   layout: ({ isMobile }) => (isMobile ? "mobile" : "default"),
 
   computed: {
     featuredCompanies() {
-      return featuredCompaniesData;
+      return this.$store.getters["companies/getCompanies"];
     },
 
     featuredPeople() {
-      return featuredPeopleData;
+      return this.$store.getters["people/getPeople"];
     },
+
+    hasSearchedCompanies() {
+      return (
+        this.featuredCompanies.length !==
+          this.$store.getters["companies/getFeaturedCompanies"].length ||
+        this.featuredCompanies[0] !==
+          this.$store.getters["companies/getFeaturedCompanies"][0]
+      );
+    },
+
+    hasSearchedPeople() {
+      return (
+        this.featuredPeople.length !==
+          this.$store.getters["people/getFeaturedPeople"].length ||
+        this.featuredPeople[0] !==
+          this.$store.getters["people/getFeaturedPeople"][0]
+      );
+    },
+  },
+
+  mounted() {
+    this.$store.commit(
+      "companies/setCompanies",
+      this.$store.getters["companies/getFeaturedCompanies"]
+    );
+    this.$store.commit(
+      "people/setPeople",
+      this.$store.getters["people/getFeaturedPeople"]
+    );
   },
 };
 </script>

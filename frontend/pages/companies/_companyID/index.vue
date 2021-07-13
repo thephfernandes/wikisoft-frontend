@@ -1,34 +1,43 @@
 <template>
   <div class="company-profile-page">
     <div class="container">
-      <div class="tile is-vertical" v-if="selectedCompany.company_id || featuredCompany.company_name">
+      <div
+        class="tile is-vertical"
+        v-if="featuredCompany.company_name || selectedCompany.company_id"
+      >
         <div class="tile is-parent">
           <div class="tile is-child">
-            <WikiCompanyBanner :company="selectedCompany.company_id ? selectedCompany : featuredCompany" />
+            <WikiCompanyBanner
+              :company="!featuredCompany ? selectedCompany : featuredCompany"
+            />
           </div>
         </div>
-        <div class="tile is-parent is-vertical is-8">
-          <div class="tile is-child">
-            <WikiCompanyOverview class="block" :company="selectedCompany.company_id ? selectedCompany : featuredCompany" />
-            <!-- <WikiCompanyJob
-                  class="block"
-                  v-for="(item, i) in jobs"
-                  :key="i"
-                  :job="item"
-                /> -->
+        <div class="tile is-parent">
+          <div class="tile is-child is-8">
+            <WikiCompanyOverview
+              class="block"
+              :company="!featuredCompany ? selectedCompany : featuredCompany"
+            />
           </div>
-        </div>
-        <div class="tile is-parent is-vertical is-4">
-          <div class="tile is-child">
-            <!-- <WikiSimilarSuggestions
-                :current="selectedCompany"
-                :category="'companies'"
-              /> -->
+          <div class="tile is-child is-4">
+            <WikiGoogleMap class="block" :place="featuredCompany.headquarters">
+              <template v-slot:header>
+                <WikiHeaderPrimary :size="3" :semantic="3">
+                  Headquarters
+                </WikiHeaderPrimary>
+              </template>
+            </WikiGoogleMap>
+            <WikiCompanySimilarList 
+              class="block"
+              :company="!featuredCompany ? selectedCompany : featuredCompany"
+            />
           </div>
         </div>
       </div>
-      <div clasS="tile is-vertical" v-else>
+
+      <div class="tile is-vertical" v-else>
         <b-progress class="mt-5"></b-progress>
+      </div>
       </div>
     </div>
   </div>
@@ -118,7 +127,7 @@ export default {
     // if (this.selectedCompany?.company_id === undefined) {
     //   await this.$store.dispatch("companies/fetchSelectedCompany", this.companyId);
     // }
-    this.findFeaturedCompany()
+    this.findFeaturedCompany();
   },
 
   computed: {
@@ -132,13 +141,16 @@ export default {
 
     photoSrc() {
       return `http://io.wikiprofile.com/assets/${this.selectedCompany.photo}`;
-    }
+    },
   },
 
   methods: {
     findFeaturedCompany() {
-      this.featuredCompany = companyData.find(item => item.company_name = this.companyId)
-    }
-  }
+      this.featuredCompany = companyData.find(
+        (item) =>
+          item.company_name.toLowerCase() === this.companyId.toLowerCase()
+      );
+    },
+  },
 };
 </script>

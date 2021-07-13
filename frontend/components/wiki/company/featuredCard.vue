@@ -31,7 +31,7 @@
       <p class="has-text-grey company-headquarters">
         {{ company.headquarters }}
       </p>
-      <WikiTextCollapsible :fullText="company.description" :charLimit="150" />
+      <WikiTextCollapsible v-if="company.description" :fullText="company.description" :charLimit="150" />
     </template>
 
     <template v-slot:footer>
@@ -42,6 +42,7 @@
       <WikiButtonBased
         outlined
         squared
+        :size="$device.isMobile ? 'is-small' : ''"
         type="is-success is-light"
         class="follow-button"
       >
@@ -62,10 +63,11 @@ export default {
 
   computed: {
     publicWebsite() {
+      // return "hello world";
       if (this.company.url.includes('https://')) {
         return this.company.url.slice(12, this.company.url.length);
       } else {
-        return this.company.url.slice(11, this.company.url.length)
+        return this.company.url.slice(11, this.company.url.length);
       }
     }
   }

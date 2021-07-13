@@ -1,9 +1,12 @@
+import featuredPeopleData from "~/assets/data/featured-people.json";
+
 export const state = () => ({
   people: [],
   claimedPeople: [],
   selectedPerson: {},
   me: {},
   fields: {},
+  featuredPeople: featuredPeopleData
 });
 
 export const getters = {
@@ -29,6 +32,10 @@ export const getters = {
 
   getFields: (state) => {
     return state.me;
+  },
+
+  getFeaturedPeople: (state) => {
+    return state.featuredPeople;
   }
 };
 
@@ -55,15 +62,22 @@ export const mutations = {
 };
 
 export const actions = {
-  async fetchPeople({ commit }, query) {
-    if (this.$user) {
-      try {
-        const people = await this.$directus.items("people");
-        const response = await people.read(this.$user.person_profiles[0]);
-        commit('setSelectedPerson', response);
-      } catch (error) {
-        console.error("failed to fetch people:", error);
+  async fetchPeople({ commit, rootState }, query) {
+    try {
+      const people = await this.$directus.items("people");
+      let response = {};
+      if (query) {
+        response = await people.read(query)
+      } else {
+        response = await people.read({
+          search: rootState.search.query
+        })
       }
+      if (response.data) {
+        commit('setPeople', response.data);
+      }
+    } catch (error) {
+      console.error("failed to fetch people:", error);
     }
   },
 
@@ -119,7 +133,7 @@ export const actions = {
     try {
       // if (this.$auth.user && this.$auth.user.id !== "") {
       //   const resposne = await this.$auth.user.me.read()
-      //   if (response && resposne.id) {
+      //   if (response && response.id) {
       //     Promise.revolse(dispatch("updatePerson", resposne.id, Person))
       //   }
       // }

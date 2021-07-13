@@ -95,6 +95,8 @@ module.exports = {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    // https://www.npmjs.com/package/@nuxtjs/device
+    '@nuxtjs/device',
     // https://github.com/nuxt-community/dotenv-module
     ['@nuxtjs/dotenv', { path: './' }],
     // https://www.npmjs.com/package/@nuxtjs/fontawesome#icons
@@ -160,7 +162,7 @@ module.exports = {
   },
   // Font Awesome Pro
 
-  router: {
-    middleware: ['mobile', 'auth'],
-  },
+  // router: {
+  //   middleware: ['auth'],
+  // },
 };

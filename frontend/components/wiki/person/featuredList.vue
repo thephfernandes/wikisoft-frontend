@@ -4,7 +4,8 @@
       <div class="list-header">
         <div class="is-flex is-justify-content-space-between">
           <WikiHeaderPrimary class="has-text-grey" :size="2" :semantic="3">
-            Showing a total of {{ people.length }} people
+            Showing {{ !$device.isMobile ? "a total of" : "" }} {{ people.length }}
+            {{ people.length !== 1 ? "people" : "person" }}
           </WikiHeaderPrimary>
           <div class="show-all-link">
             <WikiHeaderPrimary :size="2" :semantic="3">
@@ -17,8 +18,9 @@
 
     <template v-slot:content>
       <div class="featured-people-list">
-        <div class="featured-people">
-          <!-- <nuxt-link
+        <div v-if="people.length > 0">
+          <div class="featured-people">
+            <!-- <nuxt-link
             class="featured-person"
             
             :to="`/people/${item.person_name}`"
@@ -26,8 +28,20 @@
             <WikiPersonFeaturedCard v-for="(item, i) in people"
             :key="i" :person="item" />
           </nuxt-link> -->
-          <WikiPersonFeaturedCard v-for="(item, i) in people"
-            :key="i" :person="item" />
+            <WikiPersonFeaturedCard
+              v-for="(item, i) in people"
+              :key="i"
+              :person="item"
+            />
+          </div>
+        </div>
+        <div
+          class="is-flex is-align-items-center is-justify-content-center"
+          v-else
+        >
+          <WikiHeaderPrimary :size="3" :semantic="3"
+            ><p>No people found :/</p></WikiHeaderPrimary
+          >
         </div>
       </div>
     </template>

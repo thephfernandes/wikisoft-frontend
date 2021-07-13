@@ -34,5 +34,6 @@ module.exports = function (env) {
     REFRESH_TOKEN_COOKIE_SAME_SITE: 'Lax',
     //REFRESH_TOKEN_COOKIE_DOMAIN:
     //process.env.REFRESH_TOKEN_COOKIE_DOMAIN || 'localhost',
+    EXTENSIONS_PATH: './directus/extensions',
   };
 };

@@ -75,7 +75,8 @@ export const actions = {
     try {
       const { id } = { ...state.user };
       if (payload) {
-        await this.$directus.users.update(id, payload);
+        console.log("updating user with payload:", payload)
+        await this.$directus.users.me.update(payload);
       } else {
         const { user } = { ...state };
         await this.$directus.users.update(id, user);
@@ -92,6 +93,14 @@ export const actions = {
       commit("setUser", {});
     } catch (error) {
       console.error(`failed to delete ${id}:`, error)
+    }
+  },
+
+  async createEmployer({ dispatch }, payload) {
+    try {
+      await dispatch("updateUser", { ...payload, is_employer: true });
+    } catch (error) {
+      console.error("failed to create employer:", error);
     }
   },
 

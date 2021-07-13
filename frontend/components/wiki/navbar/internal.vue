@@ -1,7 +1,12 @@
 <template>
   <div class="nav">
     <div class="nav-links nav-links__left">
-      <nuxt-link :to="item.link" class="nav-links__item" v-for="(item, i) in leftList" :key="i">
+      <nuxt-link
+        :to="item.link"
+        class="nav-links__item"
+        v-for="(item, i) in leftList"
+        :key="i"
+      >
         <WikiIconWicon class="nav-links__icon" :icon="item.icon" size="0.7" />
         <span class="has-text-weight-semibold">
           {{ item.name }}
@@ -10,9 +15,14 @@
     </div>
     <div class="nav-links nav-links__right">
       <!-- v-show="item.name !== 'Me' || $auth.user" -->
-      <nuxt-link :to="item.link" class="nav-links__item" v-for="(item, i) in rightList" :key="i">
+      <nuxt-link
+        :to="item.link"
+        class="nav-links__item"
+        v-for="(item, i) in rightList"
+        :key="i"
+      >
         <WikiIconWicon
-          v-if="item.name !== $auth.user.first_name"
+          v-if="item.name !== 'Me'"
           class="nav-links__icon"
           :icon="item.icon"
           size="0.7"
@@ -77,7 +87,7 @@ export default {
         },
         {
           link: "/account",
-          name: this.$auth.user.first_name,
+          name: "Me",
         },
       ],
     };
