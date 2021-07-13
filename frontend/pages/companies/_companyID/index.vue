@@ -18,22 +18,19 @@
               class="block"
               :company="!featuredCompany ? selectedCompany : featuredCompany"
             />
-            <!-- <WikiCompanyJob
-                  class="block"
-                  v-for="(item, i) in jobs"
-                  :key="i"
-                  :job="item"
-                /> -->
           </div>
           <div class="tile is-child is-4">
+            <WikiGoogleMap class="block" :place="featuredCompany.headquarters">
+              <template v-slot:header>
+                <WikiHeaderPrimary :size="3" :semantic="3">
+                  Headquarters
+                </WikiHeaderPrimary>
+              </template>
+            </WikiGoogleMap>
             <WikiCompanySimilarList 
               class="block"
               :company="!featuredCompany ? selectedCompany : featuredCompany"
             />
-            <!-- <WikiSimilarSuggestions
-                :current="selectedCompany"
-                :category="'companies'"
-              /> -->
           </div>
         </div>
       </div>
