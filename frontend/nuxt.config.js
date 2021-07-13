@@ -162,7 +162,7 @@ module.exports = {
   },
   // Font Awesome Pro
 
-  router: {
-    middleware: ['auth'],
-  },
+  // router: {
+  //   middleware: ['auth'],
+  // },
 };
