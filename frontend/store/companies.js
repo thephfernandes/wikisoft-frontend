@@ -43,9 +43,14 @@ export const actions = {
   async fetchCompanies({ commit, rootState }, query) {
     try {
       const companies = await this.$directus.items("companies");
-      const response = await companies.read({
-        search: query || rootState.search.query
-      });
+      let response = {};
+      if (query) {
+        response = await companies.read(query);
+      } else {
+        response = await companies.read({
+          search: rootState.search.query
+        })
+      }
       if (response.data) {
         commit("setCompanies", response.data);
       }

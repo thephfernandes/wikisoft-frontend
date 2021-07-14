@@ -9,7 +9,7 @@
                 <template v-slot:header>
                   <div class="card-header-title">
                     <WikiHeaderPrimary :semantic="1" :size="4"
-                      >Search for companies</WikiHeaderPrimary
+                      >What are you looking for?</WikiHeaderPrimary
                     >
                   </div>
                 </template>
@@ -64,11 +64,12 @@
               </div>
               <div class="wrapper" v-else>
                 <div class="tile is-child">
-                  <WikiCompanyList
+                  <!-- <WikiCompanyList
                     :companies="paginatedCompanies"
                     class="block"
                     headerless
-                  />
+                  /> -->
+                  <WikiCompanyFeaturedList :companies="paginatedCompanies" />
                 </div>
                 <div class="tile is-child">
                   <b-pagination
