@@ -32,9 +32,10 @@
             :value="60"
             :type="'is-success'"
           ></b-progress>
-          <WikiButtonPrimary class="my-2"
+          <WikiButtonPrimary class="my-2" v-if="!profileComplete"
             >finish your profile</WikiButtonPrimary
           >
+          <WikiGoogleContactInvite></WikiGoogleContactInvite>
         </div>
       </div>
     </div>

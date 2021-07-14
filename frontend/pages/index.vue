@@ -4,7 +4,7 @@
       <WikiCardPrimary style="background: rgb(242, 245, 247)">
         <template v-slot:content>
           <div class="columns">
-            <div class="column">
+            <div class="column is-half">
               <WikiCompanyFeaturedList
                 v-if="!hasSearchedCompanies"
                 style="background: rgb(242, 245, 247)"
@@ -13,7 +13,7 @@
               <WikiCompanyList v-else :companies="featuredCompanies" style="background: rgb(242, 245, 247)" />
             </div>
             <hr v-if="$device.isMobile" />
-            <div class="column">
+            <div class="column is-half">
               <WikiPersonFeaturedList
                 v-if="!hasSearchedPeople"
                 style="background: rgb(242, 245, 247)"

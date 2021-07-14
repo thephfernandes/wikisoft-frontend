@@ -77,7 +77,7 @@ export default {
     overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
-    grid-template-columns: repeat(auto-fit, 1fr);
+    grid-template-columns: auto;
   }
 }
 
