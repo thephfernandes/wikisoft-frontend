@@ -9,8 +9,8 @@ module.exports = function registerEndpoint(
   router.get("/:type/", get_type);
   router.get("/:type/:query/", search);
   router.get("/:type/:query/:sort/", search);
-  router.get("/:type/:query/:sort/:filter/", search);
-  router.get("/:type/:query/:sort/:filter/:page/", search);
+  router.get("/:type/:query/:sort/:filters/", search);
+  router.get("/:type/:query/:sort/:filters/:page/", search);
 
   function redirect(req, res, next) {
     res.redirect("https://www.wikiprofile.com");
