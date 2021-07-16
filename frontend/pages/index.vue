@@ -1,22 +1,22 @@
 <template>
   <div>
     <div class="block">
-      <WikiCardPrimary style="background: rgb(242, 245, 247)">
+      <WikiCardPrimary class="container">
         <template v-slot:content>
           <div class="columns">
-            <div class="column">
+            <div class="column is-half">
               <WikiCompanyFeaturedList
                 v-if="!hasSearchedCompanies"
-                style="background: rgb(242, 245, 247)"
+                class="container"
                 :companies="featuredCompanies"
               />
               <WikiCompanyList v-else :companies="featuredCompanies" style="background: rgb(242, 245, 247)" />
             </div>
             <hr v-if="$device.isMobile" />
-            <div class="column">
+            <div class="column is-half">
               <WikiPersonFeaturedList
                 v-if="!hasSearchedPeople"
-                style="background: rgb(242, 245, 247)"
+                class="container"
                 :people="featuredPeople"
               />
               <WikiPersonList v-else :profiles="featuredPeople" style="background: rgb(242, 245, 247)" />
@@ -72,3 +72,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.container {
+  background-color: $primary-slate-gray;
+}
+</style>

@@ -32,7 +32,7 @@
         :type="props.item.connected ? 'is-success is-light' : 'is-success'"
       >
         <span v-if="!$device.isMobile" class="is-uppercase">{{
-          props.item.connected ? "follow" : "following"
+          props.item.connected ? "following" : "follow"
         }}</span>
         <WikiIconWicon v-else icon="plus" size="0.5" />
       </WikiButtonBased>

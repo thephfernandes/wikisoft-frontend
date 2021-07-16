@@ -52,6 +52,7 @@ export default {
 .card.featured {
   @include desktop {
     height: 420px;
+    min-width: 320px;
   }
 }
 
