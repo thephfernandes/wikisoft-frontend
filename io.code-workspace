@@ -28,11 +28,19 @@
     "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
     "typescript.format.insertSpaceAfterConstructor": true,
     "eslint.format.enable": true,
-    "prettier.documentSelectors": [
-      ".js"
-    ],
+    "prettier.documentSelectors": [".js"],
     "prettier.insertPragma": true,
     "prettier.requireConfig": true,
-    "prettier.requirePragma": true
+    "prettier.requirePragma": true,
+    "editor.copyWithSyntaxHighlighting": false,
+    "editor.lineHeight": 1.3,
+    "editor.renderIndentGuides": false,
+    "editor.renderLineHighlight": "all",
+    "editor.cursorSurroundingLines": 3,
+    "editor.cursorSurroundingLinesStyle": "all",
+    "prettier.vueIndentScriptAndStyle": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true
   }
 }
