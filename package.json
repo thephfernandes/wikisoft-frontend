@@ -43,7 +43,7 @@
     "cookie": "^0.4.1",
     "cookie-universal-nuxt": "^2.1.4",
     "core-js": "^3.9.1",
-    "directus": "^9.0.0-rc.83",
+    "directus": "^9.0.0-rc.85",
     "dotenv": "^10.0.0",
     "eslint": "^7.29.0",
     "faker": "^5.5.3",
