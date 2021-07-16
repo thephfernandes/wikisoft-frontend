@@ -50,7 +50,7 @@ module.exports = function registerEndpoint(
       .whereRaw(
         `items."search-all" @@ websearch_to_tsquery('simple', '${query}')`
       )
-      .andWhere("type", "=", query)
+      .andWhere("type", "=", type)
       .limit(pageLimit)
       .offset(page - 1)
       .then((results) => res.json(results));
