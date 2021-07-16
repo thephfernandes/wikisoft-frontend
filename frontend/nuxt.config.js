@@ -88,6 +88,7 @@ module.exports = {
   plugins: [
     { src: '~/plugins/persistedState.js' },
     { src: '~plugins/vueGoogleMaps.js' },
+    { src: '~/plugins/vueGapi.js' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -150,7 +151,7 @@ module.exports = {
     extractCSS: false,
     cache: true,
     parallel: true,
-    transpile: [/^vue2-google-maps($|\/)/],
+    transpile: [/^vue2-google-maps($|\/)/, 'vue-gapi'],
     vendor: ["vue2-google-maps"], 
   },
   modulesDir: ['../node_modules'],
