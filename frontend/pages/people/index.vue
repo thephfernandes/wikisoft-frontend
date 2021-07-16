@@ -7,7 +7,7 @@
             <template v-slot:header>
               <div class="card-header-title">
                 <WikiHeaderPrimary :semantic="1" :size="4"
-                  >Search for people</WikiHeaderPrimary
+                  >Who are you looking for?</WikiHeaderPrimary
                 >
               </div>
             </template>
