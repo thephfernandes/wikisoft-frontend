@@ -35,24 +35,26 @@ module.exports = function registerEndpoint(
     const query = req.params.query || "";
     const type = req.params.type || "companies";
     const sort = req.params.sort || "DESC";
-    const filters = req.params.filters || [];
+    const filters = req.params.filters || "[]";
     const page = req.params.page || 1;
     const pageLimit = 20;
 
     database
-      .withSchema("search")
-      .column({
-        id: "id",
-        content: "content",
-      })
-      .select()
-      .from("items")
-      .whereRaw(
-        `items."search-all" @@ websearch_to_tsquery('simple', '${query}')`
+      .raw(
+        "select search('" +
+          query +
+          "','" +
+          type +
+          "','" +
+          sort +
+          "'," +
+          page +
+          ",'" +
+          filters +
+          "'," +
+          pageLimit +
+          ");"
       )
-      .andWhere("type", "=", type)
-      .limit(pageLimit)
-      .offset(page - 1)
-      .then((results) => res.json(results));
+      .then((results) => res.json(results.rows));
   }
 };
