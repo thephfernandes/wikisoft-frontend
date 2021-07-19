@@ -13,7 +13,7 @@
         <hr />
         <div class="profile-info">
           <WikiHeaderPrimary :size="3" :semantic="3">
-            {{ fullName }}
+            {{ googleUser.Ys.Ve || fullName }}
           </WikiHeaderPrimary>
         </div>
         <div
@@ -47,17 +47,26 @@ export default {
   data() {
     return {
       photoSrc: undefined,
+      googleUser: {},
     };
   },
 
   computed: {
     fullName() {
-      return `${this.$auth.user?.first_name} ${this.$auth.user?.last_name}`;
+      if (!this.googleUser) {
+        return `${this.$auth.user?.first_name} ${this.$auth.user?.last_name}`;
+      } else {
+        return this.googleUser.fullName;
+      }
     },
 
     profileComplete() {
       return false;
     },
+  },
+
+  async mounted() {
+    this.googleUser = await this.$gapi.getCurrentUser();
   },
 };
 </script>

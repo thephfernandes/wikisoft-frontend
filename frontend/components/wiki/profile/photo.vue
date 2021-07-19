@@ -3,7 +3,6 @@
     <figure :class="`image ${size} is-1by1`">
       <img
         :src="photoSrc || 'https://bulma.io/images/placeholders/256x256.png'"
-        :alt="`${$auth.user.first_name} profile photo`"
         class="profile-photo__image is-rounded"
       />
     </figure>
