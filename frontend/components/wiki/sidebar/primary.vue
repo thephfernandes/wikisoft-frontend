@@ -13,7 +13,7 @@
         <hr />
         <div class="profile-info">
           <WikiHeaderPrimary :size="3" :semantic="3">
-            {{ fullName }}
+            {{ googleUser.Ys.Ve || fullName }}
           </WikiHeaderPrimary>
         </div>
         <div
@@ -47,6 +47,7 @@ export default {
   data() {
     return {
       photoSrc: undefined,
+      googleUser: {},
     };
   },
 
@@ -58,6 +59,10 @@ export default {
     profileComplete() {
       return false;
     },
+  },
+
+  async mounted() {
+    this.googleUser = await this.$gapi.getCurrentUser();
   },
 };
 </script>
