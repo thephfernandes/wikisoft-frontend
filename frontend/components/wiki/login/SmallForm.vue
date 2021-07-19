@@ -24,6 +24,10 @@
               @keypress.enter="emit_login"
             />
             <Button :rounded="false" :expanded="true" @click="emit_login">Sign in</Button>
+            <br />
+            <p class="is-uppercase has-text-centered">or</p>
+            <br />
+            <WikiGoogleSignInButton />
           </form>
         </template>
       </BaseForm>
