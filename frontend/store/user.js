@@ -3,6 +3,7 @@ export const state = () => ({
   account: {},
   contact: {},
   background: {},
+  authenticated: false,
 });
 
 export const getters = {
@@ -21,11 +22,16 @@ export const getters = {
   getBackground: (state) => {
     return state.background;
   },
+
+  getAuthenticated: (state) => {
+    return state.authenticated;
+  }
 };
 
 export const mutations = {
   setUser(state, payload) {
     state.user = payload;
+    state.authenticated = true;
   },
 
   setAccount(state, payload) {
@@ -39,6 +45,10 @@ export const mutations = {
   setBackground(state, payload) {
     state.background = payload;
   },
+
+  setAuthenticated(state, payload) {
+    state.authenticated = payload;
+  }
 };
 
 export const actions = {

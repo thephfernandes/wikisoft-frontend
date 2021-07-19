@@ -18,10 +18,11 @@ export default {
   },
 
   methods: {
-    signInWithGoogle() {
-      this.$gapi
-        .login()
-        .then(({ currentUser, hasGrantedScopes }) => console.log({ currentUser, hasGrantedScopes }));
+    async signInWithGoogle() {
+      await this.$gapi.login().then(({ currentUser }) => {
+        this.$store.commit("user/setUser", currentUser);
+        this.$router.push("/");
+      });
     },
   },
 };

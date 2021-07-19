@@ -431,6 +431,7 @@ export default {
     async attemptLogout() {
       try {
         await this.$auth.logout();
+        this.$store.commit("user/setAuthenticated", false);
         this.$router.push("/login");
       } catch (error) {
         console.error(error);

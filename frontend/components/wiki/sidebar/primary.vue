@@ -47,17 +47,26 @@ export default {
   data() {
     return {
       photoSrc: undefined,
+      googleUser: {},
     };
   },
 
   computed: {
     fullName() {
-      return `${this.$auth.user?.first_name} ${this.$auth.user?.last_name}`;
+      if (!this.googleUser) {
+        return `${this.$auth.user?.first_name} ${this.$auth.user?.last_name}`;
+      } else {
+        return this.googleUser.fullName;
+      }
     },
 
     profileComplete() {
       return false;
     },
+  },
+
+  mounted() {
+    this.googleUser = this.$gapi.getUserData();
   },
 };
 </script>
