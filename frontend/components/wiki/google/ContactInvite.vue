@@ -18,7 +18,7 @@
           <div class="content">
             <div
               class="google-contacts-list"
-              v-if="uninvitedGoogleContacts.length > 0"
+              v-if="googleContacts.length > 0"
             >
               <div
                 class="
@@ -27,13 +27,13 @@
                   px-1
                   py-1
                 "
-                v-for="(item, i) in uninvitedGoogleContacts"
+                v-for="(item, i) in googleContacts"
                 :key="i"
               >
                 <div class="google-contact">
-                  {{ item }}
+                  {{ item.names[0].displayName }}
                 </div>
-                <button>invite</button>
+                <button @click="attemptInviteContact(item)">invite</button>
               </div>
             </div>
             <div class="no-contacts-placeholder" v-else>
@@ -58,10 +58,11 @@ export default {
     };
   },
 
-  computed: {
-    uninvitedGoogleContacts() {
-      return this.googleContacts;
-    },
+  methods: {
+    attemptInviteContact(contact) {
+      console.log("invite sent...", contact.emailAddresses[0].value);
+      this.googleContacts.splice(contact);
+    }
   },
 
   async mounted() {
