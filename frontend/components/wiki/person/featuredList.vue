@@ -74,6 +74,7 @@ export default {
   @include desktop {
     padding: 0rem 0.25rem;
     max-height: 125vh;
+    grid-gap: 0.5rem;
     overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */

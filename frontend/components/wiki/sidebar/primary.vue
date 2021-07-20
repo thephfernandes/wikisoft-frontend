@@ -13,7 +13,7 @@
         <hr />
         <div class="profile-info">
           <WikiHeaderPrimary :size="3" :semantic="3">
-            {{ googleUser.Ys.Ve || fullName }}
+            {{ fullName }}
           </WikiHeaderPrimary>
         </div>
         <div
