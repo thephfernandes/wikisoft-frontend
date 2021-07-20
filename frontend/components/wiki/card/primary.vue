@@ -1,12 +1,12 @@
 <template>
   <div class="card block" :class="{ borderless: borderless, featured: featured }">
-    <div class="card-header" :class="{ borderBottom: headerBorder, featured: featured }">
+    <div class="card-header" v-if="!contentOnly" :class="{ borderBottom: headerBorder, featured: featured }">
       <slot name="header"></slot>
     </div>
     <div class="card-content" :class="{ featured: featured   }">
       <slot name="content"></slot>
     </div>
-    <div class="card-footer" :class="{ borderTop: footerBorder, featured: featured }">
+    <div class="card-footer" v-if="!contentOnly" :class="{ borderTop: footerBorder, featured: featured }">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -36,6 +36,12 @@ export default {
     },
 
     footerBorder: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+
+    contentOnly: {
       type: Boolean,
       default: false,
       required: false,

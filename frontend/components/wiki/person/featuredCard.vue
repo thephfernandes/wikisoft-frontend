@@ -1,14 +1,14 @@
 <template>
   <WikiCardFeatured class="featured-person-card">
     <template v-slot:header>
-      <nuxt-link :to="`/people/${person.full_name}`">
+      <a @click="redirectToPersonProfile()">
         <WikiProfileVanity
           :name="person.full_name"
           :profileImage="person.image"
           category="people"
         >
         </WikiProfileVanity>
-      </nuxt-link>
+      </a>
     </template>
 
     <template v-slot:content>
@@ -51,6 +51,13 @@ export default {
       return this.person.industry.split(",");
     },
   },
+
+  methods: {
+    redirectToPersonProfile() {
+      this.$store.commit("people/setIsFeatured", true);
+      this.$router.push(`/people/${this.person.full_name}`);
+    }
+  }
 };
 </script>
 

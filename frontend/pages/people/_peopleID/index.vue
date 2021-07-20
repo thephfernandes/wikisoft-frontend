@@ -2,112 +2,8 @@
   <div class="person-profile-page">
     <div class="content-wrapper" v-if="!loading">
       <div class="tile is-8">
-        <div class="person-wrapper" v-if="person.person_id">
-          <WikiCardPrimary class="profile-banner block">
-            <template v-slot:content>
-              <div
-                class="header-wrapper is-flex is-justify-content-space-between"
-                style="width: 100%"
-              >
-                <div class="photo-name-wrapper is-flex-direction-column">
-                  <div class="card-header-icon pl-0">
-                    <figure class="image is-128x128">
-                      <img
-                        class="profile-image is-rounded"
-                        :src="
-                          profilePhotoSrc ||
-                          'https://bulma.io/images/placeholders/128x128.png'
-                        "
-                        alt="profile picture"
-                      />
-                    </figure>
-                  </div>
-                </div>
-                <div class="profile-actions is-flex-direction-column">
-                  <b-button outlined class="is-link is-light report-button" @click="reportModalActive = true">
-                    <div class="button-content is-flex is-align-items-center">
-                      <WikiIconWicon icon="flag" />
-                      <span class="is-uppercase">report</span>
-                    </div>
-                  </b-button>
-                  <div class="claim-wrapper">
-                    <b-dropdown position="is-bottom-left">
-                      <template v-slot:trigger>
-                        <a role="button">
-                          <p
-                            class="py-2 has-text-grey has-text-centered has-text-weight-semibold"
-                          >
-                            Is this you?
-                          </p>
-                        </a>
-                      </template>
-
-                      <b-dropdown-item custom>
-                        <b-message type="is-info">
-                          <p>
-                            If you think this person matches your profile, you
-                            can claim it. By claiming this profile you won't be
-                            able to make others profiles with your email.
-                            <a role="button" @click="attemptPersonProfileClaim"
-                              >I understand</a
-                            >.
-                          </p>
-                        </b-message>
-                      </b-dropdown-item>
-                    </b-dropdown>
-                  </div>
-                </div>
-              </div>
-              <div class="is-flex is-flex-direction-column">
-                <div class="card-header-title pl-0">
-                  <p class="is-size-4">
-                    {{ person.data_full_name }}
-                  </p>
-                </div>
-                <p class="has-text-grey">{{ person.data_title }}</p>
-                <p class="has-text-grey">{{ person.data_location }}</p>
-              </div>
-              <div class="is-size-5">
-                <p class="has-text-grey has-text-weight-semibold">
-                  {{ person.description }}
-                </p>
-                <p class="has-text-grey has-text-weight-semibold">
-                  {{ person.location ? person.location : "" }}
-                  <span v-if="person.location">·</span>
-                  <a
-                    href="
-          "
-                    >{{
-                      person.data_number_of_connections > 500
-                        ? "500+"
-                        : person.data_number_of_connections
-                    }}
-                    connections</a
-                  >
-                  <span v-if="person.data_number_of_connections">·</span>
-                  <a href=""><span>Contact Info</span></a>
-                </p>
-              </div>
-
-              <!-- <div
-          class="pt-5 profile-interactions is-flex is-justify-content-space-between"
-          style="width: 100%"
-        >
-          <b-button
-            class="is-link is-light py-3"
-            v-for="(item, i) in interactions"
-            :key="i"
-          >
-            <p
-              class="is-uppercase is-size-5 has-text-centered has-text-weight-medium"
-            >
-              {{ item }}
-            </p>
-          </b-button>
-        </div> -->
-            </template>
-          </WikiCardPrimary>
-
+        <div class="person-wrapper" v-if="featuredPerson.full_name || person.person_id">
+          <WikiPersonBanner :person="!featuredPerson ? person : featuredPerson"/>
           <WikiCardPrimary
             class="profile-experience block"
             styles="has-borders"
@@ -202,7 +98,12 @@
               </div>
             </template>
             <template v-slot:content>
-              <div class="skills-list is-flex is-flex-wrap-wrap is-justify-content-space-between">
+              <div
+                class="
+                  skills-list
+                  is-flex is-flex-wrap-wrap is-justify-content-space-between
+                "
+              >
                 <div
                   class="skill-item mb-1"
                   v-for="(item, i) in separateCSV(person.data_skill)"
@@ -226,9 +127,7 @@
               </div>
             </template>
             <template v-slot:content>
-              <div
-                class="interest-list is-flex is-flex-wrap-wrap"
-              >
+              <div class="interest-list is-flex is-flex-wrap-wrap">
                 <div
                   class="interest-item mb-2 mr-2"
                   v-for="(item, i) in person.data_interested"
@@ -271,7 +170,10 @@
 
         <div v-else>
           <div
-            class="block is-flex is-align-items-center is-justify-content-center"
+            class="
+              block
+              is-flex is-align-items-center is-justify-content-center
+            "
           >
             <WikiHeaderPrimary :size="3" :semantic="2">
               Could not find this person
@@ -286,18 +188,21 @@
 
     <b-modal v-model="reportModalActive" has-modal-card can-cancel>
       <template v-slot:default="props">
-        <WikiProfileReport @close="props.close" :id="personId"/>
+        <WikiProfileReport @close="props.close" :id="personId" />
       </template>
     </b-modal>
   </div>
 </template>
 
 <script>
+import peopleData from "~/assets/data/featured-people.json";
+
 export default {
   data() {
     return {
       loading: false,
       personId: this.$route.params.peopleID,
+      featuredPerson: {},
       profileImage: "",
       canEdit: false,
       reportModalActive: false,
@@ -352,11 +257,20 @@ export default {
 
   async created() {
     this.loading = true;
-    await this.$store.dispatch("people/fetchSelectedPerson", this.personId);
+    if (this.isFeatured) {
+      console.log("is featured!");
+      this.findFeaturedPerson();
+    } else {
+      await this.$store.dispatch("people/fetchSelectedPerson", this.personId);
+    }
     this.loading = false;
   },
 
   computed: {
+    isFeatured() {
+      return this.$store.getters["people/getIsFeatured"];
+    },
+
     person() {
       return this.$store.getters["people/getSelectedPerson"];
     },
@@ -373,12 +287,10 @@ export default {
       return [];
     },
 
-    async attemptPersonProfileClaim() {
-      if (this.$auth.user) {
-        await this.$store.dispatch("user/claimProfile", this.personId);
-      } else {
-        this.$router.push("/login");
-      }
+    findFeaturedPerson() {
+      this.featuredPerson = peopleData.find(
+        (item) => item.full_name.toLowerCase() === this.personId.toLowerCase()
+      );
     },
   },
 };

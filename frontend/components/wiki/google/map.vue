@@ -53,7 +53,6 @@ export default {
         if (status === this.google.maps.places.PlacesServiceStatus.OK) {
           map.setCenter(results[0].geometry.location);
           this.location = results[0].geometry.location;
-          console.log(this.$refs.mapMarkerRef._props.position);
         }
       });
     },

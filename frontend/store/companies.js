@@ -5,6 +5,7 @@ export const state = () => ({
   claimedCompanies: [],
   selectedCompany: {},
   featuredCompanies: featuredCompaniesData,
+  isFeatured: false,
 });
 
 export const getters = {
@@ -22,6 +23,10 @@ export const getters = {
 
   getFeaturedCompanies: (state) => {
     return state.featuredCompanies;
+  },
+
+  getIsFeatured: (state) => {
+    return state.isFeatured;
   }
 };
 
@@ -37,6 +42,10 @@ export const mutations = {
   setSelectedCompany(state, payload) {
     state.selectedCompany = payload;
   },
+
+  setIsFeatured(state, payload) {
+    state.isFeatured = payload;
+  }
 };
 
 export const actions = {

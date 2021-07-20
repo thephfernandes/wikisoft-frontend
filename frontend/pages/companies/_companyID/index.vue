@@ -124,13 +124,23 @@ export default {
   },
 
   async created() {
-    // if (this.selectedCompany?.company_id === undefined) {
-    //   await this.$store.dispatch("companies/fetchSelectedCompany", this.companyId);
-    // }
-    this.findFeaturedCompany();
+    this.loading = true;
+    if (this.isFeatured) {
+      this.findFeaturedCompany();
+    } else {
+      await this.$store.dispatch(
+        "companies/fetchSelectedCompany",
+        this.companyId
+      );
+    }
+    this.loading = false;
   },
 
   computed: {
+    isFeatured() {
+      return this.$store.getters["companies/getIsFeatured"];
+    },
+
     selectedCompany() {
       return this.$store.getters["companies/getSelectedCompany"];
     },
