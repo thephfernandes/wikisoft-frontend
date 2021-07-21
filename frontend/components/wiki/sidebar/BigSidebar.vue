@@ -101,18 +101,21 @@ export default {
   margin-right: 1.6em;
   margin-top: 50px;
 }
+
 .big-sidebar-container {
   width: 100%;
   height: auto;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
 }
+
 .sidebar-logo-holder {
   height: 100%;
   width: 100%;
   display: grid;
 }
+
 .square-logo-container {
   justify-self: center;
   align-self: center;

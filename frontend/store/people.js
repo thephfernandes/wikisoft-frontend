@@ -73,17 +73,29 @@ export const mutations = {
 export const actions = {
   async fetchPeople({ commit, rootState }, query) {
     try {
-      const people = await this.$directus.items("people");
       let response = {};
       if (query) {
-        response = await people.read(query)
+        response = await this.$axios.get(`/people/${query}`);
       } else {
-        response = await people.read({
-          search: rootState.search.query
-        })
+        response = await this.$axios.get(`/people${rootState.search.query}`);
       }
+
+      // const people = await this.$directus.items("people");
+      // let response = {};
+      // if (query) {
+      //   response = await people.read(query)
+      // } else {
+      //   response = await people.read({
+      //     search: rootState.search.query
+      //   })
+      // }
+      
       if (response.data) {
-        commit('setPeople', response.data);
+        if (response.data[0]?.search.results.length > 0) {
+          commit("setPeople", response.data[0].search.results);
+        } else {
+          commit("setPeople", []);
+        }
       }
     } catch (error) {
       console.error("failed to fetch people:", error);
@@ -113,9 +125,14 @@ export const actions = {
 
   async fetchSelectedPerson({ commit }, id) {
     try {
-      const people = await this.$directus.items("people");
-      const response = await people.read(id);
-      await commit('setSelectedPerson', response.data);
+      const response = await this.$axios.get(`/people/${id}`);
+
+      // const people = await this.$directus.items("people");
+      // const response = await people.read(id);
+
+      if (response.data[0].search.results) {
+        await commit('setSelectedPerson', response.data[0].search.results[0]);
+      }
     } catch (error) {
       console.error(`failed to fetch person ${id}:`, error);
     }

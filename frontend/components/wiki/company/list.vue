@@ -4,7 +4,8 @@
       <div class="list-header" v-if="!headerless">
         <div class="is-flex is-justify-content-space-between">
           <WikiHeaderPrimary class="has-text-grey" :size="2" :semantic="3">
-            Showing {{ !$device.isMobile ? "a total of" : "" }}  {{ companies.length }}
+            Showing {{ !$device.isMobile ? "a total of" : "" }}
+            {{ companies.length }}
             {{ companies.length !== 1 ? "companies" : "company" }}
           </WikiHeaderPrimary>
           <div class="show-all-link">
@@ -27,8 +28,13 @@
             />
           </div>
         </div>
-        <div v-else class="is-flex is-align-items-center is-justify-content-center">
-          <WikiHeaderPrimary :size="3" :semantic="3"><p>No companies found :/</p></WikiHeaderPrimary>
+        <div
+          v-else
+          class="is-flex is-align-items-center is-justify-content-center"
+        >
+          <WikiHeaderPrimary :size="3" :semantic="3"
+            ><p>No companies found :/</p></WikiHeaderPrimary
+          >
         </div>
       </div>
     </template>
@@ -47,8 +53,14 @@ export default {
       type: Boolean,
       default: false,
       required: false,
-    }
+    },
   },
+
+  // computed: {
+  //   companiesData() {
+  //     return this.companies.map((item) => item.content);
+  //   },
+  // },
 };
 </script>
 
@@ -66,8 +78,8 @@ export default {
   @include desktop {
     padding: 0rem 0.25rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    max-height: 125vh;
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    // max-height: 125vh;
     overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */

@@ -63,8 +63,9 @@ export default {
 
   computed: {
     publicWebsite() {
-      // return "hello world";
-      if (this.company.url.includes('https://')) {
+      return "hello world";
+      if (this.company.url?.includes('https://')) {
+        console.log("hit")
         return this.company.url.slice(12, this.company.url.length);
       } else {
         return this.company.url.slice(11, this.company.url.length);

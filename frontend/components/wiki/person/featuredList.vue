@@ -4,7 +4,8 @@
       <div class="list-header">
         <div class="is-flex is-justify-content-space-between">
           <WikiHeaderPrimary class="has-text-grey" :size="2" :semantic="3">
-            Showing {{ !$device.isMobile ? "a total of" : "" }} {{ people.length }}
+            Showing {{ !$device.isMobile ? "a total of" : "" }}
+            {{ people.length }}
             {{ people.length !== 1 ? "people" : "person" }}
           </WikiHeaderPrimary>
           <div class="show-all-link">
@@ -32,6 +33,7 @@
               v-for="(item, i) in people"
               :key="i"
               :person="item"
+              class="featured-person"
             />
           </div>
         </div>
@@ -74,12 +76,17 @@ export default {
   @include desktop {
     padding: 0rem 0.25rem;
     max-height: 125vh;
-    grid-gap: 0.5rem;
     overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
-    grid-template-columns: auto;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-gap: 0.5rem;
   }
+}
+
+.featured-person {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @include desktop {
