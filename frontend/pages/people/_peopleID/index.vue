@@ -1,189 +1,209 @@
 <template>
   <div class="person-profile-page">
-    <div class="content-wrapper" v-if="!loading">
-      <div class="tile is-8">
-        <div class="person-wrapper" v-if="featuredPerson.full_name || person.person_id">
-          <WikiPersonBanner :person="!featuredPerson ? person : featuredPerson"/>
-          <WikiCardPrimary
-            class="profile-experience block"
-            styles="has-borders"
-          >
-            <template v-slot:header>
-              <div class="card-header-title">
-                <p class="is-size-4">Experience</p>
-              </div>
-            </template>
-            <template v-slot:content>
-              <div class="experience-list">
-                <!-- ignore shitty usage of props -->
-                <div
-                  class="experience-item block"
-                  v-for="(item, i) in experiences"
-                  :key="i"
-                >
-                  <WikiProfileVanity
-                    :name="item.role"
-                    :role="`${item.company}, ${item.hours}`"
-                    :since="`${item.startDate} - ${
-                      item.isCurrent ? 'Present' : item.endDate
-                    }`"
-                    category="job"
-                  />
-                  <WikiTextCollapsible
-                    class="job-description"
-                    :fullText="item.description"
-                    expandDisabled
-                  />
-                </div>
-              </div>
-            </template>
-            <template v-slot:footer>
-              <div
-                class="list-expand is-flex is-justify-content-center py-2"
-                style="width: 100%"
+    <div class="container">
+      <div class="tile is-vertical">
+        <div class="tile is-parent" v-if="!loading">
+          <div class="tile is-8">
+            <div
+              class="person-wrapper block"
+              v-if="featuredPerson.full_name || person.person_id"
+            >
+              <WikiPersonBanner
+                class="block"
+                :person="!featuredPerson ? person : featuredPerson"
+              />
+              <WikiPersonOverview
+                class="block"
+                :person="!featuredPerson ? person : featuredPerson"
+              />
+              <WikiCardPrimary
+                class="profile-experience block"
+                styles="has-borders"
               >
-                <a href="" style="color: cornflowerblue">
-                  <span class="has-text-weight-semibold">Show More</span>
-                </a>
-              </div>
-            </template>
-          </WikiCardPrimary>
+                <template v-slot:header>
+                  <div class="card-header-title">
+                    <p class="is-size-4">Experience</p>
+                  </div>
+                </template>
+                <template v-slot:content>
+                  <div class="experience-list">
+                    <!-- ignore shitty usage of props -->
+                    <div
+                      class="experience-item block"
+                      v-for="(item, i) in experiences"
+                      :key="i"
+                    >
+                      <WikiProfileVanity
+                        :name="item.role"
+                        :role="`${item.company}, ${item.hours}`"
+                        :since="`${item.startDate} - ${
+                          item.isCurrent ? 'Present' : item.endDate
+                        }`"
+                        category="job"
+                      />
+                      <WikiTextCollapsible
+                        class="job-description"
+                        :fullText="item.description"
+                        expandDisabled
+                      />
+                    </div>
+                  </div>
+                </template>
+                <template v-slot:footer>
+                  <div
+                    class="list-expand is-flex is-justify-content-center py-2"
+                    style="width: 100%"
+                  >
+                    <a href="" style="color: cornflowerblue">
+                      <span class="has-text-weight-semibold">Show More</span>
+                    </a>
+                  </div>
+                </template>
+              </WikiCardPrimary>
 
-          <WikiCardPrimary
-            class="profile-education block"
-            styles="has-borders"
-            v-if="person.data_educations"
-          >
-            <template v-slot:header
-              ><div class="card-header-title">
-                <p class="is-size-4">Education</p>
-              </div>
-            </template>
-            <template v-slot:content>
-              <div class="education-list">
-                <div
-                  class="education-item block"
-                  v-for="(item, i) in separateCSV(person.data_educations)"
-                  :key="i"
-                >
-                  <WikiProfileVanity :name="item" category="institute" />
-                  <WikiTextCollapsible
-                    v-if="item.description"
-                    class="education-description"
-                    :fullText="item.description"
-                    expandDisabled
-                  />
-                </div>
-              </div>
-            </template>
-            <template v-slot:footer>
-              <div
-                class="list-expand is-flex is-justify-content-center py-2"
-                style="width: 100%"
+              <WikiCardPrimary
+                class="profile-education block"
+                styles="has-borders"
+                v-if="person.data_educations"
               >
-                <a href="" style="color: cornflowerblue">
-                  <span class="has-text-weight-semibold">Show More</span>
-                </a>
-              </div>
-            </template>
-          </WikiCardPrimary>
+                <template v-slot:header
+                  ><div class="card-header-title">
+                    <p class="is-size-4">Education</p>
+                  </div>
+                </template>
+                <template v-slot:content>
+                  <div class="education-list">
+                    <div
+                      class="education-item block"
+                      v-for="(item, i) in separateCSV(person.data_educations)"
+                      :key="i"
+                    >
+                      <WikiProfileVanity :name="item" category="institute" />
+                      <WikiTextCollapsible
+                        v-if="item.description"
+                        class="education-description"
+                        :fullText="item.description"
+                        expandDisabled
+                      />
+                    </div>
+                  </div>
+                </template>
+                <template v-slot:footer>
+                  <div
+                    class="list-expand is-flex is-justify-content-center py-2"
+                    style="width: 100%"
+                  >
+                    <a href="" style="color: cornflowerblue">
+                      <span class="has-text-weight-semibold">Show More</span>
+                    </a>
+                  </div>
+                </template>
+              </WikiCardPrimary>
 
-          <WikiCardPrimary
-            class="profile-skills block"
-            v-if="person.data_skill"
-          >
-            <template v-slot:header>
-              <div class="card-header-title">
-                <p class="is-size-4">Skills</p>
-              </div>
-            </template>
-            <template v-slot:content>
+              <WikiCardPrimary
+                class="profile-skills block"
+                v-if="person.data_skill"
+              >
+                <template v-slot:header>
+                  <div class="card-header-title">
+                    <p class="is-size-4">Skills</p>
+                  </div>
+                </template>
+                <template v-slot:content>
+                  <div
+                    class="
+                      skills-list
+                      is-flex is-flex-wrap-wrap is-justify-content-space-between
+                    "
+                  >
+                    <div
+                      class="skill-item mb-1"
+                      v-for="(item, i) in separateCSV(person.data_skill)"
+                      :key="i"
+                    >
+                      <span class="is-uppercase has-text-weight-semibold">{{
+                        item
+                      }}</span>
+                    </div>
+                  </div>
+                </template>
+              </WikiCardPrimary>
+
+              <WikiCardPrimary
+                class="profile-interests block"
+                v-if="person.data_interested"
+              >
+                <template v-slot:header>
+                  <div class="card-header-title">
+                    <p class="is-size-4">Interests</p>
+                  </div>
+                </template>
+                <template v-slot:content>
+                  <div class="interest-list is-flex is-flex-wrap-wrap">
+                    <div
+                      class="interest-item mb-2 mr-2"
+                      v-for="(item, i) in person.data_interested"
+                      :key="i"
+                    >
+                      <span class="is-uppercase has-text-weight-semibold">
+                        {{ item }}
+                      </span>
+                    </div>
+                  </div>
+                </template>
+              </WikiCardPrimary>
+              <WikiCardPrimary class="profile-recommendations block">
+                <template v-slot:header>
+                  <div class="card-header-title">
+                    <p class="is-size-4">Recommendations</p>
+                  </div>
+                </template>
+                <template v-slot:content>
+                  <div class="recommendations-list">
+                    <div
+                      class="recommendation-item"
+                      v-for="(item, i) in recommendations"
+                      :key="i"
+                    >
+                      <WikiProfileVanity
+                        :name="item.from"
+                        :role="item.role"
+                        :since="item.when"
+                      />
+                      <WikiTextCollapsible
+                        class="recommendation-description"
+                        :fullText="item.description"
+                      />
+                    </div>
+                  </div>
+                </template>
+              </WikiCardPrimary>
+            </div>
+
+            <div v-else>
               <div
                 class="
-                  skills-list
-                  is-flex is-flex-wrap-wrap is-justify-content-space-between
+                  block
+                  is-flex is-align-items-center is-justify-content-center
                 "
               >
-                <div
-                  class="skill-item mb-1"
-                  v-for="(item, i) in separateCSV(person.data_skill)"
-                  :key="i"
-                >
-                  <span class="is-uppercase has-text-weight-semibold">{{
-                    item
-                  }}</span>
-                </div>
+                <WikiHeaderPrimary :size="3" :semantic="2">
+                  Could not find this person
+                </WikiHeaderPrimary>
               </div>
-            </template>
-          </WikiCardPrimary>
-
-          <WikiCardPrimary
-            class="profile-interests block"
-            v-if="person.data_interested"
-          >
-            <template v-slot:header>
-              <div class="card-header-title">
-                <p class="is-size-4">Interests</p>
-              </div>
-            </template>
-            <template v-slot:content>
-              <div class="interest-list is-flex is-flex-wrap-wrap">
-                <div
-                  class="interest-item mb-2 mr-2"
-                  v-for="(item, i) in person.data_interested"
-                  :key="i"
-                >
-                  <span class="is-uppercase has-text-weight-semibold">
-                    {{ item }}
-                  </span>
-                </div>
-              </div>
-            </template>
-          </WikiCardPrimary>
-          <WikiCardPrimary class="profile-recommendations block">
-            <template v-slot:header>
-              <div class="card-header-title">
-                <p class="is-size-4">Recommendations</p>
-              </div>
-            </template>
-            <template v-slot:content>
-              <div class="recommendations-list">
-                <div
-                  class="recommendation-item"
-                  v-for="(item, i) in recommendations"
-                  :key="i"
-                >
-                  <WikiProfileVanity
-                    :name="item.from"
-                    :role="item.role"
-                    :since="item.when"
-                  />
-                  <WikiTextCollapsible
-                    class="recommendation-description"
-                    :fullText="item.description"
-                  />
-                </div>
-              </div>
-            </template>
-          </WikiCardPrimary>
-        </div>
-
-        <div v-else>
-          <div
-            class="
-              block
-              is-flex is-align-items-center is-justify-content-center
-            "
-          >
-            <WikiHeaderPrimary :size="3" :semantic="2">
-              Could not find this person
-            </WikiHeaderPrimary>
+            </div>
+          </div>
+          <div class="tile is-4">
+            <WikiPersonSimilarList
+              class="block"
+              :person="!featuredPerson ? person : featuredPerson"
+            />
           </div>
         </div>
+        <div class="tile" v-else>
+          <b-progress class="mt-5"></b-progress>
+        </div>
       </div>
-    </div>
-    <div v-else>
-      <b-progress class="mt-5"></b-progress>
     </div>
 
     <b-modal v-model="reportModalActive" has-modal-card can-cancel>

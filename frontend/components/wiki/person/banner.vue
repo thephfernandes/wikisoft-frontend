@@ -76,9 +76,9 @@
         <p class="has-text-grey has-text-weight-semibold">
           {{ person.description }}
         </p>
-        <p class="has-text-grey has-text-weight-semibold">
+        <p class="has-text-grey has-text-weight-semibold" v-if="!isFeatured">
           {{ person.location ? person.location : "" }}
-          <span class="wrapper" v-if="!isFeatured">
+          <span class="wrapper">
             <span v-if="person.location">·</span>
             <a
               href="
@@ -93,6 +93,9 @@
             <span v-if="person.data_number_of_connections">·</span>
             <a href=""><span>Contact Info</span></a>
           </span>
+        </p>
+        <p class="has-text-grey has-text-weight-semibold" v-else>
+          Founder of <a :href="person.company_website">{{ person.founder_of }}</a> · {{ person.location }}
         </p>
       </div>
 
