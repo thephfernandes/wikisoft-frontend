@@ -16,10 +16,7 @@
           </WikiHeaderPrimary>
 
           <div class="content">
-            <div
-              class="google-contacts-list"
-              v-if="googleContacts.length > 0"
-            >
+            <div class="google-contacts-list" v-if="googleContacts.length > 0">
               <div
                 class="
                   google-contacts-list__item
@@ -62,18 +59,26 @@ export default {
     attemptInviteContact(contact) {
       console.log("invite sent...", contact.emailAddresses[0].value);
       this.googleContacts.splice(contact);
-    }
+    },
   },
 
-  async mounted() {
-    const gapi = await this.$gapi.getGapiClient();
-    const res = await gapi.client.people.people.connections.list({
-      resourceName: "people/me",
-      personFields: "names",
+  mounted() {
+    this.$gapi.isSignedIn().then((signedIn) => {
+      if (signedIn) {
+        this.$gapi.getGapiClient().then((gapi) => {
+          gapi.client.people.people.connections
+            .list({
+              resourceName: "people/me",
+              personFields: "names",
+            })
+            .then((response) => {
+              if (response.body.connections) {
+                this.googleContacts = response.body.connections;
+              }
+            });
+        });
+      }
     });
-    if (res.body.connections) {
-      this.googleContacts = res.body.connections;
-    }
   },
 };
 </script>
