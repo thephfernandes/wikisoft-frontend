@@ -214,8 +214,8 @@
                     <div class="item-action">
                       <b-switch
                         class="mr-0"
-                        :value="$auth.user.status === 'Archived'"
-                        @input="handleHibernate"
+                        @input.capture="handleHibernate"
+                        v-model="hibernating_enabled"
                       ></b-switch>
                     </div>
                   </div>
@@ -421,7 +421,11 @@
                       </p>
                     </div>
                     <div class="item-action">
-                      <b-switch class="mr-0" @input="handle2FA"></b-switch>
+                      <b-switch
+                        class="mr-0"
+                        @input.capture="handle2FA"
+                        v-model="tfa_enabled"
+                      ></b-switch>
                     </div>
                   </div>
                 </div>
@@ -432,7 +436,16 @@
           <WikiCardPrimary headerBorder v-if="hasUpdated">
             <template v-slot:header>Save account changes</template>
             <template v-slot:content>
-              <b-button @click="pushUpdatedProfile">Persist changes</b-button>
+              <div class="persist-button-wrapper container">
+                <WikiButtonBased @click="discardChanges" :type="'is-danger'"
+                  >Discard changes</WikiButtonBased
+                >
+                <WikiButtonBased
+                  @click="pushUpdatedProfile"
+                  :type="'is-success'"
+                  >Persist changes</WikiButtonBased
+                >
+              </div>
             </template>
           </WikiCardPrimary>
         </div>
@@ -461,6 +474,8 @@ export default {
       expandedDelta: {},
       opwd: "",
       npwd: "",
+      tfa_enabled: false,
+      hibernating_enabled: false,
       confirmDelete: "",
       deletePromptActive: false,
       loading: false,
@@ -472,8 +487,10 @@ export default {
       return this.confirmDelete.toLowerCase() === "i understand";
     },
     hasUpdated() {
+      console.log(this.changeDelta);
+      console.log(Object.keys(this.changeDelta));
       return (
-        Object.keys(this.changeDelta) > 0 ||
+        Object.keys(this.changeDelta).length > 0 ||
         (this.opwd !== "" && this.npwd !== "")
       );
     },
@@ -483,9 +500,8 @@ export default {
   },
 
   methods: {
-    async handleHibernate() {
+    handleHibernate() {
       const is_hibernating = this.$auth.user.status === "Archived";
-
       this.$buefy.dialog.confirm({
         title: "Hibernating account",
         message: `Are u sure u want to ${
@@ -496,15 +512,17 @@ export default {
         confirmText: is_hibernating ? "Unhibernate" : "Hibernate",
         type: is_hibernating ? "is-success" : "is-danger",
         hasIcon: true,
-        onConfirm: async () => {
+        onConfirm: () => {
           this.$directus.users
             .update(this.$auth.user.id, {
               status: is_hibernating ? "active" : "archived",
             })
             .then((e) => {
               if (!is_hibernating) {
+                this.hibernating_enabled = true;
                 this.$router.redirect("/");
               }
+              this.hibernating_enabled = false;
               this.$buefy.toast
                 .open({
                   title: "Hibernate account",
@@ -522,14 +540,18 @@ export default {
             });
         },
       });
+      this.hibernating_enabled = false;
     },
 
     async handleInput(where, what) {
-      this.changeDelta[where] = what;
+      await this.$set(this.changeDelta, where, what);
     },
     async handleExpand(where) {
-      this.expandedDelta[where] =
-        this.expandedDelta[where] != undefined ? true : false; // yes but it is boolean.
+      await this.$set(
+        this.expandedDelta,
+        where,
+        where != undefined ? true : false
+      );
     },
 
     async handlePhotoUpload(form) {
@@ -540,31 +562,50 @@ export default {
       try {
         await this.$directus.users.tfa.enable(this.account.email);
         await this.$store.dispatch("user/updateUser", {});
+        this.tfa_enabled = true;
       } catch (error) {
+        this.tfa_enabled = false;
         console.log(error);
         this.$buefy.toast.open({
           type: "is-danger",
           position: "is-bottom",
-          message: "error: " + error.status + error.errorMessages,
+          message: "error: " + error,
         });
       }
     },
 
     async pushUpdatedProfile() {
       Object.keys(this.changeDelta).forEach((deltaKey) => {
-        if (deltaKey in Object.keys(this.account)) {
+        if (
+          deltaKey in Object.keys(this.account) &&
+          (this.account[deltaKey] != undefined ||
+            this.account[deltaKey] != null)
+        ) {
           this.$set(this.account, deltaKey, this.changeDelta[deltaKey]);
         }
       });
-      (await this.$store.dispatch("user/updateUser", this.changeDelta))
-        ? {}
-        : this.$router.push("/");
+      this.$store
+        .dispatch("user/updateUser", this.changeDelta)
+        .then((e) => {
+          this.discardChanges();
+          this.$router.go();
+        })
+        .catch((e) => {
+          this.$router.redirect("/login");
+        });
     },
 
     async attemptDeleteAccount() {
       (await this.$store.dispatch("user/deleteUser", this.id))
         ? this.$router.push("/login")
         : {};
+    },
+
+    async discardChanges() {
+      this.changeDelta = Object.assign({}, this.changeDelta, {});
+      this.opwd = "";
+      this.npwd = "";
+      this.confirmDelete = "";
     },
   },
 
@@ -608,5 +649,13 @@ export default {
       margin-bottom: 1rem;
     }
   }
+}
+
+.persist-button-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+  margin-bottom: 0;
 }
 </style>
