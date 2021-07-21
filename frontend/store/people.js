@@ -6,7 +6,8 @@ export const state = () => ({
   selectedPerson: {},
   me: {},
   fields: {},
-  featuredPeople: featuredPeopleData
+  featuredPeople: featuredPeopleData,
+  isFeatured: false,
 });
 
 export const getters = {
@@ -36,7 +37,11 @@ export const getters = {
 
   getFeaturedPeople: (state) => {
     return state.featuredPeople;
-  }
+  },
+
+  getIsFeatured: (state) => {
+    return state.isFeatured;
+  },
 };
 
 export const mutations = {
@@ -58,6 +63,10 @@ export const mutations = {
 
   setFields(state, payload) {
     state.fields = payload;
+  },
+
+  setIsFeatured(state, payload) {
+    state.isFeatured = payload;
   }
 };
 

@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  middleware: 'auth',
+  middleware: 'authenticated',
 
   data() {
     return {
@@ -50,10 +50,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.columns {
-  width: 100%;
-}
-
 .base-layout-outer {
   width: 100vw;
 }

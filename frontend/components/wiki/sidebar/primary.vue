@@ -32,9 +32,10 @@
             :value="60"
             :type="'is-success'"
           ></b-progress>
-          <WikiButtonPrimary class="my-2"
+          <WikiButtonPrimary class="my-2" v-if="!profileComplete"
             >finish your profile</WikiButtonPrimary
           >
+          <WikiGoogleContactInvite></WikiGoogleContactInvite>
         </div>
       </div>
     </div>
@@ -46,17 +47,26 @@ export default {
   data() {
     return {
       photoSrc: undefined,
+      googleUser: {},
     };
   },
 
   computed: {
     fullName() {
-      return `${this.$auth.user?.first_name} ${this.$auth.user?.last_name}`;
+      if (!this.googleUser) {
+        return `${this.$auth.user?.first_name} ${this.$auth.user?.last_name}`;
+      } else {
+        return this.googleUser.fullName;
+      }
     },
 
     profileComplete() {
       return false;
     },
+  },
+
+  async mounted() {
+    this.googleUser = await this.$gapi.getCurrentUser();
   },
 };
 </script>

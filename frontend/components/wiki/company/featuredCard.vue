@@ -1,7 +1,7 @@
 <template>
   <WikiCardFeatured class="featured-company-card">
     <template v-slot:header>
-      <nuxt-link :to="`/companies/${company.company_name}`">
+      <a @click="redirectToCompanyProfile()">
         <div class="card-header-icon">
           <img
             :src="company.company_logo"
@@ -23,7 +23,7 @@
             </WikiHeaderPrimary>
           </div>
         </div>
-      </nuxt-link>
+      </a>
       <a class="company-website" :href="company.url">{{ publicWebsite }}</a>
     </template>
 
@@ -69,6 +69,13 @@ export default {
       } else {
         return this.company.url.slice(11, this.company.url.length);
       }
+    }
+  },
+
+  methods: {
+    redirectToCompanyProfile() {
+      this.$store.commit("companies/setIsFeatured", true);
+      this.$router.push(`/companies/${this.company.company_name}`)
     }
   }
 };

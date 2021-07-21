@@ -9,8 +9,8 @@ module.exports = function registerEndpoint(
   router.get("/:type/", get_type);
   router.get("/:type/:query/", search);
   router.get("/:type/:query/:sort/", search);
-  router.get("/:type/:query/:sort/:filter/", search);
-  router.get("/:type/:query/:sort/:filter/:page/", search);
+  router.get("/:type/:query/:sort/:filters/", search);
+  router.get("/:type/:query/:sort/:filters/:page/", search);
 
   function redirect(req, res, next) {
     res.redirect("https://www.wikiprofile.com");
@@ -35,24 +35,26 @@ module.exports = function registerEndpoint(
     const query = req.params.query || "";
     const type = req.params.type || "companies";
     const sort = req.params.sort || "DESC";
-    const filters = req.params.filters || [];
+    const filters = req.params.filters || "[]";
     const page = req.params.page || 1;
     const pageLimit = 20;
 
     database
-      .withSchema("search")
-      .column({
-        id: "id",
-        content: "content",
-      })
-      .select()
-      .from("items")
-      .whereRaw(
-        `items."search-all" @@ websearch_to_tsquery('simple', '${query}')`
+      .raw(
+        "select search('" +
+          query +
+          "','" +
+          type +
+          "','" +
+          sort +
+          "'," +
+          page +
+          ",'" +
+          filters +
+          "'," +
+          pageLimit +
+          ");"
       )
-      .andWhere("type", "=", query)
-      .limit(pageLimit)
-      .offset(page - 1)
-      .then((results) => res.json(results));
+      .then((results) => res.json(results.rows));
   }
 };

@@ -1,23 +1,21 @@
 <template>
-  <div class="similar-companies__list">
+  <div class="similiar-people__list">
     <WikiCardPrimary footerBorder>
       <template v-slot:header>
-        <div class="card-header-title px-0">
-          <WikiHeaderPrimary :size="2" :semantic="3">
-            Similar companies
-          </WikiHeaderPrimary>
-        </div>
+        <WikiHeaderPrimary :size="2" :semantic="3">
+          Similar people
+        </WikiHeaderPrimary>
       </template>
 
       <template v-slot:content>
-        <div class="similar-companies__list--content">
+        <div class="similar-people__list--content">
           <div
-            class="similar-companies__list--items"
-            v-if="similarCompanies.length > 0"
+            class="similiar-people__list--items"
+            v-if="similarPeople.length > 0"
           >
             <div
-              class="similar-companies__list--item"
-              v-for="(item, i) in similarCompanies"
+              class="similiar-people__list--item"
+              v-for="(item, i) in similarPeople"
               :key="i"
             >
               <div
@@ -32,14 +30,16 @@
                         is-size-7-mobile
                       "
                     >
-                      <nuxt-link :to="`/companies/${item.company_name}`">
-                        {{ item.company_name }}
-                      </nuxt-link>
+                      <nuxt-link :to="`/people/${item.full_name}`">{{
+                        item.full_name
+                      }}</nuxt-link>
                     </p>
                   </div>
                   <div class="item-details">
-                    <p class="is-size-7-mobile">{{ item.data_industry }}</p>
-                    <p class="is-size-7-mobile">{{ item.data_headquarters }}</p>
+                    <p class="is-size-7-mobile">
+                      {{ item.founder_of }} {{ item.company }}
+                    </p>
+                    <p class="is-size-7-mobile">{{ item.location }}</p>
                   </div>
                 </div>
 
@@ -48,7 +48,7 @@
                     outlined
                     @click="$emit('toggleFollow')"
                     class="follow-button"
-                    :type="isFollowing ? 'is-success' : 'is-success is-light'"
+                    :type="isFollowing ? 'is-sucess' : 'is-success is-light'"
                     size="is-small"
                   >
                     <span
@@ -65,10 +65,9 @@
               <hr />
             </div>
           </div>
-
           <div v-else>
             <p class="has-text-grey has-text-weight-semibold">
-              No similar companies found
+              No similar people found
             </p>
           </div>
         </div>
@@ -76,7 +75,7 @@
 
       <template v-slot:footer>
         <div class="footer-button-wrapper is-flex is-justify-content-center">
-          <a type="button" class="has-text-weight-medium" href="/companies">
+          <a href="/people" type="button" class="has-text-weight-medium">
             explore</a
           >
         </div>
@@ -86,11 +85,11 @@
 </template>
 
 <script>
-import companyData from "~/assets/data/featured-companies.json";
+import peopleData from "~/assets/data/featured-people.json";
 
 export default {
   props: {
-    company: {
+    person: {
       type: Object,
       required: true,
     },
@@ -98,37 +97,37 @@ export default {
 
   data() {
     return {
-      similarCompanies: [],
+      similarPeople: [],
       isFollowing: false,
     };
   },
 
   methods: {
-    findSimilarCompanies() {
-      this.similarCompanies = companyData.filter(
+    findSimilarPeople() {
+      this.similarPeople = peopleData.filter(
         (item) =>
-          item.industry === this.company.industry &&
-          item.company_name !== this.company.company_name
+          (item.industry =
+            this.person.industry && item.full_name !== this.person.full_name)
       );
     },
   },
 
   mounted() {
-    this.findSimilarCompanies();
+    this.findSimilarPeople();
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style>
 .footer-button-wrapper {
   width: 100%;
 }
 
-.similar-companies__list--item:last-child > hr {
+.similar-people__list--item:last-child > hr {
   margin-bottom: 0;
 }
 
-.similar-companies__list--content {
+.similar-people__list--content {
   min-height: 5rem;
   justify-content: center;
   display: flex;

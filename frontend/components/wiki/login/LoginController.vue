@@ -11,7 +11,11 @@
       </div> -->
     </WikiStyleProvider>
     <div class="signin-form-wrapper">
-      <WikiLoginSmallForm :errors="errorMessages" @loginAttempt="login" @registrationAttempt="signUpRedirect" />
+      <WikiLoginSmallForm
+        :errors="errorMessages"
+        @loginAttempt="login"
+        @registrationAttempt="signUpRedirect"
+      />
     </div>
   </div>
 </template>
@@ -52,7 +56,9 @@ export default {
           password: pwd,
           mode: "json",
         });
-        await this.$store.dispatch("user/fetchAccount", ret);
+
+        this.$store.commit("user/setAuthenticated", true);
+        await this.$store.dispatch("user/fetchAccount");
       } catch (error) {
         if (error && error.data) this.errorMessages = error.data;
         console.error(error);
