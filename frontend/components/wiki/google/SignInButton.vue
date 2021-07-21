@@ -18,8 +18,8 @@ export default {
   },
 
   methods: {
-    async signInWithGoogle() {
-      await this.$gapi.login().then(({ currentUser }) => {
+    signInWithGoogle() {
+      this.$gapi.login().then(({ currentUser }) => {
         this.$store.commit("user/setUser", currentUser);
         this.$router.push("/");
       });

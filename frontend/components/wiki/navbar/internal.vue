@@ -21,8 +21,13 @@
         v-for="(item, i) in rightList"
         :key="i"
       >
-        <WikiIconWicon v-if="item.name !== 'Me'" class="nav-links__icon" :icon="item.icon" size="0.7" />
-        <WikiProfilePhoto v-else class="nav-links__icon" dimensions="16x16"/>
+        <WikiIconWicon
+          v-if="item.name !== 'Me'"
+          class="nav-links__icon"
+          :icon="item.icon"
+          size="0.7"
+        />
+        <WikiProfilePhoto v-else class="nav-links__icon" dimensions="16x16" />
         <span class="has-text-weight-semibold">
           {{ item.name }}
         </span>
@@ -32,6 +37,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   props: {
     photoSrc: {
@@ -39,7 +46,10 @@ export default {
       required: false,
     },
   },
-
+  methods: {
+    ...mapGetters({ getMe: ["user/getUser"] }),
+    ...mapActions(["user/fetchUser"]),
+  },
   data() {
     return {
       leftList: [
@@ -68,17 +78,16 @@ export default {
           size: "medium",
         },
       ],
-
       rightList: [
         {
-          link: "/account",
+          link: "/account/" + this.$auth.user.id + "/settings",
           name: "Settings",
           icon: "cog-outline",
           size: "medium",
         },
         {
           link: "/account",
-          name: 'Me',
+          name: "Me",
         },
       ],
     };

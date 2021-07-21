@@ -11,7 +11,11 @@
       </div> -->
     </WikiStyleProvider>
     <div class="signin-form-wrapper">
-      <WikiLoginSmallForm :errors="errorMessages" @loginAttempt="login" @registrationAttempt="signUpRedirect" />
+      <WikiLoginSmallForm
+        :errors="errorMessages"
+        @loginAttempt="login"
+        @registrationAttempt="signUpRedirect"
+      />
     </div>
   </div>
 </template>
@@ -47,7 +51,7 @@ export default {
 
     login: async function ({ usr, pwd }) {
       try {
-        await this.$auth.login({
+        let ret = await this.$auth.login({
           email: usr,
           password: pwd,
           mode: "json",

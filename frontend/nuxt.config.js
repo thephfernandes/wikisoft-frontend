@@ -6,7 +6,7 @@ module.exports = {
   publicRuntimeConfig: {
     baseURL: process.env.BASE_URL || '/',
     loginURL: process.env.BASE_URL + '/login',
-    signupURL: process.env.BASE_URL + '/signup',
+    signupURL: process.env.BASE_URL + '/account/register',
     apiURL: process.env.IO_API_URL || '/api',
     searchURL: process.env.IO_API_URL + '/search',
     adminURL: process.env.IO_ADMIN_URL || '/admin',
@@ -152,7 +152,7 @@ module.exports = {
     cache: true,
     parallel: true,
     transpile: [/^vue2-google-maps($|\/)/, 'vue-gapi'],
-    vendor: ["vue2-google-maps"], 
+    vendor: ["vue2-google-maps"],
   },
   modulesDir: ['../node_modules'],
 

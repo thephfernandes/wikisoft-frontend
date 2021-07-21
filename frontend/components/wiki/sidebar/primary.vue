@@ -65,8 +65,12 @@ export default {
     },
   },
 
-  async mounted() {
-    this.googleUser = await this.$gapi.getCurrentUser();
+  mounted() {
+    this.$gapi.isSignedIn().then((signedIn) => {
+      if (signedIn) {
+        this.$gapi.getCurrentUser().then(user => this.googleUser = user);
+      }
+    });
   },
 };
 </script>

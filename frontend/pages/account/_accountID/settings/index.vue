@@ -1,62 +1,39 @@
 <template>
   <div>
-    <b-modal
-      v-model="init"
-      has-modal-card
-      trap-focus
-      :active="init"
-      :destroy-on-hide="false"
-      aria-role="dialog"
-      aria-label="Example Modal"
-      aria-modal
-      class="basic-info-modal"
-    >
-      <template slot:default>
-        <WikiProfileModalFormContact
-          v-show="modalIndex === 0"
-          @submit="handleContactInput"
-        />
-
-        <WikiProfileModalFormBackground
-          v-show="modalIndex === 1"
-          @submit="handleBackgroundInput"
-        />
-
-        <WikiProfileModalFormPhoto 
-          v-show="modalIndex === 2"
-          @submit="handlePhotoUpload"
-        />
-      </template>
-    </b-modal>
-
     <div class="company-settings-page">
       <div class="columns">
         <div class="column is-8">
           <div class="block">
+            <!-- The top of the page profile card  -->
+
             <WikiCardPrimary>
               <template v-slot:header>
                 <div class="card-header-title">
                   <WikiHeaderPrimary :size="4" :semantic="1">
-                    {{ me.first_name + " " + me.last_name }}
+                    {{ $auth.user.first_name + " " + $auth.user.last_name }}
                   </WikiHeaderPrimary>
                 </div>
               </template>
               <template v-slot:content>
-                <p class="has-text-grey has-text-weight-semibold">{{ me.description || "unknown employment" }}</pc>
                 <p class="has-text-grey has-text-weight-semibold">
-                  {{ me.location ? me.location : "" }}
-                  <span v-if="me.location">·</span>
-                  <a role="button" v-if="me.connections"
+                  {{ $auth.user.description || "unknown employment" }}
+                </p>
+                <p class="has-text-grey has-text-weight-semibold">
+                  {{ $auth.user.location ? $auth.user.location : "" }}
+                  <span v-if="$auth.user.location">·</span>
+                  <a role="button" v-if="$auth.user.connections"
                     >{{
-                      me.connections > 500 ? "500+" : me.connections
+                      $auth.user.connections > 500
+                        ? "500+"
+                        : $auth.user.connections
                     }}
                     connections</a
                   >
-                  <span v-if="me.connections">·</span>
+                  <span v-if="$auth.user.connections">·</span>
                   <a role="button"><span>Contact Info</span></a>
                 </p>
-                
-                <div class="profile-interactions mt-3 is-flex is-justify-content-space-between">
+
+                <!-- <div class="profile-interactions mt-3 is-flex is-justify-content-space-between">
                   <b-button class="is-link is-light">
                     <p class="is-uppercase has-text-centered has-text-weight-medium">Update Profile</p>
                   </b-button>
@@ -68,12 +45,12 @@
                   <b-button class="is-link is-light">
                     <p class="is-uppercase has-text-centered has-text-weight-medium">Manage Settings</p>
                   </b-button>
-                </div>
+                </div> -->
               </template>
-
-              <template v-slot:footer></template>
             </WikiCardPrimary>
           </div>
+
+          <!-- Account contact details  -->
 
           <div class="block">
             <WikiCardPrimary headerBorder>
@@ -88,39 +65,65 @@
               <template v-slot:content>
                 <div class="is-flex is-flex-direction-column">
                   <b-collapse class="item" :open="false">
-                      <template v-slot:trigger>
-                        <div class="is-flex is-justify-content-space-between is-align-items-center">
-                          <div class="item-description">
-                            <p class="has-text-weight-medium mb-1">
-                              Name, location and industry
-                            </p>
-                            <p class="has-text-grey">
-                              Choose how your name and profile fields appear to other
-                              members
-                            </p>
-                          </div>
-                          <div class="item-action">
-                            <a role="button">
-                              <span class="has-text-grey has-text-weight-medium">
-                                Change
-                              </span>
-                            </a>
-                          </div>
+                    <template v-slot:trigger>
+                      <div
+                        class="
+                          is-flex
+                          is-justify-content-space-between
+                          is-align-items-center
+                        "
+                      >
+                        <div class="item-description">
+                          <p class="has-text-weight-medium mb-1">
+                            Name, location and industry
+                          </p>
+                          <p class="has-text-grey">
+                            Choose how your name and profile fields appear to
+                            other members
+                          </p>
                         </div>
-                      </template>
-                      <b-field label="First name">
-                        <b-input v-model="user.first_name"></b-input>
-                      </b-field>
-                      <b-field label="Last name">
-                        <b-input v-model="user.last_name"></b-input>
-                      </b-field>
-                      <b-field label="Location">
-                        <b-input v-model="user.location"></b-input>
-                      </b-field>
-                    </b-collapse>
+                        <div class="item-action">
+                          <a role="button">
+                            <span class="has-text-grey has-text-weight-medium">
+                              Change
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </template>
+                    <b-field label="First name">
+                      <b-input
+                        :value="$auth.user.first_name"
+                        @input="handleInput('first_name', $event)"
+                      ></b-input>
+                    </b-field>
+                    <b-field label="Last name">
+                      <b-input
+                        :value="$auth.user.last_name"
+                        @input="handleInput('last_name', $event)"
+                      ></b-input>
+                    </b-field>
+                    <b-field label="Location">
+                      <b-input
+                        :value="$auth.user.location"
+                        @input="handleInput('location', $event)"
+                      ></b-input>
+                    </b-field>
+                    <b-field label="Industry">
+                      <b-input
+                        :value="$auth.user.job_title"
+                        @input="handleInput('industry', $event)"
+                      ></b-input>
+                    </b-field>
+                  </b-collapse>
 
                   <div
-                    class="item is-flex is-justify-content-space-between is-align-items-center"
+                    class="
+                      item
+                      is-flex
+                      is-justify-content-space-between
+                      is-align-items-center
+                    "
                   >
                     <div class="item-description">
                       <p class="has-text-weight-medium mb-1">
@@ -132,13 +135,19 @@
                       </p>
                     </div>
                     <div class="item-action">
-                      <b-switch class="mr-0" v-model="showProfilePhotos"></b-switch>
+                      <b-switch
+                        class="mr-0"
+                        :value="$auth.user.show_profile_pic"
+                        @input="handleInput('show_profile_pic', $event)"
+                      ></b-switch>
                     </div>
                   </div>
                 </div>
               </template>
             </WikiCardPrimary>
           </div>
+
+          <!-- Account management -->
 
           <div class="block">
             <WikiCardPrimary headerBorder>
@@ -154,14 +163,22 @@
 
               <template v-slot:content>
                 <div class="is-flex is-flex-direction-column">
-                  <b-collapse class="item">
+                  <b-collapse :open="false" class="item">
                     <template v-slot:trigger>
-                      <div class="is-flex is-justify-content-space-between is-align-items-center">
+                      <div
+                        class="
+                          is-flex
+                          is-justify-content-space-between
+                          is-align-items-center
+                        "
+                      >
                         <div class="item-description">
-                          <p class="has-text-weight-medium mb-1">Merge account</p>
+                          <p class="has-text-weight-medium mb-1">
+                            Merge account
+                          </p>
                           <p class="has-text-grey">
-                            Transfer your connections from a duplicate account, then
-                            close it
+                            Transfer your connections from a duplicate account,
+                            then close it
                           </p>
                         </div>
                         <div class="item-action">
@@ -177,10 +194,14 @@
                       <b-input></b-input>
                     </b-field>
                   </b-collapse>
-                  
 
                   <div
-                    class="item is-flex is-justify-content-space-between is-align-items-center"
+                    class="
+                      item
+                      is-flex
+                      is-justify-content-space-between
+                      is-align-items-center
+                    "
                   >
                     <div class="item-description">
                       <p class="has-text-weight-medium mb-1">
@@ -191,12 +212,21 @@
                       </p>
                     </div>
                     <div class="item-action">
-                      <b-switch class="mr-0" v-model="hibernateAccount"></b-switch>
+                      <b-switch
+                        class="mr-0"
+                        @input.capture="handleHibernate"
+                        v-model="hibernating_enabled"
+                      ></b-switch>
                     </div>
                   </div>
 
                   <div
-                    class="item is-flex is-justify-content-space-between is-align-items-center"
+                    class="
+                      item
+                      is-flex
+                      is-justify-content-space-between
+                      is-align-items-center
+                    "
                   >
                     <div class="item-description">
                       <p class="has-text-weight-medium mb-1">Close account</p>
@@ -218,6 +248,8 @@
               </template>
             </WikiCardPrimary>
 
+            <!-- Delete anything prompt -->
+
             <b-modal v-model="deletePromptActive">
               <template v-slot:default="props">
                 <WikiCardPrimary>
@@ -231,7 +263,10 @@
                       ></b-input>
                     </b-message>
                     <div
-                      class="modal-actions is-flex is-justify-content-space-between"
+                      class="
+                        modal-actions
+                        is-flex is-justify-content-space-between
+                      "
                     >
                       <b-button @click="props.close">Cancel</b-button>
                       <b-button
@@ -247,6 +282,8 @@
             </b-modal>
           </div>
 
+          <!-- Account access  -->
+
           <div class="block">
             <WikiCardPrimary headerBorder>
               <template v-slot:header>
@@ -259,62 +296,121 @@
 
               <template v-slot:content>
                 <div class="is-flex is-flex-direction-column">
-                  <div
-                    class="item is-flex is-justify-content-space-between is-align-items-center"
-                  >
-                    <div class="item-description">
-                      <p class="has-text-weight-medium mb-1">Email addresses</p>
-                      <p class="has-text-grey">
-                        Add or remove email addresses on your account
-                      </p>
-                    </div>
-                    <div class="item-action">
-                      <a role="button">
-                        <span class="has-text-grey has-text-weight-medium">
-                          Change
-                        </span>
-                      </a>
-                    </div>
-                  </div>
+                  <b-collapse class="item" :open="false">
+                    <template v-slot:trigger>
+                      <div
+                        class="
+                          is-flex
+                          is-justify-content-space-between
+                          is-align-items-center
+                        "
+                      >
+                        <div class="item-description">
+                          <p class="has-text-weight-medium mb-1">
+                            Email address
+                          </p>
+                          <p class="has-text-grey">
+                            Add or remove email addresses on your account
+                          </p>
+                        </div>
+                        <div class="item-action">
+                          <a role="button">
+                            <span class="has-text-grey has-text-weight-medium">
+                              Change
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </template>
+                    <b-field label="Change email">
+                      <b-input type="email"></b-input>
+                    </b-field>
+                  </b-collapse>
 
-                  <div
-                    class="item is-flex is-justify-content-space-between is-align-items-center"
-                  >
-                    <div class="item-description">
-                      <p class="has-text-weight-medium mb-1">Phone numbers</p>
-                      <p class="has-text-grey">
-                        Add a phone number in case you have trouble signing in
-                      </p>
-                    </div>
-                    <div class="item-action">
-                      <a role="button">
-                        <span class="has-text-grey has-text-weight-medium">
-                          Change
-                        </span>
-                      </a>
-                    </div>
-                  </div>
+                  <b-collapse class="item" :open="false">
+                    <template v-slot:trigger>
+                      <div
+                        class="
+                          item
+                          is-flex
+                          is-justify-content-space-between
+                          is-align-items-center
+                        "
+                      >
+                        <div class="item-description">
+                          <p class="has-text-weight-medium mb-1">
+                            Change password
+                          </p>
+                          <p class="has-text-grey">
+                            Choose a unique password to protect your account
+                          </p>
+                        </div>
 
-                  <div
-                    class="item is-flex is-justify-content-space-between is-align-items-center"
-                  >
-                    <div class="item-description">
-                      <p class="has-text-weight-medium mb-1">Change password</p>
-                      <p class="has-text-grey">
-                        Choose a unique password to protect your account
-                      </p>
-                    </div>
-                    <div class="item-action">
-                      <a role="button">
-                        <span class="has-text-grey has-text-weight-medium">
-                          Change
-                        </span>
-                      </a>
-                    </div>
-                  </div>
+                        <div class="item-action">
+                          <a role="button">
+                            <span class="has-text-grey has-text-weight-medium">
+                              Change
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </template>
+                    <form>
+                      <b-field label="Type in your old password">
+                        <b-input type="password" v-model="opwd"></b-input>
+                      </b-field>
+                      <b-field label="Create a new password">
+                        <b-input type="password" v-model="npwd"></b-input>
+                      </b-field>
+                    </form>
+                  </b-collapse>
 
+                  <b-collapse class="item" :open="false">
+                    <template v-slot:trigger>
+                      <div
+                        class="
+                          item
+                          is-flex
+                          is-justify-content-space-between
+                          is-align-items-center
+                        "
+                      >
+                        <div class="item-description">
+                          <p class="has-text-weight-medium mb-1">
+                            Phone number
+                          </p>
+                          <p class="has-text-grey">
+                            Add a phone number in case you have trouble signing
+                            in
+                          </p>
+                        </div>
+
+                        <div class="item-action">
+                          <a role="button">
+                            <span class="has-text-grey has-text-weight-medium">
+                              Change
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </template>
+                    <div>
+                      <b-field label="Change phone number">
+                        <b-input
+                          type="phone"
+                          :value="$auth.user.phone_number"
+                          @input="handleInput('phone_number', $event)"
+                        ></b-input>
+                      </b-field>
+                    </div>
+                  </b-collapse>
                   <div
-                    class="item is-flex is-justify-content-space-between is-align-items-center"
+                    class="
+                      item
+                      is-flex
+                      is-justify-content-space-between
+                      is-align-items-center
+                    "
                   >
                     <div class="item-description">
                       <p class="has-text-weight-medium mb-1">
@@ -325,44 +421,61 @@
                       </p>
                     </div>
                     <div class="item-action">
-                      <b-switch class="mr-0" v-model="twoStepAuthEnabled"></b-switch>
+                      <b-switch
+                        class="mr-0"
+                        @input.capture="handle2FA"
+                        v-model="tfa_enabled"
+                      ></b-switch>
                     </div>
                   </div>
                 </div>
               </template>
             </WikiCardPrimary>
+            <!-- <div class="column is-4"></div> -->
           </div>
+          <WikiCardPrimary headerBorder v-if="hasUpdated">
+            <template v-slot:header>Save account changes</template>
+            <template v-slot:content>
+              <div class="persist-button-wrapper container">
+                <WikiButtonBased @click="discardChanges" :type="'is-danger'"
+                  >Discard changes</WikiButtonBased
+                >
+                <WikiButtonBased
+                  @click="pushUpdatedProfile"
+                  :type="'is-success'"
+                  >Persist changes</WikiButtonBased
+                >
+              </div>
+            </template>
+          </WikiCardPrimary>
         </div>
-        <div class="column is-4"></div>
       </div>
+    </div>
+
+    <div
+      v-show="hasUpdated"
+      class="is-rounded-confirmbutton"
+      @click="pushUpdatedProfile"
+    >
+      <b-icon icon="checkmark" size="is-large">ABC</b-icon>
     </div>
   </div>
 </template>
 
 <script>
-function uuidv4() {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-    var r = (Math.random() * 16) | 0,
-      v = c == "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
-
 export default {
   middleware: "currentAccount",
-  
-  data() {
-    let isInit = this.$route.query.init === "true" ? true : false;
 
+  data() {
     return {
       id: this.$route.params.accountID,
-      init: isInit,
-      modalIndex: 0,
-      user: {},
-      account: {},
-      showProfilePhotos: Boolean,
-      hibernateAccount: Boolean,
-      twoStepAuthEnabled: Boolean,
+      account: this.$auth.user,
+      changeDelta: {},
+      expandedDelta: {},
+      opwd: "",
+      npwd: "",
+      tfa_enabled: false,
+      hibernating_enabled: false,
       confirmDelete: "",
       deletePromptActive: false,
       loading: false,
@@ -370,41 +483,130 @@ export default {
   },
 
   computed: {
-    me() {
-      return this.$store.getters["user/getUser"];
-    },
-
     hasConfirmed() {
       return this.confirmDelete.toLowerCase() === "i understand";
+    },
+    hasUpdated() {
+      console.log(this.changeDelta);
+      console.log(Object.keys(this.changeDelta));
+      return (
+        Object.keys(this.changeDelta).length > 0 ||
+        (this.opwd !== "" && this.npwd !== "")
+      );
+    },
+    hasExpanded(where) {
+      return this.expandedDelta[where];
     },
   },
 
   methods: {
-    handleContactInput(form) {
-      this.account = { ...this.account, ...form };
-      this.modalIndex++;
+    handleHibernate() {
+      const is_hibernating = this.$auth.user.status === "Archived";
+      this.$buefy.dialog.confirm({
+        title: "Hibernating account",
+        message: `Are u sure u want to ${
+          is_hibernating ? "hibernate" : "unhibernate"
+        } this will make your account ${
+          is_hibernating ? "" : "not"
+        } visible to the`,
+        confirmText: is_hibernating ? "Unhibernate" : "Hibernate",
+        type: is_hibernating ? "is-success" : "is-danger",
+        hasIcon: true,
+        onConfirm: () => {
+          this.$directus.users
+            .update(this.$auth.user.id, {
+              status: is_hibernating ? "active" : "archived",
+            })
+            .then((e) => {
+              if (!is_hibernating) {
+                this.hibernating_enabled = true;
+                this.$router.redirect("/");
+              }
+              this.hibernating_enabled = false;
+              this.$buefy.toast
+                .open({
+                  title: "Hibernate account",
+                  type: is_hibernating ? "is-success" : "is-danger",
+                  message: `Your account is ${
+                    is_hibernating ? "no longer" : ""
+                  } hibernating now.`,
+                })
+                .catch((e) => {
+                  this.$buefy.toast.open({
+                    type: "is-danger",
+                    message: "Server error response, account was not changed.",
+                  });
+                });
+            });
+        },
+      });
+      this.hibernating_enabled = false;
     },
 
-    handleBackgroundInput(form) {
-      this.account = { ...this.account, ...form };
-      this.modalIndex++;
+    async handleInput(where, what) {
+      await this.$set(this.changeDelta, where, what);
+    },
+    async handleExpand(where) {
+      await this.$set(
+        this.expandedDelta,
+        where,
+        where != undefined ? true : false
+      );
     },
 
     async handlePhotoUpload(form) {
-      this.account = { ...this.account, ...form };
       await this.attemptCompleteRegistration();
     },
+    async handle2FA(e) {
+      // endpoint is 404'ing, park it for now.
+      try {
+        await this.$directus.users.tfa.enable(this.account.email);
+        await this.$store.dispatch("user/updateUser", {});
+        this.tfa_enabled = true;
+      } catch (error) {
+        this.tfa_enabled = false;
+        console.log(error);
+        this.$buefy.toast.open({
+          type: "is-danger",
+          position: "is-bottom",
+          message: "error: " + error,
+        });
+      }
+    },
 
-    async attemptCompleteRegistration() {
-      await this.$store.dispatch("user/updateAccount", this.account);
-      this.$router.push("/");
+    async pushUpdatedProfile() {
+      Object.keys(this.changeDelta).forEach((deltaKey) => {
+        if (
+          deltaKey in Object.keys(this.account) &&
+          (this.account[deltaKey] != undefined ||
+            this.account[deltaKey] != null)
+        ) {
+          this.$set(this.account, deltaKey, this.changeDelta[deltaKey]);
+        }
+      });
+      this.$store
+        .dispatch("user/updateUser", this.changeDelta)
+        .then((e) => {
+          this.discardChanges();
+          this.$router.go();
+        })
+        .catch((e) => {
+          this.$router.redirect("/login");
+        });
     },
 
     async attemptDeleteAccount() {
-      await this.$store.dispatch("user/deleteUser", this.id);
-      this.$router.push("/login");
+      (await this.$store.dispatch("user/deleteUser", this.id))
+        ? this.$router.push("/login")
+        : {};
     },
 
+    async discardChanges() {
+      this.changeDelta = Object.assign({}, this.changeDelta, {});
+      this.opwd = "";
+      this.npwd = "";
+      this.confirmDelete = "";
+    },
   },
 
   async created() {
@@ -414,6 +616,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.is-rounded-confirmbutton {
+  height: 64px;
+  width: 64px;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+}
+
 .profile-settings-modal,
 .job-education-modal {
   z-index: 1000;
@@ -439,5 +649,13 @@ export default {
       margin-bottom: 1rem;
     }
   }
+}
+
+.persist-button-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+  margin-bottom: 0;
 }
 </style>
