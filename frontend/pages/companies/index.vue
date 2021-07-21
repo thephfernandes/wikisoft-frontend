@@ -60,9 +60,11 @@
                     <div class="wrapper" v-else>
                       <div class="tile is-child">
                         <WikiCompanyFeaturedList
+                          v-if="!hasSearched"
                           :companies="paginatedCompanies"
                           class="container"
                         />
+                        <WikiCompanyList v-else :companies="paginatedCompanies" class="container" />
                       </div>
                       <div class="tile is-child">
                         <b-pagination
@@ -155,6 +157,10 @@ export default {
         (pageNumber + 1) * this.perPage
       );
     },
+
+    hasSearched() {
+      return this.search.length > 0 || this.$store.getters["search/getQuery"].length > 0;
+    }
   },
 
   methods: {

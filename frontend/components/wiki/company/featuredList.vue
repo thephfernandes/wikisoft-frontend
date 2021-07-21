@@ -24,6 +24,7 @@
               v-for="(item, i) in companies"
               :key="i"
               :company="item"
+              class="featured-company"
             />
           </div>
         </div>
@@ -60,7 +61,7 @@ export default {
   @include desktop {
     padding: 0rem 0.25rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(315px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     grid-gap: 0.5rem;
     max-height: 125vh;
     overflow-y: scroll;
@@ -68,10 +69,10 @@ export default {
     scrollbar-width: none; /* Firefox */
   }
 
-  // .featured-company {
-  //   max-width: 100%;
-  //   padding: 0.5rem 0.25rem;
-  // }
+  .featured-company {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 @include desktop {

@@ -58,7 +58,8 @@ export default {
 .card.featured {
   @include desktop {
     height: 420px;
-    min-width: 320px;
+    min-width: 290px;
+    max-width: 390px;
   }
 }
 
@@ -87,10 +88,6 @@ export default {
         padding: 0.5rem;
       }
     }
-  }
-
-  .featured {
-    width: 100%;
   }
   
   .card-header.borderBottom {

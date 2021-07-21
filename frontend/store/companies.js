@@ -51,17 +51,30 @@ export const mutations = {
 export const actions = {
   async fetchCompanies({ commit, rootState }, query) {
     try {
-      const companies = await this.$directus.items("companies");
       let response = {};
       if (query) {
-        response = await companies.read(query);
+        response = await this.$axios.get(`/company/${query}`);
       } else {
-        response = await companies.read({
-          search: rootState.search.query
-        })
+        response = await this.$axios.get(`/company/${rootState.search.query}`);
       }
+
+      // const companies = await this.$directus.items("companies");
+      // let response = {};
+      // if (query) {
+      //   response = await companies.read(query);
+      // } else {
+      //   response = await companies.read({
+      //     search: rootState.search.query
+      //   })
+      // }
+
       if (response.data) {
-        commit("setCompanies", response.data);
+        if (response.data[0]?.search.results.length > 0) {
+          const companies = response.data[0].search.results.map(item => item.content);
+          commit("setCompanies", companies);
+        } else {
+          commit("setCompanies", []);
+        }
       }
     } catch (error) {
       console.error("failed to fetch companies:", error);
@@ -91,9 +104,14 @@ export const actions = {
 
   async fetchSelectedCompany({ commit }, id) {
     try {
-      const companies = await this.$directus.items("companies");
-      const response = await companies.read(id);
-      commit("setSelectedCompany", response.data);
+      const response = await this.$axios.get(`/company/${id}`);
+
+      // const companies = await this.$directus.items("companies");
+      // const response = await companies.read(id);
+
+      if (response.data[0].search.results) {
+        commit("setSelectedCompany", response.data[0].search.results[0]);
+      }
     } catch (error) {
       console.error(`failed to fetch company ${id}: ${error}`);
     }
@@ -111,7 +129,7 @@ export const actions = {
       const { data } = await accounts_companies.create({ account_id: account_id, company_id: id });
       const company_claims = company_id.concat(data.id);
       const response = await accounts.update(account_id, { company_id: company_claims });
-      
+
       if (response.data) {
         await dispatch("user/fetchAccount", account_id, { root: true });
       }

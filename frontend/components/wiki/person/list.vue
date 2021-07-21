@@ -4,7 +4,8 @@
       <div class="list-header" v-if="!headerless">
         <div class="is-flex is-justify-content-space-between">
           <WikiHeaderPrimary class="has-text-grey" :size="2" :semantic="3">
-            Showing {{ !$device.isMobile ? "a total of" : "" }} {{ profiles.length }}
+            Showing {{ !$device.isMobile ? "a total of" : "" }}
+            {{ profiles.length }}
             {{ profiles.length !== 1 ? "people" : "person" }}
           </WikiHeaderPrimary>
           <div class="show-all-link">
@@ -62,7 +63,13 @@ export default {
       type: Boolean,
       default: false,
       required: false,
-    }
+    },
+  },
+
+  computed: {
+    profilesData() {
+      return this.profiles.map((item) => item.content);
+    },
   },
 
   data() {
