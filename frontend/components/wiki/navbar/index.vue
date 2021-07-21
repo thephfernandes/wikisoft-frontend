@@ -171,7 +171,11 @@
         </button>
       </div>
       <div class="navigation-drawer__items">
-        <div class="event-wrapper" v-if="$device.isDesktop" @click="toggleNavigationDrawer">
+        <div
+          class="event-wrapper"
+          v-if="$device.isDesktop"
+          @click="toggleNavigationDrawer"
+        >
           <div class="nav-links nav-links__left">
             <nuxt-link
               class="drawer-item nav-links__item"
@@ -326,7 +330,7 @@ export default {
 
       desktopNavItems: [
         {
-          link: "/account",
+          link: "/account/" + this.$auth.user.id + "/settings",
           name: "Settings",
           icon: "cog-outline",
           size: "medium",
