@@ -79,9 +79,6 @@ module.exports = {
       },
       { rel: 'shortcut icon', href: '/favicon/favicon.ico?v=rMB0bEjrjp' },
     ],
-    script: [
-      { src: 'js/fb-sdk.js' },
-    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -92,6 +89,7 @@ module.exports = {
     { src: '~/plugins/persistedState.js' },
     { src: '~plugins/vueGoogleMaps.js' },
     { src: '~/plugins/vueGapi.js', mode: 'client' },
+    { src: '~/plugins/fb-sdk.js', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -163,7 +161,12 @@ module.exports = {
     port: process.env.FRONTEND_PORT || 3000,
     host: '0.0.0.0',
     timing: false,
+    https: process.env.NODE_ENV !== 'production' ? {
+      key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
+    } : {}
   },
+  
   // Font Awesome Pro
 
   // router: {
