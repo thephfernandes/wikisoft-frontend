@@ -79,6 +79,9 @@ module.exports = {
       },
       { rel: 'shortcut icon', href: '/favicon/favicon.ico?v=rMB0bEjrjp' },
     ],
+    script: [
+      { src: 'js/fb-sdk.js' },
+    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
