@@ -86,6 +86,7 @@ module.exports = {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: "~plugins/vuePostscribe.js", mode: "client" },
     { src: '~/plugins/persistedState.js' },
     { src: '~plugins/vueGoogleMaps.js' },
     { src: '~/plugins/vueGapi.js', mode: 'client' },
@@ -151,7 +152,7 @@ module.exports = {
     extractCSS: false,
     cache: true,
     parallel: true,
-    transpile: [/^vue2-google-maps($|\/)/, 'vue-gapi'],
+    transpile: [/^vue2-google-maps($|\/)/, 'vue-gapi', 'postscribe'],
     vendor: ["vue2-google-maps"],
   },
   modulesDir: ['../node_modules'],

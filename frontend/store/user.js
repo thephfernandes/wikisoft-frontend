@@ -52,6 +52,9 @@ export const mutations = {
 };
 
 export const actions = {
+  async setLinkedinUser({ commit }, payload) {
+
+  },
   async createUser({ commit }, payload) {
     try {
       const users = await this.$directus.users;

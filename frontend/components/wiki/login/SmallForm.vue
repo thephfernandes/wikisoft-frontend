@@ -1,34 +1,44 @@
 <template>
   <div class="signin-form-container">
     <WikiStyleProvider :type="'is-primary'" :size="'default'">
-      <WikiHeaderPrimary :semantic="6" :size="6">Welcome Back</WikiHeaderPrimary>
-      <MultiLine :size="0.35"
-        >Don't miss your next opportunity. Sign in to stay updated on your professional world.</MultiLine
+      <WikiHeaderPrimary :semantic="6" :size="6"
+        >Welcome Back</WikiHeaderPrimary
       >
-      <WikiDataErrorMessage v-if="errors.length > 0" isError :messages="errors"></WikiDataErrorMessage>
+      <MultiLine :size="0.35"
+        >Don't miss your next opportunity. Sign in to stay updated on your
+        professional world.</MultiLine
+      >
+      <WikiDataErrorMessage
+        v-if="errors.length > 0"
+        isError
+        :messages="errors"
+      ></WikiDataErrorMessage>
       <BaseForm class="inner-form-wrapper">
         <template v-slot:form>
-          <form>
-            <Input
-              :expanded="true"
-              v-model="usr"
-              :type="'text'"
-              :placeholder="'Email or Phone'"
-              @keypress.enter="emit_login"
-            />
-            <Input
-              v-model="pwd"
-              :expanded="true"
-              :type="'password'"
-              :placeholder="'Password'"
-              @keypress.enter="emit_login"
-            />
-            <Button :rounded="false" :expanded="true" @click="emit_login">Sign in</Button>
-            <br />
-            <p class="is-uppercase has-text-centered">or</p>
-            <br />
+          <Input
+            :expanded="true"
+            v-model="usr"
+            :type="'text'"
+            :placeholder="'Email or Phone'"
+            @keypress.enter="emit_login"
+          />
+          <Input
+            v-model="pwd"
+            :expanded="true"
+            :type="'password'"
+            :placeholder="'Password'"
+            @keypress.enter="emit_login"
+          />
+          <Button :rounded="false" :expanded="true" @click="emit_login"
+            >Sign in</Button
+          >
+          <br />
+          <p class="is-uppercase has-text-centered">or</p>
+          <br />
+          <div class="ouath-btn-wrapper">
             <WikiGoogleSignInButton />
-          </form>
+            <WikiLoginLinkedinButton @click="linkedin_login_handle" />
+          </div>
         </template>
       </BaseForm>
       <div class="password-reset-container">
@@ -48,6 +58,17 @@ import Button from "../button/based.vue";
 import Input from "../input/Input.vue";
 
 export default {
+  head() {
+    return {
+      script: [
+        {
+          src: "https://platform.linkedin.com/in.js",
+          type: "text/javascript",
+          api_key: process.env.OAUTH_LINKEDIN_KEY || "",
+        },
+      ],
+    };
+  },
   components: {
     MultiLine,
     BaseForm,
@@ -69,6 +90,20 @@ export default {
     };
   },
   methods: {
+    linkedin_login_handle: async function () {
+      try {
+        const resp = await this.$axios.get(
+          (process.env.IO_API_URL || "https://io.wikiprofile.com/") +
+            "auth/oauth/linkedin"
+        );
+        this.$store.dispatch("user/setLinkedinUser", resp);
+      } catch (error) {
+        this.$buefy.toast.open({
+          message: error,
+          type: "is-danger",
+        });
+      }
+    },
     emit_login: function () {
       try {
         if (this.usr && this.pwd) {
@@ -82,6 +117,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.ouath-btn-wrapper {
+  display: flex;
+  flex-flow: column;
+  gap: 12px;
+}
 .signin-form-container {
   @include desktop {
     max-width: 30vw;

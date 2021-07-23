@@ -1,5 +1,5 @@
 <template>
-  <div class="wikiprofile-navbar-wrapper">
+  <div class="wikiprofile-navbar-wrapper" v-if="$auth.user.id">
     <div
       class="overlay"
       v-if="$device.isMobile"
@@ -493,7 +493,9 @@ export default {
   },
 
   mounted() {
-    this.emitSearch = _.debounce(this.emitSearch, 300);
+    if (this.$auth.user) {
+      this.emitSearch = _.debounce(this.emitSearch, 300);
+    }
   },
 };
 </script>
