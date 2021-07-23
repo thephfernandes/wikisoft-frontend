@@ -36,7 +36,7 @@ module.exports = function (env) {
     //process.env.REFRESH_TOKEN_COOKIE_DOMAIN || 'localhost',
     EXTENSIONS_PATH: './directus/extensions',
 
-    OAUTH_PROVIDERS="google,linkedin",
+    OAUTH_PROVIDERS=["google", "linkedin"],
 
     GOOGLE_API_KEY="AIzaSyCM1V2bltBk5AsECSRlHe4TKl5ovhAs8Sw",
     GOOGLE_CLIENT_ID="846980641255-bb5l7bjr2rbn0nopt4mldfn8fc8ie8ph.apps.googleusercontent.com",
