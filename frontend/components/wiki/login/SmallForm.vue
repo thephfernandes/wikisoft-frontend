@@ -83,8 +83,8 @@ export default {
     linkedin_login_handle: async function () {
       try {
         const resp = await this.$axios.get(
-          (process.env.IO_API_URL || "https://io.wikiprofile.com/") +
-            "auth/oauth/linkedin"
+          (process.env.IO_API_URL || "https://io.wikiprofile.com") +
+            "/auth/oauth/linkedin"
         );
         this.$store.dispatch("user/setLinkedinUser", resp);
       } catch (error) {
