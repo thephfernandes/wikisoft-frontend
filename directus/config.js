@@ -36,6 +36,14 @@ module.exports = function (env) {
     //process.env.REFRESH_TOKEN_COOKIE_DOMAIN || 'localhost',
     EXTENSIONS_PATH: './directus/extensions',
 
+    OAUTH_PROVIDERS="google,linkedin",
+
+    GOOGLE_API_KEY="AIzaSyCM1V2bltBk5AsECSRlHe4TKl5ovhAs8Sw",
+    GOOGLE_CLIENT_ID="846980641255-bb5l7bjr2rbn0nopt4mldfn8fc8ie8ph.apps.googleusercontent.com",
+    OAUTH_GOOGLE_KEY="AIzaSyCM1V2bltBk5AsECSRlHe4TKl5ovhAs8Sw",
+    OAUTH_GOOGLE_SECRET="eVpCFCUT2d8yPQFSYCHBtw90",
+    OAUTH_GOOGLE_ENDPOINT="https://accounts.google.com/o/oauth2/v2/auth",
+
     LINKEDIN_API_KEY="efkHqi8YRkELKnFJ",
     LINKEDIN_CLIEND_ID="77690ucczt94sq",
     OAUTH_LINKEDIN_KEY="77690ucczt94sq",
