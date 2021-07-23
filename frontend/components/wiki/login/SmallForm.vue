@@ -58,17 +58,6 @@ import Button from "../button/based.vue";
 import Input from "../input/Input.vue";
 
 export default {
-  head() {
-    return {
-      script: [
-        {
-          src: "https://platform.linkedin.com/in.js",
-          type: "text/javascript",
-          api_key: process.env.OAUTH_LINKEDIN_KEY || "",
-        },
-      ],
-    };
-  },
   components: {
     MultiLine,
     BaseForm,
