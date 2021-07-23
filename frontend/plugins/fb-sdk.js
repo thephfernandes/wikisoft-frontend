@@ -3,10 +3,14 @@ window.fbAsyncInit = function () {
         appId: process.env.FACEBOOK_APP_ID,
         cookie: true,
         xfbml: true,
-        version: 'v9.0'
+        version: 'v11.0'
     });
 
     FB.AppEvents.logPageView();
+
+    FB.getLoginStatus(function (response) {
+        console.log(response);
+    });
 };
 
 (function (d, s, id) {

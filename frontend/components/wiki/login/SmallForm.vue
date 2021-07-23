@@ -1,11 +1,18 @@
 <template>
   <div class="signin-form-container">
     <WikiStyleProvider :type="'is-primary'" :size="'default'">
-      <WikiHeaderPrimary :semantic="6" :size="6">Welcome Back</WikiHeaderPrimary>
-      <MultiLine :size="0.35"
-        >Don't miss your next opportunity. Sign in to stay updated on your professional world.</MultiLine
+      <WikiHeaderPrimary :semantic="6" :size="6"
+        >Welcome Back</WikiHeaderPrimary
       >
-      <WikiDataErrorMessage v-if="errors.length > 0" isError :messages="errors"></WikiDataErrorMessage>
+      <MultiLine :size="0.35"
+        >Don't miss your next opportunity. Sign in to stay updated on your
+        professional world.</MultiLine
+      >
+      <WikiDataErrorMessage
+        v-if="errors.length > 0"
+        isError
+        :messages="errors"
+      ></WikiDataErrorMessage>
       <BaseForm class="inner-form-wrapper">
         <template v-slot:form>
           <form>
@@ -23,11 +30,16 @@
               :placeholder="'Password'"
               @keypress.enter="emit_login"
             />
-            <Button :rounded="false" :expanded="true" @click="emit_login">Sign in</Button>
+            <Button :rounded="false" :expanded="true" @click="emit_login"
+              >Sign in</Button
+            >
             <br />
             <p class="is-uppercase has-text-centered">or</p>
             <br />
-            <WikiGoogleSignInButton />
+            <div class="third-party-auth-buttons is-flex is-align-items-center is-justify-content-space-between">
+              <WikiGoogleSignInButton />
+              <WikiFacebookSignInButton />
+            </div>
           </form>
         </template>
       </BaseForm>
@@ -98,5 +110,13 @@ export default {
   justify-self: center;
   align-self: center;
   margin: auto;
+}
+
+.third-party-auth-buttons {
+  width: 100%;
+
+  > * {
+    flex-grow: 1;
+  }
 }
 </style>
