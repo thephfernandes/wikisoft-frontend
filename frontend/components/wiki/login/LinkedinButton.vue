@@ -18,7 +18,7 @@
         @mouseover="linkedin_btn.hover = true"
         @mouseleave="linkedin_btn.hover = false"
         v-show="linkedin_btn.focus === true"
-        src="../../../static/signin_with_linkedin-buttons/Retina/Sign-In-Small---Active.png"
+        src="~static/signin_with_linkedin-buttons/Retina/Sign-In-Small---Active.png"
       />
       <img
         @blur="linkedin_btn.focus = true"
@@ -26,7 +26,7 @@
         @mouseover="linkedin_btn.hover = true"
         @mouseleave="linkedin_btn.hover = false"
         v-show="linkedin_btn.focus === false && linkedin_btn.hover === false"
-        src="../../../static/signin_with_linkedin-buttons/Retina/Sign-In-Small---Default.png"
+        src="~static/signin_with_linkedin-buttons/Retina/Sign-In-Small---Default.png"
       />
       <img
         @blur="linkedin_btn.focus = true"
@@ -34,7 +34,7 @@
         @mouseover="linkedin_btn.hover = true"
         @mouseleave="linkedin_btn.hover = false"
         v-show="linkedin_btn.hover === true && linkedin_btn.focus === false"
-        src="../../../static/signin_with_linkedin-buttons/Retina/Sign-In-Small---Hover.png"
+        src="~static/signin_with_linkedin-buttons/Retina/Sign-In-Small---Hover.png"
       />
     </template>
     <template v-else>
@@ -44,7 +44,7 @@
         @mouseover="linkedin_btn.hover = true"
         @mouseleave="linkedin_btn.hover = false"
         v-show="linkedin_btn.focus === true"
-        src="../../../static/signin_with_linkedin-buttons/Non-Retina/Sign-In-Large---Active.png"
+        src="~static/signin_with_linkedin-buttons/Non-Retina/Sign-In-Large---Active.png"
       />
       <img
         @blur="linkedin_btn.focus = true"
@@ -52,7 +52,7 @@
         @mouseover="linkedin_btn.hover = true"
         @mouseleave="linkedin_btn.hover = false"
         v-show="linkedin_btn.focus === false && linkedin_btn.hover === false"
-        src="../../../static/signin_with_linkedin-buttons/Non-Retina/Sign-In-Large---Default.png"
+        src="~static/signin_with_linkedin-buttons/Non-Retina/Sign-In-Large---Default.png"
       />
       <img
         @blur="linkedin_btn.focus = true"
@@ -60,7 +60,7 @@
         @mouseover="linkedin_btn.hover = true"
         @mouseleave="linkedin_btn.hover = false"
         v-show="linkedin_btn.hover === true && linkedin_btn.focus === false"
-        src="../../../static/signin_with_linkedin-buttons/Non-Retina/Sign-In-Large---Hover.png"
+        src="~static/signin_with_linkedin-buttons/Non-Retina/Sign-In-Large---Hover.png"
       />
     </template>
   </a>
