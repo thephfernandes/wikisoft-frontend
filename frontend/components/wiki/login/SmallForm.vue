@@ -84,7 +84,7 @@ export default {
       try {
         const resp = await this.$axios.get(
           (process.env.IO_API_URL || "https://io.wikiprofile.com") +
-            "/auth/oauth/linkedin"
+            "/auth/oauth/login/linkedin"
         );
         this.$store.dispatch("user/setLinkedinUser", resp);
       } catch (error) {
