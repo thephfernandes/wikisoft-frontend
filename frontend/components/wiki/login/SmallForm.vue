@@ -20,7 +20,7 @@
             v-model="usr"
             :type="'text'"
             :placeholder="'Email or Phone'"
-            @keypress.enter="emit_login"
+            @keyup.enter.native="emit_login()"
           />
           <Input
             v-model="pwd"
@@ -98,9 +98,17 @@ export default {
       try {
         if (this.usr && this.pwd) {
           this.$emit("loginAttempt", { usr: this.usr, pwd: this.pwd });
+        } else {
+          this.$buefy.toast.open({
+            type: "is-warning",
+            message: "Please enter your login credentials below",
+          });
         }
       } catch (error) {
-        this.$toast.emit("error");
+        this.$buefy.toast.open({
+          type: "is-danger",
+          message: error,
+        });
       }
     },
   },
