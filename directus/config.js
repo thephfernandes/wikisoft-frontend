@@ -35,5 +35,13 @@ module.exports = function (env) {
     //REFRESH_TOKEN_COOKIE_DOMAIN:
     //process.env.REFRESH_TOKEN_COOKIE_DOMAIN || 'localhost',
     EXTENSIONS_PATH: './directus/extensions',
+
+    LINKEDIN_API_KEY="efkHqi8YRkELKnFJ",
+    LINKEDIN_CLIEND_ID="77690ucczt94sq",
+    OAUTH_LINKEDIN_KEY="77690ucczt94sq",
+    OAUTH_LINKEDIN_SECRET="efkHqi8YRkELKnFJ",
+    OAUTH_LINKEDIN_ENDPOINT="https://api.linkedin.com/",
+    OAUTH_LINKEDIN_AUTHORIZE_URL ="/auth/oauth/linkedin",
+    OUATH_LINKEDIN_ACCESS_URL ="/"
   };
 };
