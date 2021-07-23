@@ -11,14 +11,14 @@
     @mouseleave="prehvr = false"
     @click="linkedin_button_handle"
   >
-    <!-- <template v-if="$device.isMobile">
+    <template v-if="$device.isMobile">
       <img
         @blur="linkedin_btn.focus = true"
         @focus="linkedin_btn.focus = false"
         @mouseover="linkedin_btn.hover = true"
         @mouseleave="linkedin_btn.hover = false"
         v-show="linkedin_btn.focus === true"
-        src="../../../assets/signin_with_linkedin-buttons/Retina/Sign-In-Small---Active.png"
+        src="https://io.wikiprofile.com/assets/f9e12a7f-dc46-4c07-b734-8d64ec77ce45?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlYmRiNWE4LTMxZDUtNGNlOC1hYTI3LTQ3OGVkN2U5Zjg5NSIsImlhdCI6MTYyNzA0Njg2MywiZXhwIjoxNjI3MDQ3NzYzfQ.RXyfkeCmMWAS5C3ETT-aU-DmjO_KgTRvowdEg66llrs"
       />
       <img
         @blur="linkedin_btn.focus = true"
@@ -26,7 +26,7 @@
         @mouseover="linkedin_btn.hover = true"
         @mouseleave="linkedin_btn.hover = false"
         v-show="linkedin_btn.focus === false && linkedin_btn.hover === false"
-        src="../../../assets/signin_with_linkedin-buttons/Retina/Sign-In-Small---Default.png"
+        src="https://io.wikiprofile.com/assets/863e2b78-0c0d-4966-9154-58da6893d310?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlYmRiNWE4LTMxZDUtNGNlOC1hYTI3LTQ3OGVkN2U5Zjg5NSIsImlhdCI6MTYyNzA0Njg2MywiZXhwIjoxNjI3MDQ3NzYzfQ.RXyfkeCmMWAS5C3ETT-aU-DmjO_KgTRvowdEg66llrs"
       />
       <img
         @blur="linkedin_btn.focus = true"
@@ -34,17 +34,17 @@
         @mouseover="linkedin_btn.hover = true"
         @mouseleave="linkedin_btn.hover = false"
         v-show="linkedin_btn.hover === true && linkedin_btn.focus === false"
-        src="../../../assets/signin_with_linkedin-buttons/Retina/Sign-In-Small---Hover.png"
+        src="https://io.wikiprofile.com/assets/f1ba5211-ba1b-4237-9f9d-191ad1739b95?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlYmRiNWE4LTMxZDUtNGNlOC1hYTI3LTQ3OGVkN2U5Zjg5NSIsImlhdCI6MTYyNzA0Njg2MywiZXhwIjoxNjI3MDQ3NzYzfQ.RXyfkeCmMWAS5C3ETT-aU-DmjO_KgTRvowdEg66llrs"
       />
-    </template> -->
-    <!-- <template v-else>
+    </template>
+    <template v-else>
       <img
         @blur="linkedin_btn.focus = true"
         @focus="linkedin_btn.focus = false"
         @mouseover="linkedin_btn.hover = true"
         @mouseleave="linkedin_btn.hover = false"
         v-show="linkedin_btn.focus === true"
-        src="../../../assets/signin_with_linkedin-buttons/Non-Retina/Sign-In-Large---Active.png"
+        src="https://io.wikiprofile.com/assets/7849c9fc-c076-43a4-af29-f599e5157290?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlYmRiNWE4LTMxZDUtNGNlOC1hYTI3LTQ3OGVkN2U5Zjg5NSIsImlhdCI6MTYyNzA0Njg2MywiZXhwIjoxNjI3MDQ3NzYzfQ.RXyfkeCmMWAS5C3ETT-aU-DmjO_KgTRvowdEg66llrs"
       />
       <img
         @blur="linkedin_btn.focus = true"
@@ -52,7 +52,7 @@
         @mouseover="linkedin_btn.hover = true"
         @mouseleave="linkedin_btn.hover = false"
         v-show="linkedin_btn.focus === false && linkedin_btn.hover === false"
-        src="../../../assets/signin_with_linkedin-buttons/Non-Retina/Sign-In-Large---Default.png"
+        src="https://io.wikiprofile.com/assets/0a462110-fb4c-4879-8960-95c99fe0e9cc?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlYmRiNWE4LTMxZDUtNGNlOC1hYTI3LTQ3OGVkN2U5Zjg5NSIsImlhdCI6MTYyNzA0Njg2MywiZXhwIjoxNjI3MDQ3NzYzfQ.RXyfkeCmMWAS5C3ETT-aU-DmjO_KgTRvowdEg66llrs"
       />
       <img
         @blur="linkedin_btn.focus = true"
@@ -60,9 +60,9 @@
         @mouseover="linkedin_btn.hover = true"
         @mouseleave="linkedin_btn.hover = false"
         v-show="linkedin_btn.hover === true && linkedin_btn.focus === false"
-        src="../../../assets/signin_with_linkedin-buttons/Non-Retina/Sign-In-Large---Hover.png"
+        src="https://io.wikiprofile.com/assets/d7a226c7-35f7-4090-884f-d5b2ccf19721?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlYmRiNWE4LTMxZDUtNGNlOC1hYTI3LTQ3OGVkN2U5Zjg5NSIsImlhdCI6MTYyNzA0Njg2MywiZXhwIjoxNjI3MDQ3NzYzfQ.RXyfkeCmMWAS5C3ETT-aU-DmjO_KgTRvowdEg66llrs"
       />
-    </template> -->
+    </template>
   </a>
 </template>
 
