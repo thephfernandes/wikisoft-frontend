@@ -95,7 +95,7 @@ a {
     margin: 0;
     margin-bottom: -6px;
   }
-  padding: 0;
+  padding: 0 15px;
   margin: 0;
   background: #0377b5;
   transition: 0.25s;

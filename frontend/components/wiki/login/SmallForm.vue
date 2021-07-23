@@ -116,9 +116,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .ouath-btn-wrapper {
-  display: flex;
-  flex-flow: column;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template: 100%;
   gap: 12px;
+  padding: 12px;
 }
 .signin-form-container {
   @include desktop {
