@@ -6,6 +6,7 @@
     @blur="emitBlur"
     @icon-click="emitIconClick"
     @icon-right-click="emitIconRightClick"
+    @submit="emitSubmit"
     :size="computedSize"
     :type="type"
     :expanded="expanded"
@@ -99,6 +100,9 @@ export default {
   methods: {
     emitUpdate: function (val) {
       this.$emit("input", val);
+    },
+    emitSubmit: function () {
+      this.$emit("submit");
     },
     emitBlur: function () {
       this.$emit("blur");

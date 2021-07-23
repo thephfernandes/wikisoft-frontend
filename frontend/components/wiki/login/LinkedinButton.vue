@@ -11,7 +11,7 @@
     @mouseleave="prehvr = false"
     @click="linkedin_button_handle"
   >
-    <template v-if="$device.isMobile">
+    <!-- <template v-if="$device.isMobile">
       <img
         @blur="linkedin_btn.focus = true"
         @focus="linkedin_btn.focus = false"
@@ -36,8 +36,8 @@
         v-show="linkedin_btn.hover === true && linkedin_btn.focus === false"
         src="../../../assets/signin_with_linkedin-buttons/Retina/Sign-In-Small---Hover.png"
       />
-    </template>
-    <template v-else>
+    </template> -->
+    <!-- <template v-else>
       <img
         @blur="linkedin_btn.focus = true"
         @focus="linkedin_btn.focus = false"
@@ -62,7 +62,7 @@
         v-show="linkedin_btn.hover === true && linkedin_btn.focus === false"
         src="../../../assets/signin_with_linkedin-buttons/Non-Retina/Sign-In-Large---Hover.png"
       />
-    </template>
+    </template> -->
   </a>
 </template>
 

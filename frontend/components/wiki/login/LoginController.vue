@@ -12,6 +12,7 @@
     </WikiStyleProvider>
     <div class="signin-form-wrapper">
       <WikiLoginSmallForm
+        @submit="login"
         :errors="errorMessages"
         @loginAttempt="login"
         @registrationAttempt="signUpRedirect"
@@ -56,12 +57,16 @@ export default {
           password: pwd,
           mode: "json",
         });
-
-        this.$store.commit("user/setAuthenticated", true);
-        await this.$store.dispatch("user/fetchAccount");
+        if (ret) {
+          this.$store.commit("user/setAuthenticated", true);
+          await this.$store.dispatch("user/fetchAccount");
+        }
       } catch (error) {
-        if (error && error.data) this.errorMessages = error.data;
-        console.error(error);
+        console.log(error);
+        this.$buefy.toast.open({
+          message: error,
+          type: "is-danger",
+        });
       }
     },
   },

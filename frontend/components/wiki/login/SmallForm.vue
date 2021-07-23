@@ -13,7 +13,7 @@
         isError
         :messages="errors"
       ></WikiDataErrorMessage>
-      <BaseForm class="inner-form-wrapper">
+      <BaseForm class="inner-form-wrapper" @submit="emit_login">
         <template v-slot:form>
           <Input
             :expanded="true"
@@ -27,7 +27,8 @@
             :expanded="true"
             :type="'password'"
             :placeholder="'Password'"
-            @keypress.enter="emit_login"
+            v-on:submit="emit_login"
+            @keyup.enter.native="emit_login()"
           />
           <Button :rounded="false" :expanded="true" @click="emit_login"
             >Sign in</Button
@@ -55,7 +56,7 @@
 import BaseForm from "../form/BaseForm.vue";
 import MultiLine from "../text/MultiLine.vue";
 import Button from "../button/based.vue";
-import Input from "../input/Input.vue";
+import Input from "../input/index.vue";
 
 export default {
   components: {
