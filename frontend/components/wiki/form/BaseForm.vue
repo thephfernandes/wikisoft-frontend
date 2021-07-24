@@ -6,7 +6,9 @@
       </WikiHeaderPrimary>
     </div>
     <div class="base-form-content-container">
-      <slot name="form"></slot>
+      <form v-on:submit.prevent="$emit('submit')">
+        <slot name="form"></slot>
+      </form>
     </div>
     <div class="base-form-actionbuttons-container">
       <slot name="actionButtons"></slot>

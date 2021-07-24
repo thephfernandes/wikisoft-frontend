@@ -13,34 +13,33 @@
         isError
         :messages="errors"
       ></WikiDataErrorMessage>
-      <BaseForm class="inner-form-wrapper">
+      <BaseForm class="inner-form-wrapper" @submit="emit_login">
         <template v-slot:form>
-          <form>
-            <Input
-              :expanded="true"
-              v-model="usr"
-              :type="'text'"
-              :placeholder="'Email or Phone'"
-              @keypress.enter="emit_login"
-            />
-            <Input
-              v-model="pwd"
-              :expanded="true"
-              :type="'password'"
-              :placeholder="'Password'"
-              @keypress.enter="emit_login"
-            />
-            <Button :rounded="false" :expanded="true" @click="emit_login"
-              >Sign in</Button
-            >
-            <br />
-            <p class="is-uppercase has-text-centered">or</p>
-            <br />
-            <div class="third-party-auth-buttons is-flex is-align-items-center is-justify-content-space-between">
-              <WikiGoogleSignInButton />
-              <WikiFacebookSignInButton />
-            </div>
-          </form>
+          <Input
+            :expanded="true"
+            v-model="usr"
+            :type="'text'"
+            :placeholder="'Email or Phone'"
+            @keyup.enter.native="emit_login()"
+          />
+          <Input
+            v-model="pwd"
+            :expanded="true"
+            :type="'password'"
+            :placeholder="'Password'"
+            v-on:submit="emit_login"
+            @keyup.enter.native="emit_login()"
+          />
+          <Button :rounded="false" :expanded="true" @click="emit_login"
+            >Sign in</Button
+          >
+          <br />
+          <p class="is-uppercase has-text-centered">or</p>
+          <br />
+          <div class="ouath-btn-wrapper">
+            <WikiGoogleSignInButton />
+            <WikiLoginLinkedinButton @click="linkedin_login_handle" />
+          </div>
         </template>
       </BaseForm>
       <div class="password-reset-container">
@@ -57,7 +56,7 @@
 import BaseForm from "../form/BaseForm.vue";
 import MultiLine from "../text/MultiLine.vue";
 import Button from "../button/based.vue";
-import Input from "../input/Input.vue";
+import Input from "../input/index.vue";
 
 export default {
   components: {
@@ -81,19 +80,48 @@ export default {
     };
   },
   methods: {
+    linkedin_login_handle: async function () {
+      try {
+        const resp = await this.$axios.get(
+          ("https://beta.wikiprofile.com" || "https://io.wikiprofile.com") +
+            "/auth/oauth/login/linkedin"
+        );
+        this.$store.dispatch("user/setLinkedinUser", resp);
+      } catch (error) {
+        this.$buefy.toast.open({
+          message: error,
+          type: "is-danger",
+        });
+      }
+    },
     emit_login: function () {
       try {
         if (this.usr && this.pwd) {
           this.$emit("loginAttempt", { usr: this.usr, pwd: this.pwd });
+        } else {
+          this.$buefy.toast.open({
+            type: "is-warning",
+            message: "Please enter your login credentials below",
+          });
         }
       } catch (error) {
-        this.$toast.emit("error");
+        this.$buefy.toast.open({
+          type: "is-danger",
+          message: error,
+        });
       }
     },
   },
 };
 </script>
 <style lang="scss" scoped>
+.ouath-btn-wrapper {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template: 100%;
+  gap: 12px;
+  padding: 12px;
+}
 .signin-form-container {
   @include desktop {
     max-width: 30vw;
