@@ -1,5 +1,5 @@
 <template>
-  <div class="wikiprofile-navbar-wrapper" v-if="$auth.user.id">
+  <div class="wikiprofile-navbar-wrapper" v-if="authenticated">
     <div
       class="overlay"
       v-if="$device.isMobile"
@@ -450,7 +450,6 @@ export default {
 
       if (this.authType === "facebook") {
         FB.logout((response) => {
-          window.localStorage.clear()
           console.log("facebook sign out callback:", response);
         });
       }

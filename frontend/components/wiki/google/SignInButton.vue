@@ -20,7 +20,7 @@ export default {
   methods: {
     signInWithGoogle() {
       this.$gapi.login().then(({ currentUser }) => {
-        this.$store.commit("user/setGoogleUser", currentUser);
+        this.$store.dispatch("user/setGoogleUser", currentUser);
         this.$router.push("/");
       });
     },
