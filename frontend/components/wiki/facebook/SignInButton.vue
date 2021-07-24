@@ -24,7 +24,7 @@ export default {
 
     async facebookLoginHandle() {
       try {
-        const res = await this.$axios.get("/auth/oauth/facebook");
+        const res = await this.$axios.get("https://beta.wikiprofile.com" || "https://io.wikiprofile.com" + "/auth/oauth/facebook");
         this.$store.dispatch("user/setFacebookUser", res);
       } catch (error) {
         console.error(error);

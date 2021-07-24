@@ -1,7 +1,7 @@
 export default ({ store }) => {
   window.fbAsyncInit = function () {
     FB.init({
-      appId: process.env.FACEBOOK_APP_ID,
+      appId: process.env.OAUTH_FACEBOOK_APP_ID,
       cookie: true,
       xfbml: true,
       version: 'v11.0'
