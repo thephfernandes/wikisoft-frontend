@@ -4,6 +4,7 @@ export const state = () => ({
   contact: {},
   background: {},
   authenticated: false,
+  authType: '',
 });
 
 export const getters = {
@@ -25,13 +26,17 @@ export const getters = {
 
   getAuthenticated: (state) => {
     return state.authenticated;
+  },
+
+  getAuthType: (state) => {
+    return state.authType;
   }
 };
 
 export const mutations = {
   setUser(state, payload) {
     state.user = payload;
-    state.authenticated = true;
+    this.commit("user/setAuthenticated", true);
   },
 
   setAccount(state, payload) {
@@ -48,6 +53,10 @@ export const mutations = {
 
   setAuthenticated(state, payload) {
     state.authenticated = payload;
+  },
+
+  setAuthType(state, payload) {
+    state.authType = payload;
   }
 };
 

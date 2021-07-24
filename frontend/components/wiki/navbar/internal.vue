@@ -80,7 +80,7 @@ export default {
       ],
       rightList: [
         {
-          link: "/account/" + this.$auth.user.id + "/settings",
+          link: "/account/" + this.$auth.user?.id + "/settings",
           name: "Settings",
           icon: "cog-outline",
           size: "medium",

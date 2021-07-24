@@ -6,7 +6,7 @@
     data-layout="default"
     data-auto-logout-link="false"
     data-use-continue-as="true"
-    @onlogin="checkLoginState()"
+    @onlogin="checkLoginState"
   ></div>
 </template>
 
@@ -14,9 +14,14 @@
 export default {
   methods: {
     checkLoginState() {
-      FB.getLoginStatus((response) => console.log(response));
-    }
-  }
+      FB.getLoginStatus((response) => {
+        if (response.status === "connected") {
+          this.$store.commit("user/setUser", response.authResponse);
+          this.$store.commit("user/setAuthType", "facebook");
+        }
+      });
+    },
+  },
 };
 </script>
 

@@ -21,6 +21,7 @@ export default {
     signInWithGoogle() {
       this.$gapi.login().then(({ currentUser }) => {
         this.$store.commit("user/setUser", currentUser);
+        this.$store.commit("user/setAuthType", "google");
         this.$router.push("/");
       });
     },

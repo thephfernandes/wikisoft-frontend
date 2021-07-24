@@ -96,7 +96,7 @@
         </div>
 
         <div class="toolbar__buttons is-hidden-mobile">
-          <div v-if="!$auth.user">
+          <div v-if="!authenticated">
             <WikiButton size="is-small" inverted outlined>
               <nuxt-link to="/login">
                 <span class="has-text-white">Login</span>
@@ -294,7 +294,7 @@
 
 <script>
 import _ from "lodash";
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   data() {
@@ -330,7 +330,7 @@ export default {
 
       desktopNavItems: [
         {
-          link: "/account/" + this.$auth.user.id + "/settings",
+          link: "/account/" + this.$auth.user?.id + "/settings",
           name: "Settings",
           icon: "cog-outline",
           size: "medium",
@@ -405,6 +405,13 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters({
+      authenticated: "user/getAuthenticated",
+      authType: "user/getAuthType",
+    }),
+  },
+
   methods: {
     ...mapMutations({
       setQuery: "search/setQuery",
@@ -433,13 +440,28 @@ export default {
     },
 
     async attemptLogout() {
-      try {
-        await this.$auth.logout();
-        this.$store.commit("user/setAuthenticated", false);
-        this.$router.push("/login");
-      } catch (error) {
-        console.error(error);
+      if (this.authType === "") {
+        try {
+          await this.$auth.logout();
+        } catch (error) {
+          console.error(error);
+        }
       }
+
+      if (this.authType === "facebook") {
+        FB.logout((response) => {
+          window.localStorage.clear()
+          console.log("facebook sign out callback:", response);
+        });
+      }
+
+      if (this.authType === "google") {
+        // this.$gapi.logout(() => window.localStorage.clear());
+      }
+
+      this.$store.commit("user/setAuthType", "");
+      this.$store.commit("user/setAuthenticated", false);
+      this.$router.push("/login");
     },
 
     redirectToSearch() {

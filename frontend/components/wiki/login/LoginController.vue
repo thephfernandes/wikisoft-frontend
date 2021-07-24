@@ -56,8 +56,6 @@ export default {
           password: pwd,
           mode: "json",
         });
-
-        this.$store.commit("user/setAuthenticated", true);
         await this.$store.dispatch("user/fetchAccount");
       } catch (error) {
         if (error && error.data) this.errorMessages = error.data;
