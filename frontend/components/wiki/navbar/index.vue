@@ -1,5 +1,5 @@
 <template>
-  <div class="wikiprofile-navbar-wrapper" v-if="$auth.user.id">
+  <div class="wikiprofile-navbar-wrapper" v-if="authenticated">
     <div
       class="overlay"
       v-if="$device.isMobile"
