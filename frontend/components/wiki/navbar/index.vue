@@ -456,7 +456,7 @@ export default {
       }
 
       if (this.authType === "google") {
-        // this.$gapi.logout(() => window.localStorage.clear());
+        this.$gapi.logout();
       }
 
       this.$store.commit("user/setAuthType", "");
