@@ -62,8 +62,23 @@ export const mutations = {
 
 export const actions = {
   async setLinkedinUser({ commit }, payload) {
-
+    console.log("setting authenticated linkedIn user...", payload);
+    commit("user/setAuthType", "linkedin");
+    commit("user/setAuthenticated", true);
   },
+
+  async setFacebookUser({ commit }, payload) {
+    console.log("setting authenticated facebook user...", payload);
+    commit("user/setAuthType", "facebook");
+    commit("user/setAuthenticated", true);
+  },
+
+  async setGoogleUser({ commit }, payload) {
+    console.log("setting authenticated google user...", payload);
+    commit("user/setAuthType", "google");
+    commit("user/setAuthenticated", true);
+  },
+  
   async createUser({ commit }, payload) {
     try {
       const users = await this.$directus.users;

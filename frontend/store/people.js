@@ -75,9 +75,9 @@ export const actions = {
     try {
       let response = {};
       if (query) {
-        response = await this.$axios.get(`/people/${query}`);
+        response = await this.$axios.get(`/custom/search/people/${query}`);
       } else {
-        response = await this.$axios.get(`/people${rootState.search.query}`);
+        response = await this.$axios.get(`/custom/search/people${rootState.search.query}`);
       }
 
       // const people = await this.$directus.items("people");
@@ -125,7 +125,7 @@ export const actions = {
 
   async fetchSelectedPerson({ commit }, id) {
     try {
-      const response = await this.$axios.get(`/people/${id}`);
+      const response = await this.$axios.get(`/custom/search/people/${id}`);
 
       // const people = await this.$directus.items("people");
       // const response = await people.read(id);

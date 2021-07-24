@@ -53,9 +53,9 @@ export const actions = {
     try {
       let response = {};
       if (query) {
-        response = await this.$axios.get(`/company/${query}`);
+        response = await this.$axios.get(`/custom/search/company/${query}`);
       } else {
-        response = await this.$axios.get(`/company/${rootState.search.query}`);
+        response = await this.$axios.get(`/custom/search/company/${rootState.search.query}`);
       }
 
       // const companies = await this.$directus.items("companies");
@@ -104,7 +104,7 @@ export const actions = {
 
   async fetchSelectedCompany({ commit }, id) {
     try {
-      const response = await this.$axios.get(`/company/${id}`);
+      const response = await this.$axios.get(`/custom/search/company/${id}`);
 
       // const companies = await this.$directus.items("companies");
       // const response = await companies.read(id);

@@ -130,7 +130,7 @@ module.exports = {
   ],
 
   axios: {
-    baseURL: 'https://io.wikiprofile.com/custom/search',
+    baseURL: 'https://io.wikiprofile.com',
     proxy: false,
   },
 
