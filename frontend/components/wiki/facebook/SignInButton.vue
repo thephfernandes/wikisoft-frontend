@@ -6,7 +6,7 @@
     data-layout="default"
     data-auto-logout-link="false"
     data-use-continue-as="true"
-    @onlogin="checkLoginState"
+    @click="facebookLoginHandle"
   ></div>
 </template>
 
@@ -20,6 +20,15 @@ export default {
           this.$store.commit("user/setAuthType", "facebook");
         }
       });
+    },
+
+    async facebookLoginHandle() {
+      try {
+        const res = await this.$axios.get("/auth/oauth/facebook");
+        this.$store.dispatch("user/setFacebookUser", res);
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };
