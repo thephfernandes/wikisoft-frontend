@@ -24,7 +24,15 @@ export default {
 
     async facebookLoginHandle() {
       try {
-        const res = await this.$axios.get("https://beta.wikiprofile.com" || "https://io.wikiprofile.com" + "/auth/oauth/facebook");
+        // const res = await this.$axios.get("https://beta.wikiprofile.com" || "https://io.wikiprofile.com" + "/auth/oauth/facebook");
+        const res = await this.$axios.get(`https://www.facebook.com/v11.0/dialog/oauth`, {
+          params: {
+            client_id: process.env.OAUTH_FACEBOOK_APP_ID,
+            redirect_uri: "io.wikiprofile.com/auth/oauth/facebook/callback",
+            state: 'test1234',
+          }
+        });
+        console.log(res);
         this.$store.dispatch("user/setFacebookUser", res);
       } catch (error) {
         console.error(error);
