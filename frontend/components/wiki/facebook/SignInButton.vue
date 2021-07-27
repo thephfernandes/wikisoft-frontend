@@ -2,6 +2,7 @@
   <div
     class="fb-login-button"
     data-size="large"
+    data-width="400"
     data-button-type="continue_with"
     data-layout="default"
     data-use-continue-as="false"
