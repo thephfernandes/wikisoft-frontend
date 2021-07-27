@@ -93,7 +93,6 @@ module.exports = {
     { src: '~/plugins/persistedState.js' },
     { src: '~plugins/vueGoogleMaps.js' },
     { src: '~/plugins/vueGapi.js', mode: 'client' },
-    { src: '~/plugins/fb-sdk.js', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

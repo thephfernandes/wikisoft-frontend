@@ -18,49 +18,49 @@
 import Vue from "vue";
 
 export default {
-  data() {
-    return {
-      isFBReady: false,
-    };
-  },
+  // data() {
+  //   return {
+  //     isFBReady: false,
+  //   };
+  // },
 
-  mounted() {
-    this.isFBReady = Vue.FB !== undefined;
-    window.addEventListener("fb-sdk-ready", this.onFBReady);
-  },
+  // mounted() {
+  //   this.isFBReady = Vue.FB !== undefined;
+  //   window.addEventListener("fb-sdk-ready", this.onFBReady);
+  // },
 
-  beforeDestroy() {
-    window.removeEventListener("fb-sdk-ready", this.onFBReady);
-  },
+  // beforeDestroy() {
+  //   window.removeEventListener("fb-sdk-ready", this.onFBReady);
+  // },
 
-  methods: {
-    onFBReady() {
-      this.isFBReady = true;
-      this.checkLoginState();
-    },
+  // methods: {
+  //   onFBReady() {
+  //     this.isFBReady = true;
+  //     this.checkLoginState();
+  //   },
 
-    checkLoginState() {
-      if (this.isFBReady) {
-        Vue.FB.getLoginStatus((response) => {
-          console.log(response);
-          if (response.status === "connected") {
-            this.$store.commit("user/setUser", response.authResponse);
-            this.$store.commit("user/setAuthType", "facebook");
-            this.$router.push("/");
-          }
-        });
-      }
+  //   checkLoginState() {
+  //     if (this.isFBReady) {
+  //       Vue.FB.getLoginStatus((response) => {
+  //         console.log(response);
+  //         if (response.status === "connected") {
+  //           this.$store.commit("user/setUser", response.authResponse);
+  //           this.$store.commit("user/setAuthType", "facebook");
+  //           this.$router.push("/");
+  //         }
+  //       });
+  //     }
 
-      // this.$fb.sdk.getLoginStatus((response) => {
-      //   console.log(response)
-      //   if (response.status === "connected") {
-      //     this.$store.commit("user/setUser", response.authResponse);
-      //     this.$store.commit("user/setAuthType", "facebook");
-      //     this.$router.push("/");
-      //   }
-      // });
-    },
-  },
+  //     // this.$fb.sdk.getLoginStatus((response) => {
+  //     //   console.log(response)
+  //     //   if (response.status === "connected") {
+  //     //     this.$store.commit("user/setUser", response.authResponse);
+  //     //     this.$store.commit("user/setAuthType", "facebook");
+  //     //     this.$router.push("/");
+  //     //   }
+  //     // });
+  //   },
+  // },
 };
 </script>
 
