@@ -79,6 +79,10 @@ module.exports = {
       },
       { rel: 'shortcut icon', href: '/favicon/favicon.ico?v=rMB0bEjrjp' },
     ],
+    script: [
+      // { src: process.env.NODE_ENV === "development" ? "https://connect.facebook.com/en_US/debug.js" : "https://connect.facebook.com/en_US/sdk.js", async: true, defer: true },
+      { src: "https://connect.facebook.com/en_US/sdk.js", async: true, defer: true },
+    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

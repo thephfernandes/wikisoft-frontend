@@ -2,42 +2,63 @@
   <div
     class="fb-login-button"
     data-size="large"
-    data-button-type="login_with"
+    data-button-type="continue_with"
     data-layout="default"
-    data-auto-logout-link="false"
-    data-use-continue-as="true"
-    @click="facebookLoginHandle"
+    data-use-continue-as="false"
+    :onlogin="checkLoginState()"
   ></div>
+  <!-- <div>
+    <fb:login-button scope="public_profile,email" :onlogin="checkLoginState();">
+    </fb:login-button>
+  </div> -->
 </template>
 
 <script>
+import Vue from "vue";
+
 export default {
+  data() {
+    return {
+      isFBReady: false,
+    };
+  },
+
+  mounted() {
+    this.isFBReady = Vue.FB !== undefined;
+    window.addEventListener("fb-sdk-ready", this.onFBReady);
+  },
+
+  beforeDestroy() {
+    window.removeEventListener("fb-sdk-ready", this.onFBReady);
+  },
+
   methods: {
-    checkLoginState() {
-      FB.getLoginStatus((response) => {
-        if (response.status === "connected") {
-          this.$store.commit("user/setUser", response.authResponse);
-          this.$store.commit("user/setAuthType", "facebook");
-        }
-      });
+    onFBReady() {
+      this.isFBReady = true;
+      this.checkLoginState();
     },
 
-    async facebookLoginHandle() {
-      try {
-        // const res = await this.$axios.get("https://beta.wikiprofile.com" || "https://io.wikiprofile.com" + "/auth/oauth/facebook");
-        const res = await this.$axios.get(`https://www.facebook.com/v11.0/dialog/oauth`, {
-          params: {
-            client_id: process.env.OAUTH_FACEBOOK_APP_ID,
-            redirect_uri: "io.wikiprofile.com/auth/oauth/facebook/callback",
-            state: 'test1234',
+    checkLoginState() {
+      if (this.isFBReady) {
+        Vue.FB.getLoginStatus((response) => {
+          console.log(response);
+          if (response.status === "connected") {
+            this.$store.commit("user/setUser", response.authResponse);
+            this.$store.commit("user/setAuthType", "facebook");
+            this.$router.push("/");
           }
         });
-        console.log(res);
-        this.$store.dispatch("user/setFacebookUser", res);
-      } catch (error) {
-        console.error(error);
       }
-    }
+
+      // this.$fb.sdk.getLoginStatus((response) => {
+      //   console.log(response)
+      //   if (response.status === "connected") {
+      //     this.$store.commit("user/setUser", response.authResponse);
+      //     this.$store.commit("user/setAuthType", "facebook");
+      //     this.$router.push("/");
+      //   }
+      // });
+    },
   },
 };
 </script>
