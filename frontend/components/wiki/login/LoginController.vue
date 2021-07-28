@@ -52,15 +52,13 @@ export default {
 
     login: async function ({ usr, pwd }) {
       try {
-        let ret = await this.$auth.login({
+        await this.$auth.login({
           email: usr,
           password: pwd,
           mode: "json",
         });
-        if (ret) {
-          this.$store.commit("user/setAuthenticated", true);
-          await this.$store.dispatch("user/fetchAccount");
-        }
+        this.$store.commit("user/setAuthenticated", true);
+        await this.$store.dispatch("user/fetchAccount");
       } catch (error) {
         console.log(error);
         this.$buefy.toast.open({
