@@ -39,7 +39,8 @@
           <div class="ouath-btn-wrapper">
             <WikiGoogleSignInButton />
             <!-- <WikiFacebookSignInButton /> -->
-            <WikiLoginLinkedinButton @click="linkedin_login_handle" />
+            <WikiLinkedinSignInButton />
+            <!-- <WikiLoginLinkedinButton @click="linkedin_login_handle" /> -->
           </div>
         </template>
       </BaseForm>

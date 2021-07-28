@@ -94,9 +94,9 @@ module.exports = {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: "~/plugins/persistedState.js" },
-    { src: "~plugins/vueGoogleMaps.js" },
-    { src: "~/plugins/vueGapi.js", mode: "client" },
+    { src: '~/plugins/persistedState.js', mode: 'client' },
+    { src: '~plugins/vueGoogleMaps.js' },
+    { src: '~/plugins/vueGapi.js', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
