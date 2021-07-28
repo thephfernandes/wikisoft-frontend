@@ -90,7 +90,7 @@ module.exports = {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~/plugins/persistedState.js' },
+    { src: '~/plugins/persistedState.js', mode: 'client' },
     { src: '~plugins/vueGoogleMaps.js' },
     { src: '~/plugins/vueGapi.js', mode: 'client' },
   ],
@@ -164,10 +164,10 @@ module.exports = {
     port: process.env.FRONTEND_PORT || 3000,
     host: '0.0.0.0',
     timing: false,
-    https: process.env.NODE_ENV !== 'production' ? {
-      key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
-      cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
-    } : {}
+    // https: process.env.NODE_ENV !== 'production' ? {
+    //   key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+    //   cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
+    // } : {}
   },
   
   // Font Awesome Pro
