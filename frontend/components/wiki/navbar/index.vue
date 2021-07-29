@@ -4,10 +4,11 @@
       class="overlay"
       v-if="$device.isMobile"
       @click="toggleNavigationDrawer"
-    ></div>
+    >
+    </div>
     <header class="toolbar">
       <div class="toolbar__content">
-        <div class="toolbar__account is-hidden-desktop">
+        <div class="toolbar__account is-hidden-desktop is-hidden-tablet">
           <button
             class="toolbar__button account-modal__trigger"
             @click="toggleAccountModal"
@@ -24,8 +25,8 @@
 
             <div>
               <span @click="attemptLogout" class="has-text-primary">
-                  <a role="button">Sign out</a>
-                </span>
+                <a role="button">Sign out</a>
+              </span>
             </div>
           </div>
         </div>
@@ -120,7 +121,11 @@
         </div>
 
         <button
-          class="toolbar__button navigation-drawer__trigger is-hidden-desktop"
+          class="
+            toolbar__button
+            navigation-drawer__trigger
+            is-hidden-desktop is-hidden-tablet
+          "
           @click="toggleNavigationDrawer"
         >
           <div class="button_content">
@@ -422,8 +427,15 @@ export default {
       if (!this.$device.isMobile) {
         return;
       }
+
       const navDrawer = document.querySelector(".navigation-drawer");
       const overlay = document.querySelector(".overlay");
+
+      if (overlay.classList.contains("overlay--active-modal")) {
+        this.toggleAccountModal();
+        return;
+      }
+
       navDrawer.classList.toggle("navigation-drawer--close");
       navDrawer.classList.toggle("navigation-drawer--active");
       overlay.classList.toggle("overlay--active");
@@ -434,7 +446,9 @@ export default {
         return;
       }
       const accountModal = document.querySelector(".account-modal__content");
+      const overlay = document.querySelector(".overlay");
       accountModal.classList.toggle("account-modal__content--active");
+      overlay.classList.toggle("overlay--active-modal");
     },
 
     async attemptLogout() {
@@ -537,7 +551,7 @@ export default {
     border-bottom: $wikiline;
   }
 
-  @include desktop {
+  @include tablet {
     height: 95px;
   }
 }
@@ -553,7 +567,7 @@ export default {
     padding: 4px 16px;
   }
 
-  @include desktop {
+  @include tablet {
     padding: 1rem 2rem;
   }
 
@@ -571,7 +585,7 @@ export default {
     padding: 12px;
   }
 
-  @include desktop {
+  @include tablet {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -718,8 +732,13 @@ export default {
   opacity: 0.5;
 }
 
+.overlay--active-modal {
+  visibility: visible;
+  opacity: 0;
+}
+
 .navigation-drawer__header {
-  @include desktop {
+  @include tablet {
     display: none;
   }
 
@@ -759,7 +778,7 @@ export default {
     height: 100%;
   }
 
-  @include desktop {
+  @include tablet {
     justify-content: space-between;
     width: 100%;
     height: 42px;
@@ -774,7 +793,7 @@ export default {
       width: 100%;
     }
 
-    @include desktop {
+    @include tablet {
       padding: 0.25rem 1.5rem;
       padding-bottom: 0.5rem;
     }
@@ -821,7 +840,7 @@ export default {
   width: 100%;
 }
 
-@include desktop {
+@include tablet {
   .nav-links__left > .nav-links__item {
     border-right: $wikiline_thin;
   }
@@ -850,10 +869,11 @@ export default {
 
 .appbar {
   position: fixed;
-  bottom: 0;
-  width: 100vw;
+  bottom: -3px;
+  width: 101vw;
+  left: -2px;
   border: $wikiline;
-  background: white;
+  background: linear-gradient(180deg, #e3f2ff 0%, #ffffff 33%);
 }
 
 .appbar__links {

@@ -94,4 +94,10 @@ export default {
 .container {
   background-color: $primary-slate-gray;
 }
+
+.column {
+  @include mobile {
+    padding: 0;
+  }
+}
 </style>

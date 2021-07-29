@@ -71,7 +71,7 @@ export default {
     margin-bottom: 75px;
   }
 
-  @include desktop {
+  @include tablet {
     margin-top: 139px;
   }
 
