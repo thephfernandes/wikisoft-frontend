@@ -4,7 +4,7 @@
       <WikiCardPrimary class="container">
         <template v-slot:content>
           <div class="columns" v-if="!loading">
-            <div class="column is-half">
+            <div class="column is-half pl-0">
               <WikiCompanyFeaturedList
                 v-if="!hasSearchedCompanies"
                 class="container"
@@ -17,7 +17,7 @@
               />
             </div>
             <hr v-if="$device.isMobile" />
-            <div class="column is-half">
+            <div class="column is-half pr-0">
               <WikiPersonFeaturedList
                 v-if="!hasSearchedPeople"
                 class="container"

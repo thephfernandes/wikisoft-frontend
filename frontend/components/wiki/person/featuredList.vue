@@ -82,7 +82,7 @@ export default {
     overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
     grid-gap: 0.5rem;
   }
 }

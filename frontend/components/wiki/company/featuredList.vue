@@ -65,7 +65,7 @@ export default {
   @include desktop {
     padding: 0rem 0.25rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
     grid-gap: 0.5rem;
     max-height: 125vh;
     overflow-y: scroll;

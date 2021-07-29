@@ -1,56 +1,44 @@
 <template>
-  <div class="vanity-card-wrapper">
-    <div class="card-header-title">
-      <div class="card-header-icon">
-        <a @click.prevent="redirectToSelected(name)">
-          <div class="profile-image__container">
-            <img
-              class="profile-image__content is-rounded"
-              :src="
-                profileImage ||
-                'https://bulma.io/images/placeholders/128x128.png'
-              "
-              alt="profile picture"
-            />
-          </div>
-        </a>
-      </div>
-      <div class="is-flex is-flex-direction-column header-title-contents">
-        <a @click.prevent="redirectToSelected()" style="color: black">
-          <p class="is-size-5 profile-name is-size-6-tablet is-size-6-mobile">
-            {{ name }}
-          </p>
-        </a>
-        <p
-          class="
-            is-size-6 is-size-7-mobile
-            has-text-weight-normal has-text-grey
-          "
-        >
-          {{ role }}
+  <div class="card-header-title pl-0 pr-0 pt-0">
+    <div class="card-header-icon">
+      <a @click.prevent="redirectToSelected(name)">
+        <div class="profile-image__container">
+          <img
+            class="profile-image__content is-rounded"
+            :src="
+              profileImage || 'https://bulma.io/images/placeholders/128x128.png'
+            "
+            alt="profile picture"
+          />
+        </div>
+      </a>
+    </div>
+    <div class="is-flex is-flex-direction-column header-title-contents">
+      <a @click.prevent="redirectToSelected()" style="color: black">
+        <p class="is-size-5 profile-name is-size-6-tablet is-size-6-mobile">
+          {{ name }}
         </p>
-        <p
-          class="
-            is-size-6 is-size-7-mobile
-            has-text-weight-normal has-text-grey
-          "
-          v-if="since"
-        >
-          {{ since }}
-        </p>
-        <p
-          class="
-            is-size-6 is-size-7-mobile
-            has-text-weight-normal has-text-grey
-          "
-          v-if="edited"
-        >
-          Edited
-        </p>
-      </div>
-      <div class="card-action">
-        <slot name="action"></slot>
-      </div>
+      </a>
+      <p
+        class="is-size-6 is-size-7-mobile has-text-weight-normal has-text-grey"
+      >
+        {{ role }}
+      </p>
+      <p
+        class="is-size-6 is-size-7-mobile has-text-weight-normal has-text-grey"
+        v-if="since"
+      >
+        {{ since }}
+      </p>
+      <p
+        class="is-size-6 is-size-7-mobile has-text-weight-normal has-text-grey"
+        v-if="edited"
+      >
+        Edited
+      </p>
+    </div>
+    <div class="card-action">
+      <slot name="action"></slot>
     </div>
   </div>
 </template>
@@ -96,31 +84,17 @@ export default {
 .card-header-icon {
   padding-left: 0;
   padding-right: 0;
-  min-width: 70px;
+
   @include mobile {
     min-width: 60px;
   }
 }
 
-.card-header-title {
-  padding-top: 0;
-
-  @include mobile {
-    padding-left: 0;
-  }
-
-  @include tablet {
-    padding-left: 1em;
-  }
-
-  .header-title-contents {
-    height: 100%;
-    width: 100%;
-    justify-content: center;
-    @include desktop {
-      padding-left: 1.25em;
-    }
-  }
+.header-title-contents {
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  padding-left: 1rem;
 }
 
 .post-options {
@@ -139,6 +113,11 @@ export default {
   @include desktop {
     width: 85px;
     height: 85px;
+  }
+
+  @include tablet {
+    width: 67px;
+    height: 67px;
   }
 
   @include mobile {
