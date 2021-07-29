@@ -23,11 +23,9 @@
             </div>
 
             <div>
-              <a role="button">
-                <span @click="attemptLogout" class="has-text-primary">
+              <span @click="attemptLogout" class="has-text-primary">
                   <a role="button">Sign out</a>
                 </span>
-              </a>
             </div>
           </div>
         </div>
@@ -96,7 +94,7 @@
         </div>
 
         <div class="toolbar__buttons is-hidden-mobile">
-          <div v-if="!authenticated">
+          <div v-if="!$auth.user">
             <WikiButton size="is-small" inverted outlined>
               <nuxt-link to="/login">
                 <span class="has-text-white">Login</span>
