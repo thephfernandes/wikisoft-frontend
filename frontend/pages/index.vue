@@ -3,15 +3,18 @@
     <div class="block">
       <WikiCardPrimary class="container">
         <template v-slot:content>
-          <client-only>
-            <div class="columns">
+          <div class="columns" v-if="!loading">
             <div class="column is-half">
               <WikiCompanyFeaturedList
                 v-if="!hasSearchedCompanies"
                 class="container"
                 :companies="featuredCompanies"
               />
-              <WikiCompanyList v-else :companies="featuredCompanies" style="background: rgb(242, 245, 247)" />
+              <WikiCompanyList
+                v-else
+                :companies="featuredCompanies"
+                style="background: rgb(242, 245, 247)"
+              />
             </div>
             <hr v-if="$device.isMobile" />
             <div class="column is-half">
@@ -20,10 +23,13 @@
                 class="container"
                 :people="featuredPeople"
               />
-              <WikiPersonList v-else :profiles="featuredPeople" style="background: rgb(242, 245, 247)" />
+              <WikiPersonList
+                v-else
+                :profiles="featuredPeople"
+                style="background: rgb(242, 245, 247)"
+              />
             </div>
           </div>
-          </client-only>
         </template>
       </WikiCardPrimary>
     </div>
@@ -33,6 +39,12 @@
 <script>
 export default {
   layout: ({ isMobile }) => (isMobile ? "mobile" : "default"),
+
+  data() {
+    return {
+      loading: false,
+    }
+  },
 
   computed: {
     featuredCompanies() {
@@ -63,6 +75,8 @@ export default {
   },
 
   mounted() {
+    //set companies equal to static featured initial companies
+    this.loading = true;
     this.$store.commit(
       "companies/setCompanies",
       this.$store.getters["companies/getFeaturedCompanies"]
@@ -71,6 +85,7 @@ export default {
       "people/setPeople",
       this.$store.getters["people/getFeaturedPeople"]
     );
+    this.loading = false;
   },
 };
 </script>

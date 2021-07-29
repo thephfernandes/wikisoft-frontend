@@ -58,6 +58,7 @@ export default {
           mode: "json",
         });
         this.$store.commit("user/setAuthenticated", true);
+        this.$store.commit("user/setAuthType", "directus");
         await this.$store.dispatch("user/fetchAccount");
       } catch (error) {
         console.log(error);
