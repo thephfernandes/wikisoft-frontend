@@ -22,14 +22,19 @@
                       @input="searchForCompanies"
                       @keyup.enter="searchForCompanies"
                     />
-                    <b-input
-                      placeholder="company industry, banking/retail/etc"
-                      v-model="industry"
+                    <b-select
+                      placeholder="select an industry"
+                      @input="value => industry = value"
                       rounded
                       expanded
-                      @input="searchForCompanies"
-                      @keyup.enter="searchForCompanies"
-                    />
+                    >
+                      <option
+                        v-for="(option, i) in industryOptions"
+                        :value="option"
+                        :key="i"
+                      >{{ option }}
+                      </option>
+                    </b-select>
                     <p class="control">
                       <WikiButton @click="searchForCompanies" rounded
                         ><span>Search</span></WikiButton
@@ -70,7 +75,7 @@
                         <b-pagination
                           v-if="paginatedCompanies.length > perPage"
                           :total="total"
-                          v-model:current="current"
+                          v-model="current"
                           :order="'is-centered'"
                           :per-page="perPage"
                         />
@@ -123,6 +128,7 @@
 
 <script>
 import _ from "lodash";
+import companyData from "~/assets/data/featured-companies.json";
 
 export default {
   name: "CompaniesPage",
@@ -132,7 +138,7 @@ export default {
       current: 1,
       perPage: 5,
       search: "",
-      industry: "",
+      industry: new String,
       loading: false,
     };
   },
@@ -144,6 +150,10 @@ export default {
   computed: {
     companies() {
       return this.$store.getters["companies/getCompanies"];
+    },
+    
+    industryOptions() {
+      return new Set(companyData.map(item => item.data_industry));
     },
 
     total() {
@@ -168,7 +178,7 @@ export default {
       this.loading = true;
       await this.$store.dispatch("companies/fetchCompanies", {
         search: this.search,
-        industry: this.category,
+        industry: this.industry,
       });
       this.loading = false;
     },
