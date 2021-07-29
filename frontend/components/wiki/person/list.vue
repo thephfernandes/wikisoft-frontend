@@ -18,7 +18,7 @@
     </template>
 
     <template v-slot:empty>
-      <div class="is-flex is-align-items-center is-justify-content-center">
+      <div class="empty-persons-header is-flex is-align-items-center is-justify-content-center">
         <WikiHeaderPrimary :size="3" :semantic="3"
           ><p>No people found :/</p></WikiHeaderPrimary
         >

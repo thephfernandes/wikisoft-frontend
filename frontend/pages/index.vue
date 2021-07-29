@@ -3,7 +3,8 @@
     <div class="block">
       <WikiCardPrimary class="container">
         <template v-slot:content>
-          <div class="columns">
+          <client-only>
+            <div class="columns">
             <div class="column is-half">
               <WikiCompanyFeaturedList
                 v-if="!hasSearchedCompanies"
@@ -22,6 +23,7 @@
               <WikiPersonList v-else :profiles="featuredPeople" style="background: rgb(242, 245, 247)" />
             </div>
           </div>
+          </client-only>
         </template>
       </WikiCardPrimary>
     </div>

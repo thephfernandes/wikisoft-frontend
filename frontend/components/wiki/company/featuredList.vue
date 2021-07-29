@@ -4,7 +4,8 @@
       <div class="list-header">
         <div class="is-flex is-justify-content-space-between">
           <WikiHeaderPrimary class="has-text-grey" :size="2" :semantic="3">
-            Showing {{ !$device.isMobile ? "a total of" : "" }}  {{ companies.length }}
+            Showing {{ !$device.isMobile ? "a total of" : "" }}
+            {{ companies.length }}
             {{ companies.length !== 1 ? "companies" : "company" }}
           </WikiHeaderPrimary>
           <div class="show-all-link">
@@ -18,8 +19,8 @@
 
     <template v-slot:content>
       <div class="featured-companies-list">
-        <div v-if="companies.length > 0">
-          <div class="featured-companies">
+        <client-only>
+          <div v-if="companies.length > 0">
             <WikiCompanyFeaturedCard
               v-for="(item, i) in companies"
               :key="i"
@@ -27,10 +28,15 @@
               class="featured-company"
             />
           </div>
-        </div>
-        <div class="is-flex is-align-items-center is-justify-content-center" v-else>
-          <WikiHeaderPrimary :size="3" :semantic="3"><p>No companies found :/</p></WikiHeaderPrimary>
-        </div>
+          <div
+            class="is-flex is-align-items-center is-justify-content-center"
+            v-else
+          >
+            <WikiHeaderPrimary :size="3" :semantic="3"
+              ><p>No companies found :/</p></WikiHeaderPrimary
+            >
+          </div>
+        </client-only>
       </div>
     </template>
   </WikiCardPrimary>

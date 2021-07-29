@@ -19,9 +19,10 @@
 
     <template v-slot:content>
       <div class="featured-people-list">
-        <div v-if="people.length > 0">
-          <div class="featured-people">
-            <!-- <nuxt-link
+        <client-only>
+          <div v-if="people.length > 0">
+            <div class="featured-people">
+              <!-- <nuxt-link
             class="featured-person"
             
             :to="`/people/${item.person_name}`"
@@ -29,22 +30,23 @@
             <WikiPersonFeaturedCard v-for="(item, i) in people"
             :key="i" :person="item" />
           </nuxt-link> -->
-            <WikiPersonFeaturedCard
-              v-for="(item, i) in people"
-              :key="i"
-              :person="item"
-              class="featured-person"
-            />
+              <WikiPersonFeaturedCard
+                v-for="(item, i) in people"
+                :key="i"
+                :person="item"
+                class="featured-person"
+              />
+            </div>
           </div>
-        </div>
-        <div
-          class="is-flex is-align-items-center is-justify-content-center"
-          v-else
-        >
-          <WikiHeaderPrimary :size="3" :semantic="3"
-            ><p>No people found :/</p></WikiHeaderPrimary
+          <div
+            class="empty-featured-persons-header is-flex is-align-items-center is-justify-content-center"
+            v-else
           >
-        </div>
+            <WikiHeaderPrimary :size="3" :semantic="3"
+              ><p>No people found :/</p></WikiHeaderPrimary
+            >
+          </div>
+        </client-only>
       </div>
     </template>
   </WikiCardPrimary>

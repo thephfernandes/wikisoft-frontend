@@ -19,23 +19,25 @@
 
     <template v-slot:content>
       <div class="companies-list">
-        <div v-if="companies.length > 0">
-          <div class="companies">
-            <WikiCompanyCard
-              v-for="(item, i) in companies"
-              :key="i"
-              :company="item"
-            />
+        <client-only>
+          <div v-if="companies.length > 0">
+            <div class="companies">
+              <WikiCompanyCard
+                v-for="(item, i) in companies"
+                :key="i"
+                :company="item"
+              />
+            </div>
           </div>
-        </div>
-        <div
-          v-else
-          class="is-flex is-align-items-center is-justify-content-center"
-        >
-          <WikiHeaderPrimary :size="3" :semantic="3"
-            ><p>No companies found :/</p></WikiHeaderPrimary
+          <div
+            v-else
+            class="is-flex is-align-items-center is-justify-content-center"
           >
-        </div>
+            <WikiHeaderPrimary :size="3" :semantic="3"
+              ><p>No companies found :/</p></WikiHeaderPrimary
+            >
+          </div>
+        </client-only>
       </div>
     </template>
   </WikiCardPrimary>
