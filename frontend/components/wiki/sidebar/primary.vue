@@ -35,7 +35,7 @@
           <WikiButtonPrimary class="my-2" v-if="!profileComplete"
             >finish your profile</WikiButtonPrimary
           >
-          <WikiGoogleContactInvite></WikiGoogleContactInvite>
+          <WikiGoogleContactInvite v-if="isGoogleUser" />
         </div>
       </div>
     </div>
@@ -63,6 +63,10 @@ export default {
     profileComplete() {
       return false;
     },
+
+    isGoogleUser() {
+      return this.$store.getters["user/getAuthType"] === "google";
+    }
   },
 
   mounted() {

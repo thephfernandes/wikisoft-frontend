@@ -1,8 +1,8 @@
 <template>
   <div>
-    <WikiHeaderPrimary :size="1" :semantic="3">
+    <p class="has-text-weight-semibold is-size-7 pb-1">
       Invite your contacts to Wikiprofile
-    </WikiHeaderPrimary>
+    </p>
     <WikiButtonBased @click="isInviteContactsActive = true">
       <span class="icon"></span>
       <span class="text">Invite your network</span>
@@ -99,8 +99,6 @@ export default {
 .text {
   display: inline-block;
   vertical-align: middle;
-  padding-left: 24px;
-  padding-right: 24px;
   font-size: 14px;
   font-weight: bold;
   font-family: "Roboto", sans-serif;
