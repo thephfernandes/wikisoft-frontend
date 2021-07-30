@@ -18,8 +18,8 @@
     </template>
 
     <template v-slot:content>
-      <div class="featured-companies-list">
-        <div v-if="companies.length > 0">
+      <div class="featured-companies-list" v-if="companies.length > 0">
+        <div class="featured-companies">
           <WikiCompanyFeaturedCard
             v-for="(item, i) in companies"
             :key="i"
@@ -27,14 +27,14 @@
             class="featured-company"
           />
         </div>
-        <div
-          class="is-flex is-align-items-center is-justify-content-center"
-          v-else
+      </div>
+      <div
+        class="is-flex is-align-items-center is-justify-content-center"
+        v-else
+      >
+        <WikiHeaderPrimary :size="3" :semantic="3"
+          ><p>No companies found :/</p></WikiHeaderPrimary
         >
-          <WikiHeaderPrimary :size="3" :semantic="3"
-            ><p>No companies found :/</p></WikiHeaderPrimary
-          >
-        </div>
       </div>
     </template>
   </WikiCardPrimary>
