@@ -53,7 +53,8 @@ export const actions = {
     try {
       let response = {};
       if (query) {
-        response = await this.$axios.get(`/custom/search/company/${query}`);
+        const { search, industry } = query;
+        response = await this.$axios.get(`/custom/search/company/${search}/asc/${industry}`);
       } else {
         response = await this.$axios.get(`/custom/search/company/${rootState.search.query}`);
       }
