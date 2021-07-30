@@ -26,7 +26,6 @@
     <template v-slot:action>
       <WikiButtonBased
         outlined
-        squared
         :size="$device.isMobile ? 'is-small' : ''"
         type="is-success is-light"
         class="follow-button"
@@ -62,4 +61,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.follow-button {
+  border-radius: 3px;
+}
 </style>

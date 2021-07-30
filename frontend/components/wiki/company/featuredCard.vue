@@ -41,7 +41,6 @@
     <template v-slot:action>
       <WikiButtonBased
         outlined
-        squared
         :size="$device.isMobile ? 'is-small' : ''"
         type="is-success is-light"
         class="follow-button"
@@ -87,5 +86,9 @@ export default {
 <style lang="scss" scoped>
 .company-logo {
   max-height: 45px;
+}
+
+.follow-button {
+  border-radius: 3px;
 }
 </style>

@@ -18,24 +18,22 @@
     </template>
 
     <template v-slot:content>
-      <div class="companies-list">
-        <div v-if="companies.length > 0">
-          <div class="companies">
-            <WikiCompanyCard
-              v-for="(item, i) in companies"
-              :key="i"
-              :company="item"
-            />
-          </div>
+      <div class="companies-list" v-if="companies.length > 0">
+        <div class="companies">
+          <WikiCompanyCard
+            v-for="(item, i) in companies"
+            :key="i"
+            :company="item"
+          />
         </div>
-        <div
-          v-else
-          class="is-flex is-align-items-center is-justify-content-center"
+      </div>
+      <div
+        v-else
+        class="is-flex is-align-items-center is-justify-content-center"
+      >
+        <WikiHeaderPrimary :size="3" :semantic="3"
+          ><p>No companies found :/</p></WikiHeaderPrimary
         >
-          <WikiHeaderPrimary :size="3" :semantic="3"
-            ><p>No companies found :/</p></WikiHeaderPrimary
-          >
-        </div>
       </div>
     </template>
   </WikiCardPrimary>
@@ -78,17 +76,20 @@ export default {
   @include desktop {
     padding: 0rem 0.25rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
-    // max-height: 125vh;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    grid-gap: 0.5rem;
+    max-height: 125vh;
     overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
 
-  // .company {
-  //   max-width: 100%;
-  //   padding: 0.5rem 0.25rem;
-  // }
+  .company {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    padding: 0.5rem 0.25rem;
+  }
 }
 
 @include desktop {
