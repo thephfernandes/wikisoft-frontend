@@ -17,14 +17,14 @@
           </button>
 
           <div class="account-modal__content">
-            <div>
-              <span @click="toggleAccountModal" class="has-text-primary">
+            <div @click="toggleAccountModal">
+              <span class="has-text-primary">
                 <a href="/account">My account</a>
               </span>
             </div>
 
-            <div>
-              <span @click="attemptLogout" class="has-text-primary">
+            <div @click.prevent="attemptLogout">
+              <span class="has-text-primary">
                 <a role="button">Sign out</a>
               </span>
             </div>
@@ -619,6 +619,7 @@ export default {
 .account-modal__content {
   visibility: hidden;
   position: absolute;
+  z-index: 999;
   top: 42px;
   width: 35vw;
   background: white;
@@ -708,7 +709,7 @@ export default {
 }
 
 .overlay {
-  position: fixed;
+  position: absolute;
   visibility: hidden;
   opacity: 0;
   background-color: rgb(33, 33, 33);
