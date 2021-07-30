@@ -31,7 +31,7 @@
       <p class="has-text-grey company-headquarters">
         {{ company.headquarters }}
       </p>
-      <WikiTextCollapsible v-if="company.description" :fullText="company.description" :charLimit="150" />
+      <WikiTextCollapsible v-if="company.description" :fullText="company.description" :charLimit="150" redirect category="companies" :id="company.company_name"/>
     </template>
 
     <template v-slot:footer>

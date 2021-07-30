@@ -16,7 +16,7 @@
         {{ person.location }} · {{ person.founder_of }}
       </p>
 
-      <WikiTextCollapsible :fullText="person.about" :charLimit="150" />
+      <WikiTextCollapsible class="big-gay" :fullText="person.about" :charLimit="150" redirect category="people" :id="person.full_name"/>
     </template>
 
     <template v-slot:footer>
@@ -53,6 +53,7 @@ export default {
 
   methods: {
     redirectToPersonProfile() {
+      console.log("called...")
       this.$store.commit("people/setIsFeatured", true);
       this.$router.push(`/people/${this.person.full_name}`);
     }

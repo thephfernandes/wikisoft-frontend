@@ -6,8 +6,9 @@
       {{ fullText }}
     </p>
     <p class="pt-2" v-if="!expanded && exceeds"
-      ><a @click="readMoreActive = !readMoreActive">Read {{ !readMoreActive ? "more" : "less" }}</a></p
-    >
+      >
+      <a @click="handleReadMore">Read {{ !readMoreActive ? "more" : "less" }}</a>
+      </p>
   </article>
 </template>
 
@@ -31,6 +32,22 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+
+    redirect: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+
+    category: {
+      type: String,
+      required: false,
+    },
+
+    id: {
+      type: String,
+      required: false,
     }
   },
 
@@ -46,5 +63,15 @@ export default {
       return this.fullText.length > this.charLimit;
     },
   },
+
+  methods: {
+    handleReadMore() {
+      if (this.redirect) {
+        this.$router.push(`/${this.category}/${this.id}`);
+      } else {
+        this.readMoreActive = !this.readMoreActive
+      }
+    }
+  }
 };
 </script>
