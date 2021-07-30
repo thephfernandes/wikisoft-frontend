@@ -54,7 +54,7 @@ export const actions = {
       let response = {};
       if (query) {
         const { search, industry } = query;
-        response = await this.$axios.get(`/custom/search/company/${search}/asc/${industry}`);
+        response = await this.$axios.get(`/custom/search/company/${search}/asc/${industry ? industry : ""}`);
       } else {
         response = await this.$axios.get(`/custom/search/company/${rootState.search.query}`);
       }
@@ -70,7 +70,7 @@ export const actions = {
       // }
 
       if (response.data) {
-        if (response.data[0]?.search.results.length > 0) {
+        if (response.data[0]?.search.results?.length > 0) {
           const companies = response.data[0].search.results.map(item => item.content);
           commit("setCompanies", companies);
         } else {

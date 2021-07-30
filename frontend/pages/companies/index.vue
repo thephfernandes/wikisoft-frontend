@@ -49,10 +49,7 @@
                 <div v-else>
                   <div
                     class="no-results-placeholder"
-                    v-if="
-                      paginatedCompanies.length === 0 &&
-                      (search.length > 0 || industry.length > 0)
-                    "
+                    v-if="filteredCompanies.length === 0 && hasSearched"
                   >
                     <WikiHeaderPrimary :size="3" :semantic="3"
                       >No companies found matching your search, try another
@@ -61,6 +58,7 @@
                   </div>
                   <div class="wrapper" v-else>
                     <div class="tile is-child">
+                      <WikiHeaderPrimary :size="3" :semantic="3" v-if="!hasSearched">Popular companies include</WikiHeaderPrimary>
                       <WikiCompanyFeaturedList
                         v-if="!hasSearched"
                         :companies="filteredCompanies"
@@ -141,6 +139,7 @@ export default {
       search: "",
       industry: "",
       loading: false,
+      hasTyped: false,
     };
   },
 
@@ -186,19 +185,16 @@ export default {
     },
 
     hasSearched() {
-      return (
-        this.search.length > 0 ||
-        this.$store.getters["search/getQuery"].length > 0
-      );
+      return (this.search.length > 0 || this.$store.getters["search/getQuery"].length > 0) && this.hasTyped;
     },
   },
 
   methods: {
     searchForCompanies: async function () {
       this.loading = true;
+      this.hasTyped = true;
       await this.$store.dispatch("companies/fetchCompanies", {
         search: this.search,
-        industry: this.industry,
       });
       this.loading = false;
     },
