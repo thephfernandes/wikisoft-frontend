@@ -19,6 +19,7 @@
                     v-model="search"
                     rounded
                     expanded
+                    icon="domain"
                     @input="searchForCompanies"
                     @keyup.enter="searchForCompanies"
                   />
@@ -172,6 +173,10 @@ export default {
       return new Set(companyData.map((item) => item.data_industry));
     },
 
+    hasSearched() {
+      return (this.search.length > 0 || this.$store.getters["search/getQuery"].length > 0) && this.hasTyped;
+    },
+
     total() {
       return this.companies.length;
     },
@@ -182,10 +187,6 @@ export default {
         pageNumber * this.perPage,
         (pageNumber + 1) * this.perPage
       );
-    },
-
-    hasSearched() {
-      return (this.search.length > 0 || this.$store.getters["search/getQuery"].length > 0) && this.hasTyped;
     },
   },
 
