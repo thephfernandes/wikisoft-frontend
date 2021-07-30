@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="block">
-      <WikiCardPrimary class="container">
+    <div class="block pt-0 mt-0">
+      <WikiCardPrimary class="container mt-0 pt-0">
         <template v-slot:content>
           <div class="columns" v-if="!loading">
             <div class="column is-half pl-0">

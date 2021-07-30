@@ -3,7 +3,7 @@
     <!-- <WikiSearchResults /> -->
     <WikiNavbar />
     <div class="base-layout-content">
-      <div class="columns mx-0">
+      <div class="columns mx-0 mt-1">
         <div class="column is-one-fifth" v-if="$device.isDesktop">
           <WikiSidebarPrimary />
         </div>
