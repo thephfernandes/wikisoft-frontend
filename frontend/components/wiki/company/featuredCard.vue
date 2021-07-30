@@ -35,7 +35,7 @@
     </template>
 
     <template v-slot:footer>
-      <WikiProfileTag :tag="company.industry || company.data_industry" />
+      <WikiProfileTag v-if="company.industry || company.data_industry" :tag="company.industry || company.data_industry" />
     </template>
 
     <template v-slot:action>
