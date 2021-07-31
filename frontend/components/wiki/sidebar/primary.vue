@@ -16,7 +16,7 @@
             {{ fullName }}
           </WikiHeaderPrimary>
         </div>
-        <WikiProfileCompletionStatus />
+        <WikiProfileCompletionStatus v-if="$auth.user" />
 
         <WikiGoogleContactInvite v-if="isGoogleUser" />
       </div>
