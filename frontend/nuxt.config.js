@@ -173,10 +173,4 @@ module.exports = {
     //  cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
     //} : {}
   },
-
-  // Font Awesome Pro
-
-  // router: {
-  //   middleware: ['auth'],
-  // },
 };
