@@ -73,7 +73,7 @@ export const actions = {
       if (response.data) {
         if (response.data[0]?.search.results?.length > 0) {
           const companies = response.data[0].search.results.map((item) => {
-            Object.keys(item.content).map((key)=> {
+            Object.keys(item.content).map((key) => {
               item.content[key] = _.unescape(item.content[key])
             })
             return item.content
@@ -109,15 +109,20 @@ export const actions = {
     }
   },
 
-  async fetchSelectedCompany({ commit }, id) {
+  async fetchSelectedCompany({ commit }, id, instance = "directus") {
     try {
-      const response = await this.$axios.get(`/custom/search/company/${id}`);
-
-      // const companies = await this.$directus.items("companies");
-      // const response = await companies.read(id);
-
-      if (response.data[0].search.results) {
-        commit("setSelectedCompany", response.data[0].search.results[0]);
+      if (instance === "axios") {
+        const response = await this.$axios.get(`/custom/search/company/${id}`);
+        if (response.data[0].search.results) {
+          commit("setSelectedCompany", response.data[0].search.results[0]);
+          return;
+        }
+      } else {
+        const companies = await this.$directus.items("companies");
+        const response = await companies.read(id);
+        if (response.data) {
+          commit("setSelectedCompany", response.data);
+        }
       }
     } catch (error) {
       console.error(`failed to fetch company ${id}: ${error}`);

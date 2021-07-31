@@ -23,6 +23,7 @@
             <b-field expanded grouped position="is-centered">
               <b-field label="Company" expanded>
                 <b-autocomplete
+                  v-if="!userCompany"
                   required
                   expanded
                   v-model="company"
@@ -60,6 +61,7 @@
                     <nuxt-link to="/companies/add">My company isn't on Wikiprofile</nuxt-link>
                   </template>
                 </b-autocomplete>
+                <b-autocomplete v-else :value="userCompany.name" disabled></b-autocomplete>
               </b-field>
             </b-field>
 
@@ -159,6 +161,8 @@
 
 <script>
 import _ from "lodash";
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
@@ -176,6 +180,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters({ userCompany: "companies/getSelectedCompany" }),
+
     full_name: function () {
       return `${this.fname} ${this.lname}`;
     },
@@ -257,5 +263,9 @@ export default {
       300
     );
   },
+
+  async mounted() {
+    await this.$store.dispatch("companies/fetchSelectedCompany", this.$auth.user.current_company);
+  }
 };
 </script>
