@@ -50,37 +50,43 @@ export const mutations = {
 };
 
 export const actions = {
-  async fetchCompanies({ commit, rootState }, query) {
+  //if querying directus, query is a string. if axios; object
+  async fetchCompanies({ commit, rootState }, instance = "axios", query) {
     try {
       let response = {};
-      if (query) {
-        const { search, industry } = query;
-        response = await this.$axios.get(`/custom/search/company/${search}/asc/${industry ? industry : ""}`);
+      if (instance === "directus") {
+        const companies = await this.$directus.items("companies");
+        response = await companies.read(query);
+        if (response.data) {
+          commit("setCompanies", response.data);
+          return;
+        }
+        // if (query) {
+        //   response = await companies.read(query);
+        // } else {
+        //   response = await companies.read({
+        //     search: rootState.search.query
+        //   })
+        // }
       } else {
-        response = await this.$axios.get(`/custom/search/company/${rootState.search.query}`);
-      }
-
-      // const companies = await this.$directus.items("companies");
-      // let response = {};
-      // if (query) {
-      //   response = await companies.read(query);
-      // } else {
-      //   response = await companies.read({
-      //     search: rootState.search.query
-      //   })
-      // }
-
-      if (response.data) {
-        if (response.data[0]?.search.results?.length > 0) {
-          const companies = response.data[0].search.results.map((item) => {
-            Object.keys(item.content).map((key) => {
-              item.content[key] = _.unescape(item.content[key])
-            })
-            return item.content
-          });
-          commit("setCompanies", companies);
+        if (query) {
+          const { search, industry } = query;
+          response = await this.$axios.get(`/custom/search/company/${search}/asc/${industry ? industry : ""}`);
         } else {
-          commit("setCompanies", []);
+          response = await this.$axios.get(`/custom/search/company/${rootState.search.query}`);
+        }
+        if (response.data) {
+          if (response.data[0]?.search.results?.length > 0) {
+            const companies = response.data[0].search.results.map((item) => {
+              Object.keys(item.content).map((key) => {
+                item.content[key] = _.unescape(item.content[key])
+              })
+              return item.content
+            });
+            commit("setCompanies", companies);
+          } else {
+            commit("setCompanies", []);
+          }
         }
       }
     } catch (error) {

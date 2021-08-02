@@ -23,10 +23,10 @@
             <b-field expanded grouped position="is-centered">
               <b-field label="Company" expanded>
                 <b-autocomplete
-                  v-if="!userCompany"
+                  v-if="!hasCompany"
+                  v-model="company"
                   required
                   expanded
-                  v-model="company"
                   field="name"
                   :data="suggestedCompanies"
                   clearable
@@ -56,12 +56,18 @@
                   <template v-slot:empty>
                     <p>No results found</p>
                   </template>
-                  <template v-slot:footer>
-                    <hr class="mt-0 mb-2"/>
-                    <nuxt-link to="/companies/add">My company isn't on Wikiprofile</nuxt-link>
-                  </template>
+                  <!-- <template v-slot:footer>
+                    <hr class="mt-0 mb-2" />
+                    <nuxt-link to="/companies/add"
+                      >My company isn't on Wikiprofile</nuxt-link
+                    >
+                  </template> -->
                 </b-autocomplete>
-                <b-autocomplete v-else :value="userCompany.name" disabled></b-autocomplete>
+                <b-autocomplete
+                  v-else
+                  :value="currentCompany"
+                  disabled
+                ></b-autocomplete>
               </b-field>
             </b-field>
 
@@ -146,7 +152,7 @@
             </b-field>
             <b-message
               type="is-warning"
-              v-if="isFormComplete && !companyConfirmed"
+              v-if="current_company && isFormComplete && !companyConfirmed"
             >
               Your profile isn't currently working at this company. Please
               register at the company you would like to create an employer
@@ -161,36 +167,61 @@
 
 <script>
 import _ from "lodash";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   data() {
     return {
-      company: this.$route.query.company ? this.$route.query.company : "",
-      fname: this.$route.query.fname ? this.$route.query.fname : "",
-      lname: this.$route.query.lname ? this.$route.query.lname : "",
-      email: this.$route.query.email ? this.$route.query.email : "",
+      claimedCompany: this.$route.query?.company,
+      company: "",
+      fname: this.$auth.user.first_name,
+      lname: this.$auth.user.last_name,
+      email: this.$auth.user.email,
       title: "",
       pwd: "",
       confirmPwd: "",
       checked: false,
-      suggestedCompanies: [],
       current_company: "",
     };
   },
 
   computed: {
-    ...mapGetters({ userCompany: "companies/getSelectedCompany" }),
+    ...mapGetters({
+      userCompany: "companies/getSelectedCompany",
+      suggestedCompanies: "companies/getCompanies",
+    }),
 
-    full_name: function () {
-      return `${this.fname} ${this.lname}`;
+    hasCompany() {
+      return !(!this.userCompany.id && !this.$auth.user.current_company_name);
     },
 
-    passwordsMatch: function () {
+    currentCompany() {
+      return this.$auth.user.current_company_name || this.userCompany.name;
+    },
+
+    companyConfirmed() {
+      if (this.hasCompany) {
+        if (!this.$auth.user.current_company_name) {
+          return (
+            this.$auth.user.companies.find(
+              (item) => item === this.current_company
+            ) !== undefined
+          );
+        } else {
+          return (
+            this.current_company.name.toLowerCase() ===
+            this.$auth.user.current_company_name.toLowerCase()
+          );
+        }
+      }
+      return true;
+    },
+
+    passwordsMatch() {
       return this.pwd === this.confirmPwd;
     },
 
-    matchPasswordValidationMessage: function () {
+    matchPasswordValidationMessage() {
       if (!this.pwd) {
         return;
       }
@@ -204,56 +235,68 @@ export default {
       }
     },
 
-    formData: function () {
-      return {
-        first_name: this.fname,
-        last_name: this.lname,
-        current_company: this.current_company,
-        company_email: this.email,
-      };
+    formData() {
+      if (this.userCompany.id) {
+        return {
+          first_name: this.fname,
+          last_name: this.lname,
+          current_company: this.current_company,
+          company_email: this.email,
+        };
+      } else {
+        return {
+          first_name: this.fname,
+          last_name: this.lname,
+          current_company_name: this.company || this.current_company.name,
+          company_email: this.email,
+        };
+      }
     },
 
-    isFormComplete: function () {
-      return (
-        this.checked &&
-        this.fname &&
-        this.lname &&
-        this.title &&
-        this.company &&
-        this.email &&
-        this.pwd &&
-        this.passwordsMatch &&
-        this.current_company
-      );
-    },
-
-    companyConfirmed: function () {
-      return (
-        this.$auth.user.companies.find(
-          (item) => item === this.current_company
-        ) !== undefined
+    isFormComplete() {
+      return !(
+        !this.checked ||
+        !this.fname ||
+        !this.lname ||
+        !this.title ||
+        !this.email ||
+        !this.pwd ||
+        !this.passwordsMatch ||
+        !(this.current_company || this.company)
       );
     },
   },
 
   methods: {
-    async fetchEmployerAutocompleteCompanies() {
-      await this.$store.dispatch("companies/fetchCompanies", this.company);
-      this.suggestedCompanies = this.$store.getters["companies/getCompanies"];
-    },
-
-    setSelectedCompany(company) {
-      if (company) {
-        this.current_company = company.id;
-      } else {
-        this.current_company = "";
+    ...mapMutations({ setSelectedCompany: "companies/setSelectedCompany "}),
+    
+    async fetchEmployerAutocompleteCompanies(value) {
+      if (value) {
+        await this.$store.dispatch("companies/fetchCompanies", {
+          search: value,
+        });
       }
     },
 
-    register: async function () {
-      await this.$store.dispatch("user/createEmployer", this.formData).then(
-        this.$router.push("/")
-      );
+    setSelectedCompany(company) {
+      this.current_company = company;
+    },
+
+    async register() {
+      await this.$store
+        .dispatch("user/createEmployer", this.formData)
+        .then(() => {
+          if (this.$auth.user.current_company) {
+            this.$router.push(`companies/${this.$auth.user.current_company}`);
+          } else if (this.$auth.user.current_company_name) {
+            this.$router.push(
+              `companies/${this.$auth.user.current_company_name}`
+            );
+          } else {
+            console.log(this.$auth.user);
+            return;
+          }
+        });
     },
   },
 
@@ -265,7 +308,20 @@ export default {
   },
 
   async mounted() {
-    await this.$store.dispatch("companies/fetchSelectedCompany", this.$auth.user.current_company);
-  }
+    if (this.$auth.user.current_company) {
+      await this.$store.dispatch(
+        "companies/fetchSelectedCompany",
+        this.$auth.user.current_company
+      );
+      this.current_company = this.$auth.user.current_company;
+    }
+
+    if (this.claimedCompany) {
+      await this.$store.dispatch(
+        "companies/fetchSelectedCompany",
+        this.claimedCompany
+      );
+    }
+  },
 };
 </script>

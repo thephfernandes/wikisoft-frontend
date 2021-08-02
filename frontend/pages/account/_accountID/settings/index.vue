@@ -584,11 +584,10 @@ export default {
           this.$set(this.account, deltaKey, this.changeDelta[deltaKey]);
         }
       });
-      this.$store
-        .dispatch("user/updateUser", this.changeDelta)
+      this.$store.dispatch("user/updateUser", this.changeDelta)
         .then((e) => {
           this.discardChanges();
-          this.$router.go();
+          // this.$router.go();
         })
         .catch((e) => {
           this.$router.redirect("/login");

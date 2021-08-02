@@ -20,14 +20,14 @@
             />
           </div>
           <div class="tile is-child is-4">
-            <WikiGoogleMap class="block" :place="featuredCompany.headquarters">
+            <WikiGoogleMap class="block" v-if="featuredCompany.headquarters" :place="featuredCompany.headquarters">
               <template v-slot:header>
                 <WikiHeaderPrimary :size="3" :semantic="3">
                   Headquarters
                 </WikiHeaderPrimary>
               </template>
             </WikiGoogleMap>
-            <WikiCompanySimilarList 
+            <WikiCompanySimilarList
               class="block"
               :company="!featuredCompany ? selectedCompany : featuredCompany"
             />
@@ -38,13 +38,13 @@
       <div class="tile is-vertical" v-else>
         <b-progress class="mt-5"></b-progress>
       </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
 import companyData from "~/assets/data/featured-companies.json";
+import { mapGetters } from "vuex";
 
 export default {
   name: "CompanyProfilePage",
@@ -125,7 +125,7 @@ export default {
 
   async created() {
     this.loading = true;
-    if (this.isFeatured) {
+    if (this.isStatic) {
       this.findFeaturedCompany();
     } else {
       await this.$store.dispatch(
@@ -137,8 +137,16 @@ export default {
   },
 
   computed: {
-    isFeatured() {
-      return this.$store.getters["companies/getIsFeatured"];
+    ...mapGetters({
+      isFeatured: "companies/getIsFeatured",
+      companies: "companies/getCompanies",
+    }),
+
+    isStatic() {
+      return (
+        this.isFeatured ||
+        this.companies.filter((item) => item.name === this.companyId)
+      );
     },
 
     selectedCompany() {

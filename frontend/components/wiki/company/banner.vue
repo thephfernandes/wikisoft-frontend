@@ -19,7 +19,12 @@
       </div>
       <div class="company-banner__content">
         <div class="company-banner__logo">
-          <div class="company-logo__wrapper is-flex is-align-items-center is-justify-content-center">
+          <div
+            class="
+              company-logo__wrapper
+              is-flex is-align-items-center is-justify-content-center
+            "
+          >
             <img
               class="company-logo__image"
               :src="
@@ -30,16 +35,19 @@
             />
           </div>
         </div>
-        <div class="company-banner__header is-flex is-justify-content-space-between">
+        <div
+          class="
+            company-banner__header
+            is-flex is-justify-content-space-between
+          "
+        >
           <WikiHeaderPrimary class="company-name" :size="4" :semantic="2">
             {{ company.name ? company.name : company.company_name }}
           </WikiHeaderPrimary>
           <div
             class="
               company-banner__actions
-              is-flex
-              is-align-items-center
-              is-justify-content-space-between
+              is-flex is-align-items-center is-justify-content-space-between
             "
           >
             <WikiCompanyClaim v-if="worksAtCompany" />
@@ -123,8 +131,13 @@ export default {
     },
 
     worksAtCompany() {
-      return this.$auth.user.companies.find(item => item.company_id === this.id);
-    }
+      if (this.$auth.user) {
+        return this.$auth.user.companies.find(
+          (item) => item.company_id === this.id
+        );
+      }
+      return false;
+    },
   },
 
   methods: {
@@ -214,7 +227,7 @@ export default {
   .company-banner__header {
     width: 100%;
     padding: 0.5rem 1rem;
-    
+
     @include tablet {
       padding-left: calc(75px + 1.5rem);
     }
@@ -223,7 +236,7 @@ export default {
   .company-banner__actions > :not(:last-child) {
     @include tablet {
       margin-right: 0.75rem;
-    }    
+    }
   }
 }
 </style>

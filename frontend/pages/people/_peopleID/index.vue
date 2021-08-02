@@ -216,6 +216,7 @@
 
 <script>
 import peopleData from "~/assets/data/featured-people.json";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -277,8 +278,7 @@ export default {
 
   async created() {
     this.loading = true;
-    if (this.isFeatured) {
-      console.log("is featured!");
+    if (this.isStatic) {
       this.findFeaturedPerson();
     } else {
       await this.$store.dispatch("people/fetchSelectedPerson", this.personId);
@@ -287,8 +287,10 @@ export default {
   },
 
   computed: {
-    isFeatured() {
-      return this.$store.getters["people/getIsFeatured"];
+    ...mapGetters({ isFeatured: "people/getIsFeatured", people: "people/getPeople" }),
+
+    isStatic() {
+      return (this.isFeatured || this.people.filter((item) => item.name === this.personId));
     },
 
     person() {

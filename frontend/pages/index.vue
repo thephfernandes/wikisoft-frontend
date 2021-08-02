@@ -61,6 +61,7 @@ export default {
           this.$store.getters["companies/getFeaturedCompanies"].length ||
         this.featuredCompanies[0] !==
           this.$store.getters["companies/getFeaturedCompanies"][0]
+        // !(this.featuredCompanies.filter(item => item.name.includes("ICBC")).length > 0)
       );
     },
 
@@ -74,13 +75,15 @@ export default {
     },
   },
 
-  mounted() {
+  async mounted() {
     //set companies equal to static featured initial companies
     this.loading = true;
     this.$store.commit(
       "companies/setCompanies",
       this.$store.getters["companies/getFeaturedCompanies"]
     );
+    // await this.$store.dispatch("companies/fetchCompanies", "directus");
+    // this.$store.commit("companies/setCompanies", this.featuredCompanies.filter(item => !(item.name.toLowerCase().includes("acme"))))
     this.$store.commit(
       "people/setPeople",
       this.$store.getters["people/getFeaturedPeople"]

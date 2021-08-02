@@ -59,9 +59,11 @@ export default {
   },
 
   mounted() {
-    this.$refs.mapRef.$mapPromise.then((map) => {
-      this.initMap(map);
-    });
+    window.setTimeout(() => {
+      this.$refs.mapRef.$mapPromise.then((map) => {
+        this.initMap(map);
+      });
+    }, 100)
   },
 };
 </script>

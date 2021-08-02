@@ -15,12 +15,12 @@
       <div
         class="progress-bar__step progress-bar__step--completed"
         v-for="(item, i) in numFields - numMissingFields"
-        :key="i"
+        :key="`completed-${i}`"
       ></div>
       <div
         class="progress-bar__step progress-bar__step--empty"
         v-for="(item, i) in numMissingFields"
-        :key="i"
+        :key="`empty-${i}`"
       ></div>
 
       <div class="profile-complete-badge">

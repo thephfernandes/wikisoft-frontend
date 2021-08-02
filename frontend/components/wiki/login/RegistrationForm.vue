@@ -137,12 +137,12 @@ export default {
         email: this.email,
         password: this.pwd,
       });
-      await this.$store.dispatch("user/createAccount");
+      // await this.$store.dispatch("user/createAccount");
       await this.$auth.login({
         email: this.email,
         password: this.pwd,
       });
-      this.$router.push(`/account/${this.account.account_id}/settings?init=true`);
+      this.$router.push(`/account/${this.$auth.user.id}/settings?init=true`);
     },
   },
 

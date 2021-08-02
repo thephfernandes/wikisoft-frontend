@@ -111,13 +111,14 @@ export const actions = {
   async updateUser({ dispatch, state }, payload) {
     try {
       const { id } = { ...state.user };
-      if (payload) {
-        console.log("updating user with payload:", payload)
-        await this.$directus.users.me.update(payload);
-      } else {
-        const { user } = { ...state };
-        await this.$directus.users.update(id, user);
-      }
+      await this.$directus.users.update(this.$auth.user.id, payload);
+      // if (payload) {
+      //   console.log("updating user with payload:", payload);
+      //   await this.$directus.users.me.update(payload);
+      // } else {
+      //   const { user } = { ...state };
+      //   await this.$directus.users.update(id, user);
+      // }
       await dispatch('fetchUser', id);
     } catch (error) {
       console.error("failed to update:", error);
