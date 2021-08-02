@@ -339,7 +339,7 @@ export default {
           size: "medium",
         },
         {
-          link: "/account",
+          link: `/people/${this.$auth.user?.id}?me=true&publicView=true`,
           name: "Me",
         },
       ],
