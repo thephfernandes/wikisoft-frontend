@@ -8,7 +8,7 @@
 
             <WikiCardPrimary>
               <template v-slot:header>
-                <div class="card-header-title">
+                <div class="card-header-title px-0">
                   <WikiHeaderPrimary :size="4" :semantic="1">
                     {{ $auth.user.first_name + " " + $auth.user.last_name }}
                   </WikiHeaderPrimary>
@@ -55,7 +55,7 @@
           <div class="block">
             <WikiCardPrimary headerBorder>
               <template v-slot:header>
-                <div class="card-header-title">
+                <div class="card-header-title px-0">
                   <WikiHeaderPrimary :size="3" :semantic="1">
                     Profile Information
                   </WikiHeaderPrimary>
@@ -152,7 +152,7 @@
           <div class="block">
             <WikiCardPrimary headerBorder>
               <template v-slot:header>
-                <div class="card-header-title">
+                <div class="card-header-title px-0">
                   <WikiHeaderPrimary :size="3" :semantic="1"
                     >Account Management</WikiHeaderPrimary
                   >
@@ -287,7 +287,7 @@
           <div class="block">
             <WikiCardPrimary headerBorder>
               <template v-slot:header>
-                <div class="card-header-title">
+                <div class="card-header-title px-0">
                   <WikiHeaderPrimary :size="3" :semantic="1">
                     Account Access
                   </WikiHeaderPrimary>
