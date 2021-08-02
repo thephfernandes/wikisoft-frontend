@@ -5,16 +5,16 @@
         <div class="tile is-parent" v-if="!loading">
           <div class="tile is-8">
             <div
-              class="person-wrapper block"
-              v-if="featuredPerson.full_name || person.person_id"
+              class="person-wrapper block" style="width: 100%;"
+              v-if="featuredPerson || person.person_id || person.id"
             >
               <WikiPersonBanner
                 class="block"
-                :person="!featuredPerson ? person : featuredPerson"
+                :person="!featuredPerson.full_name ? person : featuredPerson"
               />
               <WikiPersonOverview
                 class="block"
-                :person="!featuredPerson ? person : featuredPerson"
+                :person="!featuredPerson.full_name ? person : featuredPerson"
               />
               <!-- <WikiCardPrimary
                 class="profile-experience block"
@@ -222,6 +222,8 @@ export default {
     return {
       loading: false,
       personId: this.$route.params.peopleID,
+      isMe: this.$route.query.me,
+      publicView: this.$route.query.me,
       featuredPerson: {},
       profileImage: "",
       canEdit: false,
@@ -277,23 +279,31 @@ export default {
 
   async created() {
     this.loading = true;
-    if (this.isStatic) {
+    if (this.isMe && this.publicView) {
+      this.$store.commit("people/setSelectedPerson", this.$auth.user);
+      this.$store.commit("people/setIsFeatured", false);
+    } else {
+      if (this.isStatic) {
       this.findFeaturedPerson();
     } else {
-      await this.$store.dispatch("people/fetchSelectedPerson", this.personId);
+        await this.$store.dispatch("people/fetchSelectedPerson", this.personId);
+      }
     }
     this.loading = false;
   },
 
   computed: {
-    ...mapGetters({ isFeatured: "people/getIsFeatured", people: "people/getPeople" }),
+    ...mapGetters({
+      isFeatured: "people/getIsFeatured",
+      people: "people/getPeople",
+      person: "people/getSelectedPerson",
+    }),
 
     isStatic() {
-      return (this.isFeatured || this.people.filter((item) => item.name === this.personId));
-    },
-
-    person() {
-      return this.$store.getters["people/getSelectedPerson"];
+      return (
+        this.isFeatured &&
+        this.people.filter((item) => item.name === this.personId)
+      );
     },
 
     profilePhotoSrc() {

@@ -2,12 +2,12 @@
   <WikiCardPrimary class="person-overview block">
     <template v-slot:header>
       <WikiHeaderPrimary class="card-header-title px-0" :size="3" :semantic="2">
-        About {{ person.full_name }}
+        About {{ fullName }}
       </WikiHeaderPrimary>
     </template>
 
     <template v-slot:content>
-      <WikiTextCollapsible :fullText="person.about" expanded />
+      <WikiTextCollapsible :fullText="person.about ? person.about : person.description" expanded />
 
       <div class="person_net-worth" v-if="person.net_worth">
         <WikiHeaderPrimary
@@ -33,6 +33,12 @@ export default {
       required: true,
     },
   },
+
+  computed: {
+    fullName() {
+      return this.person.full_name ? `${this.person.full_name}` : `${this.person.first_name} ${this.person.last_name}`;
+    }
+  }
 };
 </script>
 

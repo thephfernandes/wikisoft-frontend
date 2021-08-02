@@ -1,5 +1,5 @@
 <template>
-  <WikiCardPrimary contentOnly class="profile-banner block">
+  <WikiCardPrimary contentOnly class="profile-banner block" style="wisth: 100%;">
     <template v-slot:content>
       <div
         class="header-wrapper is-flex is-justify-content-space-between"
@@ -64,7 +64,7 @@
       <div class="is-flex is-flex-direction-column">
         <div class="card-header-title pl-0 pb-0">
           <p class="is-size-4">
-            {{ person.full_name || person.data_full_name }}
+            {{ fullName }}
           </p>
         </div>
         <div class="wrapper" v-if="!isFeatured">
@@ -73,14 +73,11 @@
         </div>
       </div>
       <div class="is-size-5">
-        <p class="has-text-grey has-text-weight-semibold">
-          {{ person.description }}
-        </p>
         <p class="has-text-grey has-text-weight-semibold" v-if="!isFeatured">
           {{ person.location ? person.location : "" }}
           <span class="wrapper">
             <span v-if="person.location">·</span>
-            <a
+            <a v-if="person.data_number_of_connections"
               href="
           "
               >{{
@@ -91,7 +88,7 @@
               connections</a
             >
             <span v-if="person.data_number_of_connections">·</span>
-            <a href=""><span>Contact Info</span></a>
+            <a v-if="person.contact_info" href=""><span>Contact Info</span></a>
           </span>
         </p>
         <p class="has-text-grey has-text-weight-semibold" v-else>
@@ -148,6 +145,11 @@ export default {
         //TODO: directus file asset call
       }
     },
+
+    fullName() {
+      return this.person.full_name || this.person.data_full_name || `${this.person.first_name} ${this.person.last_name}`
+      
+    }
   },
 
   methods: {
