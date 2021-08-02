@@ -53,7 +53,6 @@ export default {
 
   methods: {
     redirectToPersonProfile() {
-      console.log("called...")
       this.$store.commit("people/setIsFeatured", true);
       this.$router.push(`/people/${this.person.full_name}`);
     }

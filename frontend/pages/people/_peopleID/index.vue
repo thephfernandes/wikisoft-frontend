@@ -16,7 +16,7 @@
                 class="block"
                 :person="!featuredPerson ? person : featuredPerson"
               />
-              <WikiCardPrimary
+              <!-- <WikiCardPrimary
                 class="profile-experience block"
                 styles="has-borders"
               >
@@ -27,7 +27,6 @@
                 </template>
                 <template v-slot:content>
                   <div class="experience-list">
-                    <!-- ignore shitty usage of props -->
                     <div
                       class="experience-item block"
                       v-for="(item, i) in experiences"
@@ -177,7 +176,7 @@
                     </div>
                   </div>
                 </template>
-              </WikiCardPrimary>
+              </WikiCardPrimary> -->
             </div>
 
             <div v-else>
