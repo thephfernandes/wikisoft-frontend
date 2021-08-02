@@ -105,6 +105,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .columns {
   width: 100%;
 
@@ -121,7 +122,7 @@ export default {
   padding: 2.5rem 5rem;
 
   @include desktop {
-    min-height: 245px;
+    min-height: 100px;
   }
 
   .footer-section {
