@@ -10,17 +10,20 @@
       </div>
     </div> -->
     <div class="photo-modal-form modal-card-body">
-      <WikiHeaderPrimary
-        :size="3"
-        :semantic="3"
-        class="has-text-centered mb-2"
+      <WikiHeaderPrimary :size="3" :semantic="3" class="has-text-centered mb-2"
         >Add a photo so people can instantly recognize you</WikiHeaderPrimary
       >
       <b-field>
         <b-upload v-model="file" @input="onFileChange" drag-drop expanded>
           <div class="photo-upload-draggable-content">
             <div
-              class="photo-upload-wrapper is-flex is-flex-direction-column is-align-items-center is-justify-content-center"
+              class="
+                photo-upload-wrapper
+                is-flex
+                is-flex-direction-column
+                is-align-items-center
+                is-justify-content-center
+              "
             >
               <div class="preview" v-if="file && url">
                 <img :src="url" :alt="file.name" />
@@ -28,10 +31,16 @@
 
               <div
                 v-else
-                class="photo-upload_outer is-flex is-align-items-center is-justify-content-center"
+                class="
+                  photo-upload_outer
+                  is-flex is-align-items-center is-justify-content-center
+                "
               >
                 <div
-                  class="photo-upload_inner is-flex is-align-items-center is-justify-content-center"
+                  class="
+                    photo-upload_inner
+                    is-flex is-align-items-center is-justify-content-center
+                  "
                 >
                   <p class="has-text-centered">
                     <b-icon icon="camera" size="is-large"></b-icon>
@@ -56,7 +65,13 @@
             <span>Set Profile Pic</span>
           </a>
         </b-upload>
-        <WikiButtonBased v-else type="is-primary" expanded squared>
+        <WikiButtonBased
+          @click="emitForm"
+          v-else
+          type="is-primary"
+          expanded
+          squared
+        >
           <span>Finish</span>
         </WikiButtonBased>
       </b-field>
@@ -86,22 +101,26 @@
 export default {
   data() {
     return {
-      account: {},
+      account: this.$auth.user,
       file: null,
       url: null,
     };
   },
 
   created() {
-    this.account = this.$store.getters["user/getAccount"];
+    // this.account = this.$store.getters["user/getAccount"];
   },
 
   methods: {
     onFileChange($event) {
       console.log($event);
       this.url = URL.createObjectURL($event);
-    }
-  }
+    },
+
+    emitForm() {
+      this.$emit("submit", { avatar: this.url, file: this.file });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -115,7 +134,7 @@ export default {
 
 .photo-upload-wrapper {
   width: 100%;
-  transform: translateY(-35%);
+  // transform: translateY(-35%);
 }
 
 .photo-upload_outer {
@@ -154,6 +173,16 @@ export default {
     height: 5.5em;
     width: 5.5em;
     border-radius: 50%;
+  }
+}
+
+.preview > img {
+  @include tablet {
+    max-height: 250px;
+  }
+
+  @include desktop {
+    max-height: 250px;
   }
 }
 </style>

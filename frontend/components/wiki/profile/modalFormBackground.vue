@@ -85,12 +85,10 @@ export default {
       return !(
         this.job &&
         this.company &&
-        this.is_student &&
         this.school &&
         this.degree &&
         this.start_year &&
-        this.ending_year &&
-        this.is_over_16
+        this.ending_year
       );
     },
   },
@@ -103,7 +101,7 @@ export default {
         is_student: this.is_student,
         school: this.school,
         degree: this.degree,
-        starting_year: this.starting_year,
+        starting_year: this.start_year,
         ending_year: this.ending_year,
         is_over_16: this.is_over_16,
       });

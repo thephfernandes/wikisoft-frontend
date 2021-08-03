@@ -26,7 +26,9 @@ export default {
     return {
       init: this.$route.query.init,
       index: null,
-      formData: null,
+      formData: {
+        role: "b61a2ccb-fcca-4a3d-a006-9713994449ba",
+      },
     };
   },
 
@@ -44,7 +46,7 @@ export default {
       }
     },
 
-    async updateUser() {
+    async attemptUpdateUser() {
       this.$store.dispatch("user/updateUser", this.formData);
     },
   },
