@@ -118,7 +118,8 @@ export default {
     },
 
     emitForm() {
-      this.$emit("submit", { avatar: this.url, file: this.file });
+      this.$emit("submit");
+      // this.$emit("submit", { avatar: this.url });
     },
   },
 };

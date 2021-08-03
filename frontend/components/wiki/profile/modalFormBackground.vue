@@ -97,7 +97,7 @@ export default {
     emission: function () {
       this.$emit("submit", {
         job_title: this.job,
-        company: this.company,
+        current_company_name: this.company,
         is_student: this.is_student,
         school: this.school,
         degree: this.degree,
