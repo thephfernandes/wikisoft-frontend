@@ -1,6 +1,6 @@
 <template>
   <div class="full-screen-modal-container modal-card">
-    <div class="profile-modal-form modal-card-body">
+    <div class="profile-modal-form modal-card-body py-1">
       <WikiHeaderPrimary :size="3" :semantic="3" class="has-text-centered mb-2"
         >Add your job and eduction so people can find you</WikiHeaderPrimary
       >
@@ -96,7 +96,7 @@ export default {
   methods: {
     emission: function () {
       this.$emit("submit", {
-        job: this.job,
+        job_title: this.job,
         company: this.company,
         is_student: this.is_student,
         school: this.school,

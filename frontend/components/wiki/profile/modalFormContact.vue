@@ -6,7 +6,7 @@
       </div>
       <div class="profile-modal-header modal-card-title"></div>
     </div> -->
-    <div class="profile-modal-form modal-card-body">
+    <div class="profile-modal-form modal-card-body py-1">
       <WikiHeaderPrimary :size="3" :semantic="3" class="has-text-centered mb-2"
         >Type your name and address to be found and recieve relevant job
         offers</WikiHeaderPrimary
@@ -58,7 +58,8 @@ export default {
   methods: {
     emission: function () {
       this.$emit("submit", {
-        public_name: `${this.first_name} ${this.last_name}`,
+        first_name: this.first_name,
+        last_name: this.last_name,
         country: this.country,
         zip_code: this.zip_code,
         city: this.city,

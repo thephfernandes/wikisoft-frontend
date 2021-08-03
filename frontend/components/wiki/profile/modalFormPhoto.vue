@@ -9,7 +9,7 @@
         ></button>
       </div>
     </div> -->
-    <div class="photo-modal-form modal-card-body">
+    <div class="photo-modal-form modal-card-body py-1">
       <WikiHeaderPrimary :size="3" :semantic="3" class="has-text-centered mb-2"
         >Add a photo so people can instantly recognize you</WikiHeaderPrimary
       >
