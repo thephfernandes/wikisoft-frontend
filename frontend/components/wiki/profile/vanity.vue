@@ -2,7 +2,7 @@
   <div class="card-header-title pl-0 pr-0 pt-0">
     <div class="card-header-icon">
       <a @click.prevent="redirectToSelected(name)">
-        <div class="profile-image__container">
+        <div class="profile-image__container" v-if="profileImage !== undefined">
           <img
             class="profile-image__content is-rounded"
             :src="

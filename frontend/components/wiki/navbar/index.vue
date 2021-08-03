@@ -4,8 +4,7 @@
       class="overlay"
       v-if="$device.isMobile"
       @click="toggleNavigationDrawer"
-    >
-    </div>
+    ></div>
     <header class="toolbar">
       <div class="toolbar__content">
         <div class="toolbar__account is-hidden-desktop is-hidden-tablet">
@@ -301,6 +300,22 @@ import { mapGetters, mapMutations } from "vuex";
 
 export default {
   data() {
+    let DNI = [];
+    if (this.$auth.user !== null && this.$auth.user.id !== undefined) {
+      DNI = [
+        {
+          link: "/account/" + this.$auth.user.id + "/settings",
+          name: "Settings",
+          icon: "cog-outline",
+          size: "medium",
+        },
+        {
+          link: `/people/${this.$auth.user.id}?me=true&publicView=true`,
+          name: "Me",
+        },
+      ];
+    }
+
     return {
       search: "",
       isFetching: false,
@@ -331,18 +346,7 @@ export default {
         },
       ],
 
-      desktopNavItems: [
-        {
-          link: "/account/" + this.$auth.user?.id + "/settings",
-          name: "Settings",
-          icon: "cog-outline",
-          size: "medium",
-        },
-        {
-          link: `/people/${this.$auth.user?.id}?me=true&publicView=true`,
-          name: "Me",
-        },
-      ],
+      desktopNavItems: DNI,
 
       sections: [
         {

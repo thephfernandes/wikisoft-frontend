@@ -76,9 +76,9 @@ export const actions = {
       let response = {};
       if (query) {
         const { search, filter } = query
-        response = await this.$axios.get(`/custom/search/people/${search}/asc/${filter ? filter : ""}`);
+        response = await this.$axios.get(`/custom/search/people/${search}/`);
       } else {
-        response = await this.$axios.get(`/custom/search/people${rootState.search.query}`);
+        response = await this.$axios.get(`/custom/search/people/${rootState.search.query}`);
       }
 
       // const people = await this.$directus.items("people");
@@ -90,7 +90,7 @@ export const actions = {
       //     search: rootState.search.query
       //   })
       // }
-      
+
       if (response.data) {
         if (response.data[0]?.search.results?.length > 0) {
           commit("setPeople", response.data[0].search.results);
