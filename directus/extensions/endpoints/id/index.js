@@ -12,6 +12,6 @@ module.exports = function registerEndpoint(router, { services, exceptions, datab
   function get_item(req, res, next) {
     database.raw(
       `select (id, "weight-a", "weight-b", "weight-c", content) from search.items where id = '${req.params.id}'`
-    ).then((results) => res(results)).catch(err => res.json(req.params))
+    ).then((results) => res.json(results)).catch(err => res.json(req.params))
   }
 };
