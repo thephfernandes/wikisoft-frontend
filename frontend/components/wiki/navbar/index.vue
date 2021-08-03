@@ -338,9 +338,9 @@ export default {
           size: "medium",
         },
         {
-          link: this.$auth.user.is_complete
+          link: this.$auth.user?.is_complete
             ? `/people/${this.$auth.user?.id}?me=true&publicView=true`
-            : `/account/${this.$auth.user?.id}/settings`,
+            : `/account/${this.$auth.user?.id}?init=true`,
           name: "Me",
         },
       ],
