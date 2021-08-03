@@ -4,8 +4,7 @@
       class="overlay"
       v-if="$device.isMobile"
       @click="toggleNavigationDrawer"
-    >
-    </div>
+    ></div>
     <header class="toolbar">
       <div class="toolbar__content">
         <div class="toolbar__account is-hidden-desktop is-hidden-tablet">
@@ -480,26 +479,28 @@ export default {
     },
 
     async emitSearch() {
-      this.isFetching = true;
-      this.items = [];
+      if (this.search) {
+        this.isFetching = true;
+        this.items = [];
 
-      this.$emit("input", { search: this.search, category: this.category });
-      this.setQuery(this.search);
-      if (this.search && this.search.length > 0) {
-        await this.searchPeople(this.search);
-        await this.searchCompanies(this.search);
-      } else {
-        this.$store.commit(
-          "companies/setCompanies",
-          this.$store.getters["companies/getFeaturedCompanies"]
-        );
-        this.$store.commit(
-          "people/setPeople",
-          this.$store.getters["people/getFeaturedPeople"]
-        );
+        this.$emit("input", { search: this.search, category: this.category });
+        this.setQuery(this.search);
+        if (this.search && this.search.length > 0) {
+          await this.searchPeople(this.search);
+          await this.searchCompanies(this.search);
+        } else {
+          this.$store.commit(
+            "companies/setCompanies",
+            this.$store.getters["companies/getFeaturedCompanies"]
+          );
+          this.$store.commit(
+            "people/setPeople",
+            this.$store.getters["people/getFeaturedPeople"]
+          );
+        }
+
+        this.isFetching = false;
       }
-
-      this.isFetching = false;
 
       // if(this.checkedTypes.find(type => type === "companies")) {
       //   console.log("found companies type");
