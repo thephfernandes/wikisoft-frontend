@@ -12,8 +12,8 @@
     <div class="photo-modal-form modal-card-body">
       <WikiHeaderPrimary
         :size="3"
-        :semantic="1"
-        class="has-text-centered modal-header"
+        :semantic="3"
+        class="has-text-centered mb-2"
         >Add a photo so people can instantly recognize you</WikiHeaderPrimary
       >
       <b-field>

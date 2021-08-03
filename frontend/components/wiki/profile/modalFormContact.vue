@@ -7,7 +7,7 @@
       <div class="profile-modal-header modal-card-title"></div>
     </div> -->
     <div class="profile-modal-form modal-card-body">
-      <WikiHeaderPrimary :size="3" :semantic="1"
+      <WikiHeaderPrimary :size="3" :semantic="3" class="has-text-centered mb-2"
         >Type your name and address to be found and recieve relevant job
         offers</WikiHeaderPrimary
       >

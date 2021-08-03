@@ -193,7 +193,7 @@
             </nuxt-link>
           </div>
 
-          <div class="nav-links nav-links__right">
+          <div class="nav-links nav-links__right" v-if="$auth.user">
             <nuxt-link
               class="nav-links__item"
               v-for="(item, i) in desktopNavItems"
@@ -338,7 +338,9 @@ export default {
           size: "medium",
         },
         {
-          link: `/people/${this.$auth.user?.id}?me=true&publicView=true`,
+          link: this.$auth.user.is_complete
+            ? `/people/${this.$auth.user?.id}?me=true&publicView=true`
+            : `/account/${this.$auth.user?.id}/settings`,
           name: "Me",
         },
       ],

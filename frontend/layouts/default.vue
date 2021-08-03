@@ -1,6 +1,7 @@
 <template>
   <div class="base-layout-outer">
     <!-- <WikiSearchResults /> -->
+    <WikiProfileCompletePrompt v-if="$auth.user && !profileComplete" />
     <WikiNavbar />
     <div class="base-layout-content">
       <div class="columns mx-0 mt-1">
@@ -34,6 +35,12 @@ export default {
     return {
       profile: {},
     };
+  },
+
+  computed: {
+    profileComplete() {
+      return this.$auth.user.first_name !== undefined;
+    }
   },
 
   mounted() {
