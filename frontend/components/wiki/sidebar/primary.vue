@@ -35,9 +35,9 @@ export default {
 
   computed: {
     fullName() {
-      if (!this.googleUser) {
+      if (this.$auth.user?.first_name) {
         return `${this.$auth.user?.first_name} ${this.$auth.user?.last_name}`;
-      } else {
+      } else if (this.googleUser) {
         return this.googleUser.fullName;
       }
     },
