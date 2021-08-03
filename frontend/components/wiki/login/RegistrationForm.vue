@@ -136,6 +136,7 @@ export default {
       await this.$store.dispatch("user/createUser", {
         email: this.email,
         password: this.pwd,
+        role: "b61a2ccb-fcca-4a3d-a006-9713994449ba",
       });
       // await this.$store.dispatch("user/createAccount");
       await this.$auth.login({
