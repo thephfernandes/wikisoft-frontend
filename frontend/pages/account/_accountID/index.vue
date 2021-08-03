@@ -58,6 +58,10 @@ export default {
   margin-left: auto !important;
   margin-right: auto !important;
   
+  @include tablet {
+    margin-top: 120px !important;
+  }
+
   @include desktop {
     margin-top: 120px !important;
   }
