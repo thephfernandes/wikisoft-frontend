@@ -1,4 +1,4 @@
-module.exports = function registerEndpoint(router, { services, exceptions }) {
+module.exports = function registerEndpoint(router, { services, exceptions, database }) {
   const { ItemsService } = services;
   const { ServiceUnavailableException } = exceptions;
 
@@ -10,6 +10,9 @@ module.exports = function registerEndpoint(router, { services, exceptions }) {
   }
 
   function get_item(req, res, next) {
+    database.raw(
+      `select * from public.items where 'id' = ${req.params.id}`
+    )
     res.json(req.params);
   }
 };
