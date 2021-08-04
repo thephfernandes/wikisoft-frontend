@@ -5,18 +5,20 @@
         <div class="tile is-parent" v-if="!loading">
           <div class="tile is-8">
             <div
-              class="person-wrapper block" style="width: 100%;"
+              class="person-wrapper block"
+              style="width: 100%"
               v-if="featuredPerson || person.person_id || person.id"
             >
               <WikiPersonBanner
                 class="block"
-                :person="!featuredPerson.full_name ? person : featuredPerson"
+                :person="featuredPerson.content"
               />
               <WikiPersonOverview
                 class="block"
-                :person="!featuredPerson.full_name ? person : featuredPerson"
+                :person="featuredPerson.content"
               />
-              <!-- <WikiCardPrimary
+              <!--
+              <WikiCardPrimary
                 class="profile-experience block"
                 styles="has-borders"
               >
@@ -176,7 +178,8 @@
                     </div>
                   </div>
                 </template>
-              </WikiCardPrimary> -->
+              </WikiCardPrimary>
+              -->
             </div>
 
             <div v-else>
@@ -193,10 +196,7 @@
             </div>
           </div>
           <div class="tile is-4">
-            <WikiPersonSimilarList
-              class="block"
-              :person="!featuredPerson ? person : featuredPerson"
-            />
+            <WikiPersonSimilarList class="block" :person="featuredPerson" />
           </div>
         </div>
         <div class="tile" v-else>
@@ -279,7 +279,7 @@ export default {
 
   async created() {
     this.loading = true;
-    if (this.isMe && this.publicView) {
+    /*if (this.isMe && this.publicView) {
       this.$store.commit("people/setSelectedPerson", this.$auth.user);
       this.$store.commit("people/setIsFeatured", false);
     } else {
@@ -288,7 +288,11 @@ export default {
     } else {
         await this.$store.dispatch("people/fetchSelectedPerson", this.personId);
       }
-    }
+    } */
+    const person = await this.$axios.get(
+      `https://io.wikiprofile.com/custom/id/people/${this.personId}`
+    );
+    this.featuredPerson = person.data;
     this.loading = false;
   },
 

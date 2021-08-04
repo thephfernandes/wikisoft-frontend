@@ -300,6 +300,22 @@ import { mapGetters, mapMutations } from "vuex";
 
 export default {
   data() {
+    let DNI = [];
+    if (this.$auth.user !== null && this.$auth.user.id !== undefined) {
+      DNI = [
+        {
+          link: "/account/" + this.$auth.user.id + "/settings",
+          name: "Settings",
+          icon: "cog-outline",
+          size: "medium",
+        },
+        {
+          link: `/people/${this.$auth.user.id}?me=true&publicView=true`,
+          name: "Me",
+        },
+      ];
+    }
+
     return {
       search: "",
       isFetching: false,
@@ -330,20 +346,7 @@ export default {
         },
       ],
 
-      desktopNavItems: [
-        {
-          link: "/account/" + this.$auth.user?.id + "/settings",
-          name: "Settings",
-          icon: "cog-outline",
-          size: "medium",
-        },
-        {
-          link: this.$auth.user?.first_name
-            ? `/people/${this.$auth.user?.id}?me=true&publicView=true`
-            : `/account/${this.$auth.user?.id}?init=true`,
-          name: "Me",
-        },
-      ],
+      desktopNavItems: DNI,
 
       sections: [
         {

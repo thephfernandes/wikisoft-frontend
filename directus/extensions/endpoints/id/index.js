@@ -1,4 +1,4 @@
-module.exports = function registerEndpoint(router, { services, exceptions }) {
+module.exports = function registerEndpoint(router, { services, exceptions, database }) {
   const { ItemsService } = services;
   const { ServiceUnavailableException } = exceptions;
 
@@ -10,6 +10,9 @@ module.exports = function registerEndpoint(router, { services, exceptions }) {
   }
 
   function get_item(req, res, next) {
-    res.json(req.params);
+    database.raw(
+      `select id, "weight-a", "weight-b", "weight-c", content from search.items where id = '${req.params.id}'`
+    ).then((results) => { res.send(results.rows[0]) }
+    ).catch(err => res.json(req.params))
   }
 };

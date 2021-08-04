@@ -1,5 +1,5 @@
 <template>
-  <WikiCardPrimary contentOnly class="profile-banner block" style="wisth: 100%;">
+  <WikiCardPrimary contentOnly class="profile-banner block" style="wisth: 100%">
     <template v-slot:content>
       <div
         class="header-wrapper is-flex is-justify-content-space-between"
@@ -18,7 +18,15 @@
             </figure>
           </div>
         </div>
-        <div class="profile-actions is-flex is-flex-direction-column is-align-items-center is-justify-content-space-evenly">
+        <div
+          class="
+            profile-actions
+            is-flex
+            is-flex-direction-column
+            is-align-items-center
+            is-justify-content-space-evenly
+          "
+        >
           <b-button
             outlined
             class="is-link is-light report-button"
@@ -64,7 +72,7 @@
       <div class="is-flex is-flex-direction-column">
         <div class="card-header-title pl-0 pb-0">
           <p class="is-size-4">
-            {{ fullName }}
+            {{ person.data_full_name }}
           </p>
         </div>
         <div class="wrapper" v-if="!isFeatured">
@@ -77,7 +85,8 @@
           {{ person.location ? person.location : "" }}
           <span class="wrapper">
             <span v-if="person.location">·</span>
-            <a v-if="person.data_number_of_connections"
+            <a
+              v-if="person.data_number_of_connections"
               href="
           "
               >{{
@@ -88,11 +97,13 @@
               connections</a
             >
             <span v-if="person.data_number_of_connections">·</span>
-            <a v-if="person.contact_info" href=""><span>Contact Info</span></a>
+            <a v-if="person.data_email" href=""><span>Contact Info</span></a>
           </span>
         </p>
         <p class="has-text-grey has-text-weight-semibold" v-else>
-          Founder of <a :href="person.company_website">{{ person.founder_of }}</a> · {{ person.location }}
+          Founder of
+          <a :href="person.company_website">{{ person.founder_of }}</a> ·
+          {{ person.location }}
         </p>
       </div>
 
@@ -147,9 +158,12 @@ export default {
     },
 
     fullName() {
-      return this.person.full_name || this.person.data_full_name || `${this.person.first_name} ${this.person.last_name}`
-      
-    }
+      return (
+        this.person.full_name ||
+        this.person.data_full_name ||
+        `${this.person.first_name} ${this.person.last_name}`
+      );
+    },
   },
 
   methods: {

@@ -14,10 +14,10 @@
           :key="i"
         >
           <WikiProfileVanity
-            :name="item.name || item.full_name"
-            :role="item.role"
-            :id="item.id"
-            :category="category"
+            :name="item.name || item.content.data_full_name"
+            :role="item.role || item.content.data_title"
+            :id="item.id || item.content.data_id"
+            :category="category || item.content.data.company_name_1"
           >
             <template v-slot:action>
               <slot name="action" v-bind:item="item"></slot>
